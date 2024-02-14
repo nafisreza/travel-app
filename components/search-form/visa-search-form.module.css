@@ -1,0 +1,31 @@
+@media screen and (min-width: 768px) {
+    .swapBtn::before {
+        content: "";
+        position: absolute;
+        bottom: -15%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 1;
+        width: 12px;
+        height: 20%;
+        background: white;
+    }
+
+    .swapBtn::after {
+        content: "";
+        position: absolute;
+        top: -15%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 1;
+        width: 12px;
+        height: 20%;
+        background: white;
+    }
+}

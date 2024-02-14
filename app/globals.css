@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .bg-home {
+        background-image: url('/assets/images/home/bg-home.png');
+        background-size: cover;
+    }
+
+    .bg-signin {
+        background-image: url('/assets/images/signin/bg-signin.png');
+        background-size: cover;
+    }
+
+    @media (min-width: 640px) {
+        .bg-signin {
+            background-image: url('/assets/images/signin/bg-signin.png');
+            background-size: cover;
+        }
+    }
+}
