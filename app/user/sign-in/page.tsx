@@ -7,12 +7,25 @@ import Button from "@/components/buttons/Button";
 import Modal from "@/components/modal/Modal";
 import Input from "@/components/input/InputBox";
 import OTPField from "@/components/input/OTPfield";
+import NewPasswordInput from "@/components/input/NewPasswordInput";
 // import backgroundImg from '../../../public/assets/images/signin/bg-signin.png'
 
 export default function Page({ classes }) {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [getCodeRequested, setGetCodeRequested] = useState<boolean>(false);
+  const [otpValidated, setOtpValidated] = useState<boolean>(false);
+
+  const handleValidateOTP = () => {
+    // logic to validate OTP
+    // If OTP is valid, switch to the new password input view
+    setOtpValidated(true);
+  };
+
+  const handleSetNewPassword = (newPassword: string) => {
+    // logic to save the new password
+    console.log("New Password set:", newPassword);
+  };
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,11 +74,17 @@ export default function Page({ classes }) {
                   Forgot password?
                 </small>
               </div>
+
               <Modal open={open} onClose={() => setOpen(false)}>
                 {getCodeRequested ? (
-                  <OTPField />
+                  otpValidated ? (
+                    <NewPasswordInput onSetNewPassword={handleSetNewPassword} />
+                  ) : (
+                    <OTPField onValidateOTP={handleValidateOTP} />
+                  )
                 ) : (
-                  <>
+
+                    <>
                     <p className="text-md font-bold">
                       Enter your email address
                     </p>
@@ -83,8 +102,11 @@ export default function Page({ classes }) {
                       </Button>
                     </div>
                   </>
+
                 )}
               </Modal>
+
+            
 
               <div className="my-16">
                 <Button classes="py-3 px-10">Sign In</Button>
