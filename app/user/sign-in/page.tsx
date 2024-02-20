@@ -20,7 +20,7 @@ export default function Page({ classes }) {
   }
 
   return (
-    <main className="">
+    <main className="bg-signin">
       <div className="lg:flex">
         <div className="flex-grow">
           <div className="p-8 lg:p-16 max-w-screen-lg lg:mt-20">
