@@ -12,6 +12,8 @@ import { twMerge } from "tailwind-merge"
 import { useRouter } from "next/navigation"
 import Styles from './visa-search-form.module.css'
 import { PlusIcon } from "@heroicons/react/20/solid"
+import { SwapButton } from "./swap-button"
+
 
 export const travellers = [
     ["Adults", "12 years & above"],
@@ -68,27 +70,13 @@ export const FormBox = ({ children }: { children: ReactNode }) => (
     </div>
 )
 
-export const AbsoluteButton = () => (
-    <button type="button" className={twMerge(
-        "absolute z-[11]",
-        "right-4 md:-right-[22px]",
-        "-bottom-5 md:bottom-auto",
-    )}>
-        <div className={twMerge("bg-white rounded-full h-8 w-8 grid place-items-center border relative") + ` ${Styles.swapBtn}`}>
-            <div className={twMerge("bg-gray-200 rounded-full p-1 hover:bg-gray-100")}>
-                <ArrowSwapHorizontal size="16" color="currentColor" className={twMerge("rotate-90 md:rotate-0")} />
-            </div>
-        </div>
-    </button>
-)
-
 export const OneWay = () => {
     return (
         // grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
         <FormBox>
             <div className="w-full relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <MUIDatePicker />
@@ -102,7 +90,7 @@ export const RoundTrip = () => {
         <FormBox >
             <div className="w-full relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <MUIDatePicker />
@@ -129,7 +117,7 @@ export const MultiTrip = () => {
                         <FormBox>
                             <div className="w-full relative flex items-center">
                                 <LocationSelect />
-                                <AbsoluteButton />
+                                <SwapButton />
                             </div>
                             <LocationSelect />
                             <MUIDatePicker />

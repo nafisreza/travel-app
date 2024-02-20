@@ -8,6 +8,7 @@ import { ArrowSwapHorizontal } from "iconsax-react"
 import { twMerge } from "tailwind-merge"
 import Link from "next/link"
 import { ArrowsRightLeftIcon } from "@heroicons/react/20/solid"
+import {SwapButton} from "../search-form/swap-button"
 
 export const travellers = [
     ["Adults", "12 years & above"],
@@ -52,22 +53,12 @@ export const SearchButton = () => (
     </div>
 )
 
-export const AbsoluteButton = () => (
-    <button type="button" className={twMerge(
-        "bg-white border rounded-full h-6 w-6 grid place-items-center ring-white absolute ring-4 z-[1] hover:border-gray-600",
-        "md:-right-[18px] md:bottom-auto",
-        "-bottom-4 right-1/2"
-    )}>
-        <ArrowSwapHorizontal size="16" color="currentColor" className={twMerge("rotate-90 md:rotate-0")} />
-    </button>
-)
-
 export const OneWay = () => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-3">
             <div className="relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <MUIDatePicker />
@@ -81,7 +72,7 @@ export const RoundTrip = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-3">
             <div className="relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <MUIDatePicker />
@@ -95,7 +86,7 @@ export const MultiTrip = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-3">
             <div className="relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <MUIDatePicker />
