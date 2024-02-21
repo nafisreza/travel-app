@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({
   }) => { 
   return (
     <button 
-      className={` rounded-md ${classes} text-sm font-medium text-white transition bg-green-500 hover:bg-green-600 `}
+      className={` rounded-md ${classes} font-medium text-white transition bg-green-500 hover:bg-green-600 `}
       onClick={onClick}
     >
     {children}

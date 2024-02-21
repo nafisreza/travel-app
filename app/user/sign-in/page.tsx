@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import SignupButton from "../../../components/buttons/SignupButton";
 import Button from "@/components/buttons/Button";
+import { HiArrowRight } from "react-icons/hi";
 import Modal from "@/components/modal/Modal";
 import Input from "@/components/input/InputBox";
 import OTPField from "@/components/input/OTPfield";
@@ -50,7 +50,9 @@ export default function Page({ classes }) {
               products worldwide. Join our global community and explore a
               universe of choices and proud to be our valuable partner.
             </p>
-            <SignupButton />
+
+            <Button classes="py-3 px-6 flex gap-3">Become Our Partner <div className="mt-1"><HiArrowRight /></div> </Button> 
+
           </div>
         </div>
         <div className="flex-shrink-0 w-full lg:max-w-md bg-white min-h-screen grid place-items-center relative">
@@ -109,7 +111,7 @@ export default function Page({ classes }) {
             
 
               <div className="my-16">
-                <Button classes="py-3 px-10">Sign In</Button>
+                <Button classes="py-3 px-10 text-sm">Sign In</Button>
               </div>
             </form>
             {/* <p className="mb-6 text-base text-gray-700">Connect With</p>
@@ -143,6 +145,7 @@ export default function Page({ classes }) {
               >
                 Become a partner now
               </Link>
+              
             </p>
           </div>
           <img

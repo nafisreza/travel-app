@@ -5,6 +5,8 @@ import { FormEvent } from "react";
 import { SelectCountry } from "@/components/input/select/CountrySelect";
 import SelectPhoneCode from "@/components/input/select/SelectPhoneCode";
 import SignupButton from "../../../components/buttons/SignupButton";
+import Button from "@/components/buttons/Button";
+import { HiArrowRight } from "react-icons/hi";
 
 export default function Page() {
     const router = useRouter();
@@ -61,7 +63,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="flex justify-center">
-                            <SignupButton />
+                            <Button classes="py-3 px-6 flex gap-3">Become Our Partner <div className="mt-1"><HiArrowRight /></div> </Button> 
                             </div>
                         </form>
                     </div>
