@@ -1,0 +1,18 @@
+.progressVisualFull {
+    display: flex;
+    /* change the value if you want different thickness */
+    height: 10px;
+    margin: 12px 0;
+  }
+  
+  .progressVisualPart {
+    /* Number of the seconds for complete animation */
+    transition: width 2s;
+  }
+  
+  .progressLabel {
+    /* Nothing here, move along */
+    font-family: "Poppins", sans-serif;
+    color: #00BE16;
+  }
+  
