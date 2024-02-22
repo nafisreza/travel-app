@@ -11,7 +11,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Scatter, Pie, Bubble, PolarArea, Doughnut, Radar, Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -30,8 +30,8 @@ export const options = {
             position: 'top' as const,
         },
         title: {
-            display: true,
-            text: 'Chart.js Line Chart',
+            display: false,
+            text: '',
         },
     },
 };
@@ -42,25 +42,24 @@ export const data = {
     labels,
     datasets: [
         {
-            label: 'Dataset 1',
+            label: 'Income',
             data: labels.map(() => Math.floor(Math.random() * 1000)),
             borderColor: 'rgb(34 197 94)',
-            backgroundColor: 'rgba(34 197 94 / 50%)',
+            backgroundColor: 'rgba(34 197 94)',
         },
         {
-            label: 'Dataset 2',
+            label: 'Expenses',
             data: labels.map(() => Math.floor(Math.random() * 1000)),
-            // data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
             borderColor: 'rgb(234 179 8)',
-            backgroundColor: 'rgba(234 179 8 / 50%)',
+            backgroundColor: 'rgba(234 179 8)',
         },
     ],
 };
 
-export default function BarChart() {
+export default function LineChart() {
     return (
-        <div className="w-full h-full px-4 py-4 bg-green-500/10 rounded-xl">
-            <h3 className='h3'>Overview</h3>
+        <div className="w-full h-full flex flex-col px-4 py-4 bg-green-500/10 rounded-xl">
+            <h3 className='text-lg text-green-500 font-semibold'>Overview</h3>
             <Line options={options} data={data} className='w-full h-full' />
         </div>
     );

@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { SelectCountry } from "@/components/input/select/CountrySelect";
 import SelectPhoneCode from "@/components/input/select/SelectPhoneCode";
+import Button from "@/components/buttons/Button";
+import { HiArrowRight } from "react-icons/hi";
 
 export default function Page() {
     const router = useRouter();
@@ -14,7 +16,7 @@ export default function Page() {
     }
 
     return (
-        <main className="bg-signin min-h-screen">
+        <main className=" min-h-screen">
             <div className="w-full flex flex-col p-6 md:p-10 space-y-8">
                 <div className="flex-grow">
                     <div className="max-w-screen-lg mt-8 md:mt-10 lg:mt-20">
@@ -60,9 +62,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="flex justify-center">
-                                <button type="button" className="rounded-md bg-green-500 hover:bg-green-600 text-white px-6 py-3 text-base font-medium">
-                                    Become our Partner
-                                </button>
+                            <Button classes="py-3 px-6 flex gap-3">Become Our Partner <div className="mt-1"><HiArrowRight /></div> </Button> 
                             </div>
                         </form>
                     </div>

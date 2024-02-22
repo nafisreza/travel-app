@@ -3,10 +3,11 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Home2, Airplane, Book1, Setting, NotificationBing, Menu, ShoppingCart, MoneyTime, ArrowRotateRight } from 'iconsax-react';
 import { IoHome } from "react-icons/io5";
-import { FaBarsStaggered } from "react-icons/fa6";
+import { FaBarsStaggered, FaRegMoneyBill1 } from "react-icons/fa6";
 import { SidebarNavList } from '../_sidebar/sidebar'
 import { usePathname } from 'next/navigation';
 import Notifications from './notifications';
+import Button from '@/components/buttons/Button';
 
 type NavButtonProps = {
     children: React.ReactNode;
@@ -66,7 +67,7 @@ export const DropdownNav: React.FC<{ name: string; icon: React.JSX.Element; chil
 
 const Navbar: React.FC<{ open: boolean, handleSidebar: () => void }> = ({ open, handleSidebar }) => {
     const pathname = usePathname();
-    const BALANCE = 20000;
+    const BALANCE = '200,000';
     const [balanceIsOpen, setbalanceIsOpen] = useState<boolean>(false);
     const balanceWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -92,10 +93,12 @@ const Navbar: React.FC<{ open: boolean, handleSidebar: () => void }> = ({ open, 
             </div>
             <div className="p-2 text-gray-900 flex items-center gap-2">
                 <div className="relative grid place-items-center" ref={balanceWrapperRef}>
-                    <button type="button" onClick={handleBalance} className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center gap-2">
-                        <MoneyTime size="28" color="currentColor" variant="Outline" />
-                        BDT <span>{BALANCE}</span>
-                    </button>
+
+                                    <Button onClick={handleBalance} classes="text-sm px-4 py-2 mt-0">
+                                    <FaRegMoneyBill1 size="18"/>
+                                    BDT {BALANCE}
+                                </Button>
+
                     {
                         balanceIsOpen &&
                         <div className="absolute top-14 w-60 aspect-video bg-white p-5 z-[2] border rounded-lg">
@@ -104,10 +107,10 @@ const Navbar: React.FC<{ open: boolean, handleSidebar: () => void }> = ({ open, 
                                 <p className='mt-2 flex items-center gap-2'><strong>BDT{BALANCE}</strong>
                                     <button type="button" className='text-green-500 hover:text-green-600'><ArrowRotateRight size="20" color="currentColor" variant="Outline" /></button>
                                 </p>
-                                <button type="button" className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center gap-2 mt-4">
-                                    <MoneyTime size="28" color="currentColor" variant="Outline" />
+                                <Button classes="text-sm px-4 py-2">
+                                    <MoneyTime size="24" color="currentColor" variant="Outline" />
                                     Add Credit
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     }

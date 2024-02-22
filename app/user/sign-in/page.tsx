@@ -1,54 +1,128 @@
-'use client'
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+'use client';
+import Button from '@/components/buttons/Button';
+import Input from '@/components/input/InputBox';
+import NewPasswordInput from '@/components/input/NewPasswordInput';
+import OTPField from '@/components/input/OTPfield';
+import Modal from '@/components/modal/Modal';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import { HiArrowRight } from 'react-icons/hi';
+// import backgroundImg from '../../../public/assets/images/signin/bg-signin.png'
 
-export default function Page() {
-    const router = useRouter();
+export default function Page({}) {
+	const router = useRouter();
+	const [open, setOpen] = useState<boolean>(false);
+	const [getCodeRequested, setGetCodeRequested] = useState<boolean>(false);
+	const [otpValidated, setOtpValidated] = useState<boolean>(false);
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        router.push("/dashboard");
-    }
+	const handleValidateOTP = () => {
+		// logic to validate OTP
+		// If OTP is valid, switch to the new password input view
+		setOtpValidated(true);
+	};
 
-    return (
-        <main className="bg-signin">
-            <div className="lg:flex">
-                <div className="flex-grow">
-                    <div className="p-8 lg:p-16 max-w-screen-lg lg:mt-20">
-                        <p>
-                            <Link href="/" className="mt-4 text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-white sm:text-4xl">GuideEasy</Link>
-                        </p>
-                        <p className="mt-4 text-lg leading-8 text-white">
-                            Discover the vast world of Guideasy, your gateway to over 300,000 products worldwide. Join our global community and explore a universe of choices and proud to be our valuable partner.
-                        </p>
-                        <div className="mt-4 lg:mt-6 flex">
-                            <Link className="rounded-md bg-green-500 hover:bg-green-600 text-white px-6 py-3 text-base font-medium" href="/user/sign-up">
-                                Become our partner
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex-shrink-0 w-full lg:max-w-md bg-white min-h-screen grid place-items-center relative">
-                    <div className="w-full overflow-hidden max-w-md rounded-lg py-12 lg:py-16 px-12 text-center">
-                        <div className="mb-10 text-center md:mb-12">
-                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">Sign In</h1>
-                        </div>
-                        <form className="w-full" onSubmit={handleSubmit}>
-                            <div className="mb-5">
-                                <input type="text" placeholder="Email" className="w-full rounded-md bg-green-50/80 py-3 px-4 text-base text-body-color placeholder:text-green-500 text-green-500 outline-none focus:border-primary focus-visible:shadow-none" spellCheck="false" />
-                            </div>
-                            <div className="mb-5 space-y-2">
-                                <input type="password" placeholder="Password" className="w-full rounded-md bg-green-50/80 py-3 px-4 text-base text-body-color placeholder:text-green-500 text-green-500 outline-none focus:border-primary focus-visible:shadow-none" />
-                                <div className="flex justify-end">
-                                    <small className="font-medium text-gray-800 text-sm hover:underline">Forgot password?</small>
-                                </div>
-                            </div>
-                            <div className="my-16">
-                                <input type="submit" className="rounded-md py-3 px-12 text-sm font-medium text-white transition bg-green-500 hover:bg-green-600" defaultValue="Sign In" />
-                            </div>
-                        </form>
-                        {/* <p className="mb-6 text-base text-gray-700">Connect With</p>
+	const handleSetNewPassword = (newPassword: string) => {
+		// logic to save the new password
+		console.log('New Password set:', newPassword);
+	};
+
+	function handleSubmit(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		router.push('/dashboard');
+	}
+
+	return (
+		<main className='bg-signin'>
+			<div className='lg:flex'>
+				<div className='flex-grow'>
+					<div className='p-8 lg:p-16 max-w-screen-lg lg:mt-20'>
+						<p>
+							<Link
+								href='/'
+								className='mt-4 uppercase text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-white sm:text-4xl'>
+								Guideasy
+							</Link>
+						</p>
+						<p className='mt-4 text-lg leading-8 text-white'>
+							Discover the vast world of Guideasy, your gateway to
+							over 300,000 products worldwide. Join our global
+							community and explore a universe of choices and
+							proud to be our valuable partner.
+						</p>
+
+						<Button classes='py-3 px-6 flex gap-3'>
+							Become Our Partner{' '}
+							<div className='mt-1'>
+								<HiArrowRight />
+							</div>{' '}
+						</Button>
+					</div>
+				</div>
+				<div className='flex-shrink-0 w-full lg:max-w-md bg-white min-h-screen grid place-items-center relative'>
+					<div className='w-full overflow-hidden max-w-md rounded-lg py-12 lg:py-16 px-12 text-center'>
+						<div className='mb-10 text-center md:mb-12'>
+							<h1 className='text-2xl md:text-3xl lg:text-4xl font-semibold'>
+								Sign In
+							</h1>
+						</div>
+						<form className='w-full' onSubmit={handleSubmit}>
+							<Input type='text' placeholder='Email' />
+							<Input type='password' placeholder='Password' />
+							<div className='flex justify-end'>
+								<small
+									className='font-medium text-gray-800 text-sm hover:underline cursor-pointer'
+									onClick={() => {
+										setOpen(true);
+										setGetCodeRequested(false); // Reset the code request state when modal is opened
+									}}>
+									Forgot password?
+								</small>
+							</div>
+
+							<Modal open={open} onClose={() => setOpen(false)}>
+								{getCodeRequested ? (
+									otpValidated ? (
+										<NewPasswordInput
+											onSetNewPassword={
+												handleSetNewPassword
+											}
+										/>
+									) : (
+										<OTPField
+											onValidateOTP={handleValidateOTP}
+										/>
+									)
+								) : (
+									<>
+										<p className='text-md font-bold'>
+											Enter your email address
+										</p>
+										<div className='grid grid-cols-4 gap-3 mt-5'>
+											<Input
+												type='text'
+												placeholder='Email'
+												classes='col-span-3'
+											/>
+											<Button
+												classes='px-10 py-0 h-12 text-sm'
+												onClick={() =>
+													setGetCodeRequested(true)
+												}>
+												Get Code
+											</Button>
+										</div>
+									</>
+								)}
+							</Modal>
+
+							<div className='my-16'>
+								<Button classes='py-3 px-10 text-sm'>
+									Sign In
+								</Button>
+							</div>
+						</form>
+						{/* <p className="mb-6 text-base text-gray-700">Connect With</p>
                         <ul className="mb-12 flex justify-between">
                             <li className="w-full px-2">
                                 <a href="" className="flex h-11 items-center justify-center rounded-md bg-[#4064AC] hover:bg-opacity-90">
@@ -71,13 +145,27 @@ export default function Page() {
                                 </a>
                             </li>
                         </ul> */}
-                        <p className="text-gray-800">Not a partner? <Link href="/user/sign-up" className="mb-2 inline-block text-base text-green-500 hover:text-primary hover:underline">Become a partner now</Link>
-                        </p>
-                    </div>
-                    <img src="/assets/images/signin/top-ellipse.png" alt="ellipse" className="w-32 lg:w-40 absolute top-0 right-0" />
-                    <img src="/assets/images/signin/bottom-ellipse.png" alt="ellipse" className="w-32 lg:w-40 absolute left-0 bottom-0" />
-                </div>
-            </div>
-        </main >
-    )
+						<p className='text-gray-800'>
+							Not a partner?{' '}
+							<Link
+								href='/user/sign-up'
+								className='mb-2 inline-block text-base text-green-500 hover:text-primary hover:underline'>
+								Become a partner now
+							</Link>
+						</p>
+					</div>
+					<img
+						src='/assets/images/signin/top-ellipse.png'
+						alt='ellipse'
+						className='w-32 lg:w-40 absolute top-0 right-0'
+					/>
+					<img
+						src='/assets/images/signin/bottom-ellipse.png'
+						alt='ellipse'
+						className='w-32 lg:w-40 absolute left-0 bottom-0'
+					/>
+				</div>
+			</div>
+		</main>
+	);
 }

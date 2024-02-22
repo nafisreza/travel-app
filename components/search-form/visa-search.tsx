@@ -4,15 +4,15 @@ import { wayArray } from "./checkbutton"
 import LocationSelect from "../form/input/LocationSelect"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { AbsoluteButton, FormBox, SearchButton } from "./visa-search-form"
+import { FormBox, SearchButton } from "./visa-search-form"
+import { SwapButton } from "./swap-button"
 
 export const OneWay = () => {
     return (
-        // grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
         <FormBox>
             <div className="w-full relative flex items-center">
                 <LocationSelect />
-                <AbsoluteButton />
+                <SwapButton />
             </div>
             <LocationSelect />
             <LocationSelect />
