@@ -24,13 +24,15 @@ export default function Home() {
                 <div className="">
                   <BarChart />
                 </div>
-                <div className="">
+                <div className="bg-green-200 p-4">
                   <ProgressLine
                     label="Account"
                     backgroundColor="#282C35"
+                    remainingBalance="5000"
+                    totalBalance="10000"
                     visualParts={[
                       {
-                        percentage: "23%",
+                        percentage: "80",
                         color: "#1FCB4F",
                       },
                     ]}

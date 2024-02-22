@@ -16,7 +16,7 @@ export default function Page() {
     }
 
     return (
-        <main className=" min-h-screen">
+        <main className="bg-signin min-h-screen">
             <div className="w-full flex flex-col p-6 md:p-10 space-y-8">
                 <div className="flex-grow">
                     <div className="max-w-screen-lg mt-8 md:mt-10 lg:mt-20">
