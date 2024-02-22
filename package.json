@@ -11,7 +11,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@faker-js/faker": "^8.3.1",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@mui/material": "^5.15.2",
@@ -20,7 +19,6 @@
     "chart.js": "^4.4.0",
     "class-variance-authority": "^0.7.0",
     "dayjs": "^1.11.10",
-    "faker": "^6.6.6",
     "google-charts": "^2.0.0",
     "iconsax-react": "^0.0.8",
     "lodash": "^4.17.21",
@@ -38,6 +36,7 @@
     "tailwind-merge": "^2.1.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

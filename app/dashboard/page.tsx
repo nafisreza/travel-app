@@ -1,7 +1,7 @@
 import Status from './status'
-import LineChart from './chart'
+import LineChart from '@/components/charts/line-chart'
 import AccountCard from './account-card'
-import BarChart from './bar-chart'
+import BarChart from '@/components/charts/bar-chart'
 import Payments from './payment'
 import RecentTransections from './recent-transection'
 import App from '../app'
@@ -26,7 +26,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="block xl:hidden"><BarChart /></div>
         </div>
       </main>
     </App>
