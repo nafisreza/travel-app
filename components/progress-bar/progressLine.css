@@ -1,13 +1,15 @@
 .progressVisualFull {
     display: flex;
     /* change the value if you want different thickness */
-    height: 10px;
+    height: 8px;
     margin: 12px 0;
+    border-radius: 12px;
   }
   
   .progressVisualPart {
     /* Number of the seconds for complete animation */
     transition: width 2s;
+    border-radius: 12px;
   }
   
   .progressLabel {

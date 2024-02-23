@@ -8,6 +8,9 @@ import Payments from "./payment";
 import RecentTransections from "./recent-transection";
 import App from "../app";
 import ProgressLine from "@/components/progress-bar/ProgressLine";
+import { FaDollarSign } from "react-icons/fa6";
+import { MdContacts, MdSettingsApplications, MdFastfood } from "react-icons/md";
+import { FaHouseChimney } from "react-icons/fa6";
 
 export default function Home() {
   return (
@@ -24,19 +27,65 @@ export default function Home() {
                 <div className="">
                   <BarChart />
                 </div>
-                <div className="bg-green-200 p-4">
+                <div className="bg-green-500/10 p-4 rounded-xl">
+                  <p className="text-xl mb-6 text-green-500 font-semibold">
+                    Payments
+
+                    {/* Progressline components */}
+                  </p>
                   <ProgressLine
                     label="Account"
-                    backgroundColor="#282C35"
-                    remainingBalance="5000"
-                    totalBalance="10000"
+                    remainingBalance={4000}
+                    totalBalance={8000}
                     visualParts={[
                       {
-                        percentage: "80",
                         color: "#1FCB4F",
                       },
                     ]}
-                  />
+                  >
+                    <MdContacts className="text-2xl text-green-500" />
+                  </ProgressLine>
+
+                  <ProgressLine
+                    label="Software"
+                    remainingBalance={5460}
+                    totalBalance={9120}
+                    visualParts={[
+                      {
+                        color: "#1FCB4F",
+                      },
+                    ]}
+                  >
+                    <MdSettingsApplications className="text-2xl text-green-500" />
+                  </ProgressLine>
+
+                  <ProgressLine
+                    label="Rent House"
+                    remainingBalance={5460}
+                    totalBalance={6245}
+                    visualParts={[
+                      {
+                        color: "#1FCB4F",
+                      },
+                    ]}
+                  >
+                    <FaHouseChimney className="text-2xl text-green-500" />
+                  </ProgressLine>
+
+                  <ProgressLine
+                    label="Food"
+                    remainingBalance={3460}
+                    totalBalance={9120}
+                    visualParts={[
+                      {
+                        color: "#1FCB4F",
+                      },
+                    ]}
+                  >
+                    <MdFastfood className="text-2xl text-green-500" />
+                  </ProgressLine>
+
+
                 </div>
               </div>
             </div>
