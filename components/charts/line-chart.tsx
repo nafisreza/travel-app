@@ -59,7 +59,7 @@ export const data = {
 export default function LineChart() {
     return (
         <div className="w-full h-full flex flex-col px-4 py-4 bg-green-500/10 rounded-xl">
-            <h3 className='text-lg text-green-500 font-semibold'>Overview</h3>
+            <h3 className='text-xl mb-4 text-green-500 font-semibold'>Overview</h3>
             <Line options={options} data={data} className='w-full h-full' />
         </div>
     );
