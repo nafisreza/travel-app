@@ -47,7 +47,7 @@ const ProgressLine: React.FC<ProgressLineProps> = ({
 
     // Delay the initial calculation and rendering of widths
     const timeoutId = setTimeout(calculateWidths, 500);
-
+    console.log(calculateWidths)
     // Clear the timeout on component unmount
     return () => clearTimeout(timeoutId);
   }, [visualParts, remainingBalance, totalBalance]);

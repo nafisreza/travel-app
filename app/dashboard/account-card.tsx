@@ -2,13 +2,27 @@ import RecentTransections from "./recent-transection";
 
 const AccountCard = () => {
     return (
-        <div className="relative w-full bg-green-500/10 rounded-lg py-4 flex flex-col lg:flex-row xl:flex-col gap-4 pr-8">
+        <div className="w-full bg-green-500/10 rounded-lg px-2 py-6 flex flex-col lg:flex-row xl:flex-col gap-4">
             <div className="rounded-lg space-y-4 px-4">
-                <h3 className="h3">Account Card</h3>
-                <div className="w-full md:max-w-sm relative text-white flex items-center">
-                    <img className="object-contain w-full rounded-lg shadow-xl z-[3] hover:z-[4]" loading="lazy" src="/assets/images/credit-card.png" />
-                    <img className="object-contain w-[80%] rounded-lg shadow-xl z-[2] hover:z-[4] absolute -right-4" loading="lazy" src="/assets/images/credit-card.png" style={{ filter: "grayscale(0.5)" }} />
-                    <img className="object-contain w-[60%] rounded-lg shadow-xl z-[1] hover:z-[4] absolute -right-8" loading="lazy" src="/assets/images/credit-card.png" style={{ filter: "grayscale(1)" }} />
+                <div className="flex justify-between">
+                <h3 className="text-green-500 font-semibold text-lg">Account Card</h3>
+                <a href="" className="bg-black px-[8px] text-green-500 rounded-md font-bold">+</a>
+                </div>
+                <div className="text-white ">
+                    <div className="bg-green-500 p-4 rounded-t-lg">
+                        <h2 className="text-white font-semibold tracking-wider">GUIDEASY</h2>
+                        <h2 className="text-white my-5">3475 7381 3759 ****</h2>
+                    </div>
+                    <div className="bg-green-400 flex justify-between p-4 items-end rounded-b-lg">
+                        <div>
+                            <p className="text-[10px] text-gray-50/70">TOTAL BALANCE</p>
+                            <p className="text-sm">3,422,424 USD</p>
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-gray-50/70">EXP. DATE</p>
+                            <p className="text-sm">04 / 24</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
