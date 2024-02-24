@@ -52,10 +52,10 @@ const Navbar: React.FC = () => {
     useEffect(onClickOutsideAccount, [isOpen]);
 
     return (
-        <div className={["w-full flex justify-between items-center border-b+ bg-white+ h-20 px-8"].join(" ")}>
+        <div className={["w-full flex justify-between items-center h-20 px-16"].join(" ")}>
             <div className="">
-                <Link href="/" className={['text-white hover:text-gray-100 font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl'].join(" ")}>
-                    GuideEasy
+                <Link href="/" className={['text-white uppercase hover:text-gray-100 font-bold text-xl md:text-xl lg:text-2xl xl:text-3xl'].join(" ")}>
+                    Guideasy
                 </Link>
             </div>
             <div className="text-gray-900 flex items-center gap-8">
