@@ -1,35 +1,35 @@
 .swiper {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 50px;
-  }
-  
-  .swiper-slide {
-    background-position: center;
-    background-size: contain;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 50px;
+}
 
-  }
-  
-  .swiper-slide img {
-    display: block;
-    width: 280px;
-    height: 320px;
-    border-radius: 25px;
-    object-fit: cover;
-  }
+.swiper-slide {
+  background-position: center;
+  background-size: contain;
+}
 
-  :root {
-    
-    --swiper-pagination-color: #00BE16;
-    --swiper-pagination-bullet-size: 8px;
-    --swiper-pagination-bullet-width: 8px;
-    --swiper-pagination-bullet-height: 8px;
-    --swiper-pagination-bullet-inactive-color: #00be16;
-    --swiper-pagination-bullet-inactive-opacity: 0.4;
-    --swiper-pagination-bullet-opacity: 1;
-    --swiper-pagination-bullet-horizontal-gap: 4px;
-    --swiper-pagination-bullet-vertical-gap: 6px;
-   
-  }
-  
+/* Styles for images inside carousel */
+
+.swiper-slide img {
+  display: block;
+  width: 280px;
+  height: 320px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+/* Styles for pagination bullet points */
+
+:root {
+  --swiper-pagination-color: #00be16;
+  --swiper-pagination-bullet-size: 8px;
+  --swiper-pagination-bullet-width: 8px;
+  --swiper-pagination-bullet-height: 8px;
+  --swiper-pagination-bullet-inactive-color: #00be16;
+  --swiper-pagination-bullet-inactive-opacity: 0.4;
+  --swiper-pagination-bullet-opacity: 1;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+  --swiper-pagination-bullet-vertical-gap: 6px;
+}
