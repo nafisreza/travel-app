@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 import "./HomeSlider.css";
 
 // import required modules
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 
 export default function HomeSlider() {
 
@@ -54,6 +54,10 @@ export default function HomeSlider() {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={3}
+        autoplay={{
+            delay: 3500,
+            disableOnInteraction: false,
+          }}
         coverflowEffect={{
           rotate: 50,
           stretch: 0,
@@ -62,7 +66,7 @@ export default function HomeSlider() {
           slideShadows: false,
         }}
         pagination={true}
-        modules={[EffectCoverflow, Pagination]}
+        modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper"
       >
         {countries.map((country, index) => (
