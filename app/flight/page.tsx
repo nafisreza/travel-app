@@ -1,8 +1,8 @@
 'use client'
 
 import VisaSearchForm from "@/components/search-form/visa-search-form"
-import Card from "../_home/card"
-import SearchResult from "../_home/results"
+import Card from "../dashboard/card"
+import SearchResult from "../dashboard/results"
 import App from "../app"
 
 type Props = {}

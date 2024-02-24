@@ -1,5 +1,5 @@
 import ContainerMain from "@/components/container/main"
-import Card from "../_home/card"
+import Card from "../dashboard/card"
 import App from "../app"
 import VisaSearch from "@/components/search-form/visa-search"
 
