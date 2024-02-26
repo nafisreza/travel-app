@@ -66,18 +66,18 @@ const Navbar: React.FC = () => {
                         )
                     }
                 </div>
-                <div className="relative grid place-items-center" ref={dropdownWrapperRef}>
+                <div className="relative grid place-items-center z-10" ref={dropdownWrapperRef}>
                     <button onClick={handleAccount} className="text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg text-lg px-4 py-2 text-center inline-flex items-center gap-2">
                         <User size="20" color="currentColor" variant="Outline" />Account
                     </button>
 
                     {
                         isOpen &&
-                        <div className="absolute right-0 top-[calc(100%_+_4px)] w-60 bg-white rounded-xl border shadow p-2 space-y-2">
-                            <Link href="/user/sign-in" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg text-lg px-4 py-2 text-center flex items-center gap-2">
+                        <div className="absolute right-0 top-[calc(100%_+_4px)] w-full bg-white rounded-xl border shadow p-2 space-y-1">
+                            <Link href="/user/sign-in" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg text-md px-4 py-2 text-center flex items-center gap-2">
                                 <Lock size="20" color="currentColor" variant="Outline" />Sign In
                             </Link>
-                            <Link href="/user/sign-up" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg text-lg px-4 py-2 text-center flex items-center gap-2">
+                            <Link href="/user/sign-up" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg text-md px-3 py-2 text-center flex items-center gap-2">
                                 <User size="20" color="currentColor" variant="Outline" />Sign Up
                             </Link>
                         </div>
