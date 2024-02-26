@@ -3,8 +3,8 @@ import BG from "../assets/images/home/bg-home.png";
 import Image from "next/image";
 import Button from "@/components/buttons/Button";
 import { HiArrowRight } from "react-icons/hi";
-import HomeSlider from '@/components/swiper/HomeSlider'
-import VerticalSlider from "@/components/swiper/VerticalSlider";
+import HomeSlider from '@/components/swiper/home-slider/HomeSlider'
+import VerticalSlider from "@/components/swiper/vertical-slider/VerticalSlider";
 
 export default function Home() {
   return (
