@@ -6,17 +6,20 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { FormBox, SearchButton } from "./visa-search-form"
 import { SwapButton } from "./swap-button"
+import VisaTypeSelect from "../form/input/VisaTypeSelect"
 
 export const OneWay = () => {
     return (
         <FormBox>
             <div className="w-full relative flex items-center">
-                <LocationSelect />
+                <LocationSelect type="visa-country" />
                 <SwapButton />
             </div>
-            <LocationSelect />
-            <LocationSelect />
+            <LocationSelect type="nationality" />
+            {/* <LocationSelect type="visa-category"/> */}
+            <VisaTypeSelect/>
             <SearchButton />
+            
         </FormBox>
     )
 }
