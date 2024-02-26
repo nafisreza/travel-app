@@ -2,6 +2,7 @@ import ContainerMain from "@/components/container/main"
 import Card from "../dashboard/card"
 import App from "../app"
 import VisaSearch from "@/components/search-form/visa-search"
+import VisaSlider from "@/components/swiper/visa-slider/VisaSlider"
 
 type Props = {}
 
@@ -10,7 +11,7 @@ const Page: React.FC<Props> = () => {
         <App>
             <ContainerMain className="space-y-8">
                 <VisaSearch />
-                <Card />
+                <VisaSlider/>
             </ContainerMain>
         </App>
     )
