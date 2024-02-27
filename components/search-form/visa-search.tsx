@@ -4,7 +4,7 @@ import { wayArray } from "./checkbutton"
 import LocationSelect from "../form/input/LocationSelect"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { FormBox, SearchButton } from "./visa-search-form"
+import { FormBox, SearchButton } from "./flight-search"
 import { SwapButton } from "./swap-button"
 import VisaTypeSelect from "../form/input/VisaTypeSelect"
 

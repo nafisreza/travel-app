@@ -135,7 +135,7 @@ export const MultiTrip = () => {
     )
 }
 
-export default function VisaSearchForm() {
+export default function FlightSearch() {
     const [way, setway] = useState<string>(wayArray[0]);
     function handleWay(way: string) { setway(way); }
 
@@ -151,7 +151,7 @@ export default function VisaSearchForm() {
 
     return (
         <div className="max-w-screen-xl mx-auto+ space-y-2">
-            <h1 className="text-xl font-semibold" id="multiplefeatures">Search Visa</h1>
+            <h1 className="text-xl font-semibold" id="multiplefeatures">Search Flight</h1>
             <form className="bg-white p-2 md:p-4 rounded-xl border space-y-6" onSubmit={handleSubmit}>
                 <div className="w-full flex flex-wrap lg:flex-nowrap+ justify-between gap-y-3 z-[2]">
                     <CheckButton handleWay={handleWay} />
