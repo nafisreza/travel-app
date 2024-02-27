@@ -19,7 +19,7 @@ export default function Home() {
           <div className="leftside ml-16 ">
           <div className="absolute w-[500px] mt-[230px] z-10">
             <p className="text-white">Embarking on an adventurous road trip from city to coast. Scenic landscapes, spontaneous detours, and laughter-filled pit stops. Fueling memories, capturing sunsets.</p>
-            <Button classes="py-3 px-6 flex gap-3 bg-green-700 rounded-sm">Become Our Partner <div><HiArrowRight /></div> </Button> 
+            <Button classes="py-3 px-6 flex gap-3 bg-green-700 rounded-sm mt-4">Become Our Partner <div><HiArrowRight /></div> </Button> 
             </div>
             <VerticalSlider/>
           </div>

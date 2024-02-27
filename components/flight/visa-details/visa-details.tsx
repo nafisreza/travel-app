@@ -2,6 +2,7 @@
 
 import { ClockIcon } from "@heroicons/react/20/solid"
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline"
+import { FaArrowsAltH } from "react-icons/fa";
 
 export type Props = { link?: string }
 
@@ -16,19 +17,21 @@ export const VisaDetails: React.FC<Props> = ({ link }) => {
                 </div>
             </figure>
             <div className='flex gap-8'>
-                <div className="px-3 lg:px-4 flex gap-4 lg:gap-12">
-                    <div className="w-full p-2 space-y-1 text-start">
-                        <p className="text-gray-400">Visa</p>
-                        <h5 className="text-xl font-semibold">China</h5>
-                        <p className="text-gray-400 text-sm flex items-center gap-1 whitespace-nowrap">
+                <div className="p-3 flex gap-4 lg:gap-8 justify-center items-center">
+                    <div className="w-full space-y-1 text-start">
+                        <p className="text-xs text-gray-400">Visa Country</p>
+                        <h5 className="text-md font-semibold">China</h5>
+                        <p className="text-sm flex items-center gap-3 whitespace-nowrap">
                             <ClockIcon className="w-5" />GMT +8
                         </p>
                     </div>
-                    <ArrowsRightLeftIcon className="min-w-[1.5rem] w-[1.5rem]" />
-                    <div className="w-full p-2 space-y-1 text-end">
-                        <p className="text-gray-400">Nationality</p>
-                        <h5 className="text-xl font-semibold">Spain</h5>
-                        <p className="text-gray-400 text-sm">AED</p>
+                    <div >
+                    <FaArrowsAltH size="20"/>
+                    </div>
+                    <div className="w-full space-y-1 text-end">
+                        <p className="text-xs text-gray-400">Nationality</p>
+                        <h5 className="text-md font-semibold">Spain</h5>
+                        <p className=" text-sm">AED</p>
                     </div>
                 </div>
             </div>
