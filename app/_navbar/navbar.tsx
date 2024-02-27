@@ -94,7 +94,7 @@ const Navbar: React.FC<{ open: boolean, handleSidebar: () => void }> = ({ open, 
             <div className="p-2 text-gray-900 flex items-center gap-2">
                 <div className="relative grid place-items-center" ref={balanceWrapperRef}>
 
-                                    <Button onClick={handleBalance} classes="text-sm px-4 py-2 mt-0">
+                                    <Button onClick={handleBalance} classes="text-sm px-4 py-2">
                                     <FaRegMoneyBill1 size="18"/>
                                     BDT {BALANCE}
                                 </Button>
