@@ -4,6 +4,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { twMerge } from 'tailwind-merge';
 import { BsPassport } from "react-icons/bs";
+import { useLocation } from '@/app/contexts/LocationContext';
 
 export type OptionProps = {
     countryCode: string;
@@ -72,6 +73,21 @@ interface LocationSelectProps {
   
 
 const LocationSelect: React.FC<LocationSelectProps> = ({ type, activeLocation }) => {
+
+  const { setVisaCountry, setNationality } = useLocation();
+
+  const handleSelect = (location: dummyDataType) => {
+    if (type === 'visa-country') {
+      setVisaCountry(location);
+        setSelected(location);
+        setfocused(false);
+    } else if (type === 'nationality') {
+      setNationality(location);
+      setSelected(location);
+      setfocused(false);
+    }
+  };
+
     
     /** To filter on search */
     const [optionsClone, setoptionsClone] = useState<dummyDataType[]>(dummyData);
@@ -81,11 +97,11 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ type, activeLocation })
     const searchInput = useRef<HTMLInputElement | null>(null);
     const selectWrapper = useRef<HTMLInputElement | null>(null);
 
-    function handleSelect(location: dummyDataType) {
-        // setSelected(dummyData[index]);
-        setSelected(location);
-        setfocused(false);
-    }
+    // function handleSelect(location: dummyDataType) {
+    //     // setSelected(dummyData[index]);
+    //     setSelected(location);
+    //     setfocused(false);
+    // }
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         if (!event.target.value) {
