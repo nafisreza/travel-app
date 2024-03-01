@@ -17,8 +17,15 @@ export const LocationProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [visaCountry, setVisaCountry] = useState<DummyDataType>({ countryCode: '', country: '', city: '' });
   const [nationality, setNationality] = useState<DummyDataType>({ countryCode: '', country: '', city: '' });
 
+  const contextValue: LocationContextType = {
+    visaCountry,
+    nationality,
+    setVisaCountry: (location) => setVisaCountry(location),
+    setNationality: (location) => setNationality(location),
+  };
+
   return (
-    <LocationContext.Provider value={{ visaCountry, nationality, setVisaCountry, setNationality }}>
+    <LocationContext.Provider value={contextValue}>
       {children}
     </LocationContext.Provider>
   );

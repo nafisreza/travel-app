@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import Button from "../buttons/Button";
+import Button from "../../../components/buttons/Button";
 import NewPasswordInput from "./NewPasswordInput";
 
 interface OTPFieldProps {

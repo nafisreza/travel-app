@@ -1,9 +1,9 @@
 interface Props {
-    title: string;
-    amount: string;
+    title?: string;
+    amount?: string;
     children?: React.ReactNode;
-    onClick: () => void;
-    classes: string
+    onClick?: () => void;
+    classes?: string
   }
 
 const StatusCard: React.FC<Props>  = ({ 

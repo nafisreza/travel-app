@@ -1,7 +1,7 @@
 export default function Page() {
     return (
         <div className="">
-            Signin
+            Forgot Password
         </div>
     )
 }

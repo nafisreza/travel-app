@@ -9,14 +9,12 @@ type Props = {}
 
 const Page: React.FC<Props> = () => {
     return (
-        <LocationProvider>
         <App>
             <ContainerMain className="space-y-8">
                 <VisaSearch />
                 <VisaSlider/>
             </ContainerMain>
         </App>
-        </LocationProvider>
     )
 }
 
