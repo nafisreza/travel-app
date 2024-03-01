@@ -4,7 +4,9 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { twMerge } from 'tailwind-merge';
 import { BsPassport } from "react-icons/bs";
-import { useLocation } from '@/app/contexts/LocationContext';
+import { useLocation, LocationProvider } from '@/app/contexts/LocationContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setVisaCountry, setNationality } from '@/app/store/locationActions';
 
 export type OptionProps = {
     countryCode: string;
@@ -74,15 +76,16 @@ interface LocationSelectProps {
 
 const LocationSelect: React.FC<LocationSelectProps> = ({ type, activeLocation }) => {
 
-  const { setVisaCountry, setNationality } = useLocation();
+  const dispatch = useDispatch();
+  const { visaCountry, nationality } = useSelector((state) => state);
 
   const handleSelect = (location: dummyDataType) => {
     if (type === 'visa-country') {
-      setVisaCountry(location);
+        dispatch(setVisaCountry(location));
         setSelected(location);
         setfocused(false);
     } else if (type === 'nationality') {
-      setNationality(location);
+      dispatch(setNationality(location));
       setSelected(location);
       setfocused(false);
     }

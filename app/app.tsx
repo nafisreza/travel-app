@@ -5,13 +5,15 @@ import Navbar from './_navbar/navbar'
 import { OnlyChildrenProps } from './layout'
 import { useState } from 'react'
 import { LocationProvider } from './contexts/LocationContext'
+import { Provider } from 'react-redux';
+import store from './store/store'
 
 export default function App({ children }: OnlyChildrenProps) {
     const [open, setopen] = useState<boolean>(true)
     const handleSidebar = () => { setopen(!open) }
 
     return (
-        <LocationProvider>
+        <Provider store={store}>
         <div className={["flex"].join(" ")}>
             {open && <Sidebar open={open} />}
             <div className='flex-grow'>
@@ -19,6 +21,6 @@ export default function App({ children }: OnlyChildrenProps) {
                 {children}
             </div>
         </div>
-        </LocationProvider>
+        </Provider>
     )
 }

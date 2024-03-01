@@ -8,6 +8,7 @@ import ResultOrSearch from "@/components/search-form/result-or-form";
 import Accordion from "./Accordion";
 import { useState } from "react";
 import VisaEntryTypeSelect from "@/components/form/input/VisaEntryTypeSelect";
+import { LocationProvider } from "@/app/contexts/LocationContext";
 
 export const Counter = () => {
   const [count, setcount] = useState<number>(1);
@@ -161,7 +162,7 @@ const Page: React.FC<PageProps> = () => {
                   </div>
                 </div>
                 <Link
-                  href="/visa/booking"
+                  href="/visa/checkout"
                   className="items-center px-8 py-3 bg-green-500 font-medium gap-2 hover:bg-green-600 inline-flex rounded-lg text-center text-white"
                   type="submit"
                 >

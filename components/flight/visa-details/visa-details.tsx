@@ -4,12 +4,12 @@ import { ClockIcon } from "@heroicons/react/20/solid"
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline"
 import { FaArrowsAltH } from "react-icons/fa";
 import { LocationProvider, useLocation } from "@/app/contexts/LocationContext";
+import { useSelector } from "react-redux";
 
 
 export const VisaDetails: React.FC = () => {
-    const { visaCountry, nationality } = useLocation();
+    const { visaCountry, nationality } = useSelector((state) => state);
     return (
-        <LocationProvider>
         <div className="flex flex-wrap justify-between items-center bg-white text-gray-800 rounded-xl">
             <figure className="flex gap-3 items-center">
                 <img src="/assets/images/flight.png" alt="profile" className="w-20 md:w-20 h-20 md:h-24 object-cover" />
@@ -38,6 +38,5 @@ export const VisaDetails: React.FC = () => {
                 </div>
             </div>
         </div>
-        </LocationProvider>
     )
 }
