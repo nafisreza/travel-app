@@ -264,7 +264,7 @@ const VisaDetailsSummary: React.FC<any> = () => {
         />
         <Accordion
           defaultOpen={true}
-          title="Single Entry"
+          title={`${selectedEntryType?.entry} Entry`}
           body={
             <div className="items-center flex flex-col gap-6 px-4 lg:px-6 py-4">
               <div className="w-full flex justify-between items-center">
