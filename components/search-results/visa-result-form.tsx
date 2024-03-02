@@ -7,8 +7,13 @@ import MUIDatePicker from "../form/input/mui-date-picker"
 import { ArrowSwapHorizontal } from "iconsax-react"
 import { twMerge } from "tailwind-merge"
 import Link from "next/link"
-import { ArrowsRightLeftIcon } from "@heroicons/react/20/solid"
+import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import {SwapButton} from "../search-form/swap-button"
+
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setVisaCountry, setNationality } from '@/app/store/locationActions';
+import { setVisaType } from "@/app/store/visaTypeActions"
 
 export const travellers = [
     ["Adults", "12 years & above"],
@@ -102,22 +107,37 @@ export default function VisaResultForm({ openSearchForm }: { openSearchForm: () 
     const [travellers, settravellers] = useState<string>("");
     function handleTravellers(way: string) { settravellers(way); }
 
+    const visaType = useSelector((state) => state.visaType.visaType);
+    const { visaCountry, nationality } = useSelector((state) => state.location);
+    const dispatch = useDispatch();
+
+    const handleVisaCountryChange = (location) => {
+        dispatch(setVisaCountry(location));
+      };
+    
+      const handleNationalityChange = (location) => {
+        dispatch(setNationality(location));
+      };
+      const handleVisaTypeChange = (visaType) => {
+        dispatch(setVisaType(visaType));
+      };
+
     return (
         <div className="space-y-2 bg-slate-100">
             <div className="flex justify-between items-center text-gray-800">
-                <div className="px-3 lg:px-4 py-3 flex gap-4 lg:gap-12">
+                <div className="px-2 lg:px-4 py-3 flex gap-4 lg:gap-12">
                     <div className="w-full p-2 text-start">
-                        <h5 className="font-medium">China</h5>
-                        <p className="text-xs text-gray-400">Visa</p>
+                        <h5 className="font-medium whitespace-nowrap">{visaCountry.country}</h5>
+                        <p className="text-xs text-gray-400">Visa Country</p>
                     </div>
-                    <ArrowsRightLeftIcon className="min-w-[1.5rem] w-[1.5rem]" />
+                    <FaArrowRightArrowLeft size="64"/>
                     <div className="w-full p-2 text-start">
-                        <h5 className="font-medium">Spain</h5>
+                        <h5 className="font-medium whitespace-nowrap">{nationality.country}</h5>
                         <p className="text-xs text-gray-400">Nationality</p>
                     </div>
                     <div className="w-full p-2 text-start">
-                        <h5 className="font-medium whitespace-nowrap">Travel Visa</h5>
-                        <p className="text-xs text-gray-400">03 Jan 2023</p>
+                        <h5 className="font-medium whitespace-nowrap">{visaType}</h5>
+                        <p className="text-xs text-gray-400">Category</p>
                     </div>
                 </div>
                 <div className="px-4 py-2">

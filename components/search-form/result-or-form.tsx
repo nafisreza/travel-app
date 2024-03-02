@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import VisaResultForm from "../search-results/search-results";
+import VisaResultForm from "../search-results/visa-result-form";
 import VisaSearch from "./visa-search";
 
 export default function ResultOrSearch() {

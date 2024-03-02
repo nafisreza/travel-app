@@ -8,8 +8,10 @@ import { FormBox, SearchButton } from "./flight-search"
 import { SwapButton } from "./swap-button"
 import VisaTypeSelect from "../form/input/VisaTypeSelect"
 import { useLocation, LocationProvider } from '@/app/contexts/LocationContext';
+import { useSelector } from 'react-redux';
 
 export const OneWay = () => {
+    const activeVisaType = useSelector((state) => state.visaType.visaType);
     return (
         <FormBox>
             <div className="w-full relative flex items-center">
@@ -18,7 +20,7 @@ export const OneWay = () => {
             </div>
             <LocationSelect type="nationality" />
             {/* <LocationSelect type="visa-category"/> */}
-            <VisaTypeSelect/>
+            <VisaTypeSelect activeVisa={activeVisaType}/>
             <SearchButton />
             
         </FormBox>

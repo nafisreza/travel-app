@@ -76,14 +76,14 @@ interface LocationSelectProps {
 
 const LocationSelect: React.FC<LocationSelectProps> = ({ type, activeLocation }) => {
 
-  const dispatch = useDispatch();
   const { visaCountry, nationality } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const handleSelect = (location: dummyDataType) => {
     if (type === 'visa-country') {
-        dispatch(setVisaCountry(location));
-        setSelected(location);
-        setfocused(false);
+      dispatch(setVisaCountry(location));
+      setSelected(location);
+      setfocused(false);
     } else if (type === 'nationality') {
       dispatch(setNationality(location));
       setSelected(location);
