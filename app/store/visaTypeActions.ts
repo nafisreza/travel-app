@@ -1,5 +1,4 @@
-export const setVisaType = (visaType) => ({
-    type: 'SET_VISA_TYPE',
-    payload: visaType,
-  });
-  
+export const setVisaType = (visaType: any) => ({
+	type: 'SET_VISA_TYPE',
+	payload: visaType,
+});
