@@ -61,7 +61,7 @@ const Sidebar: React.FC<{ open: boolean, className?: string }> = ({ open, classN
                 <div className="h-full py-4 px-2 flex flex-col justify-between gap-5">
                     <div className="flex flex-col items-center gap-5">
                         <Link href="/" className='w-8 h-8 overflow-hidden'>
-                            <img src="/assets/images/logo-sm.png" alt="alt placeholder" className="w-8 h-8 object-cover" />
+                            <img src="/assets/images/logo.jpg" alt="alt placeholder" className="w-8 h-8 object-cover rounded-full" />
                         </Link>
                         {topList.map((e, i) =>
                             <NL to={e.path} key={i} title={e.name} active={pathname === e.path}>{e.icon}</NL>

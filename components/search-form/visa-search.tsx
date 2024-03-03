@@ -4,19 +4,25 @@ import { wayArray } from "./checkbutton"
 import LocationSelect from "../form/input/LocationSelect"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { FormBox, SearchButton } from "./visa-search-form"
+import { FormBox, SearchButton } from "./flight-search"
 import { SwapButton } from "./swap-button"
+import VisaTypeSelect from "../form/input/VisaTypeSelect"
+import { useLocation, LocationProvider } from '@/app/contexts/LocationContext';
+import { useSelector } from 'react-redux';
 
 export const OneWay = () => {
+    const activeVisaType = useSelector((state) => state.visaType.visaType);
     return (
         <FormBox>
             <div className="w-full relative flex items-center">
-                <LocationSelect />
+                <LocationSelect type="visa-country" />
                 <SwapButton />
             </div>
-            <LocationSelect />
-            <LocationSelect />
+            <LocationSelect type="nationality" />
+            {/* <LocationSelect type="visa-category"/> */}
+            <VisaTypeSelect activeVisa={activeVisaType}/>
             <SearchButton />
+            
         </FormBox>
     )
 }

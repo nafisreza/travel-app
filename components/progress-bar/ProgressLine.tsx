@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './progressLine.css';
+import './ProgressLine.css';
 
 interface VisualPart {
 	color?: string;
@@ -13,7 +13,7 @@ interface ProgressLineProps {
 	children?: React.ReactNode;
 	visualParts?: VisualPart[];
 }
-const duration = 1000;
+const duration = 100;
 
 const ProgressLine: React.FC<ProgressLineProps> = ({
 	label,
@@ -35,7 +35,7 @@ const ProgressLine: React.FC<ProgressLineProps> = ({
 			if (progress < percentage) {
 				setProgress((prev) => prev + 10);
 			}
-		}, 1000);
+		}, duration);
 		return () => clearInterval(interval);
 	}, [progress]);
 
