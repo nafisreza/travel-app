@@ -51,7 +51,7 @@ export default function VerticalSlider() {
 				className='mySwiper2'>
 				{continents.map((continent, index) => (
 					<SwiperSlide key={index} className='text-slide'>
-						<p className='text-white text-7xl font-bold tracking-tight'>
+						<p className='text-white 2xl:text-9xl sm:text-7xl text-5xl font-bold tracking-tight'>
 							{continent}
 						</p>
 					</SwiperSlide>

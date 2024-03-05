@@ -71,7 +71,7 @@ export default function HomeSlider() {
       >
         {countries.map((country, index) => (
           <SwiperSlide key={index}>
-            <p className="text-white text-2xl tracking-wide mb-1">
+            <p className="text-white lg:text-2xl md:text-md tracking-wide mb-1">
               {country.name}
             </p>
             <img src={country.img} alt={country.name} />
