@@ -43,19 +43,16 @@ export default function Page({}) {
 								Guideasy
 							</Link>
 						</p>
-						<p className='mt-4 text-lg leading-8 text-white'>
+						<p className='my-4 text-sm lg:text-lg lg:leading-8 text-white'>
 							Discover the vast world of Guideasy, your gateway to
 							over 300,000 products worldwide. Join our global
 							community and explore a universe of choices and
 							proud to be our valuable partner.
 						</p>
 
-						<Button classes='py-3 px-6 flex gap-3'>
-							Become Our Partner
-							<div className='mt-1'>
-								<HiArrowRight />
-							</div>
-						</Button>
+						<div className="flex">
+                            <Button classes="p-3 md:py-3 md:px-6 flex gap-3 bg-green-500 rounded-sm md:mt-4"> <div className="text-xs md:text-lg"> Become Our Partner</div> <HiArrowRight /></Button> 
+                            </div>
 					</div>
 				</div>
 				<div className='flex-shrink-0 w-full lg:max-w-md bg-white min-h-screen grid place-items-center relative'>
@@ -115,7 +112,7 @@ export default function Page({}) {
 								)}
 							</Modal>
 
-							<div className='my-16'>
+							<div className='my-6 lg:my-16'>
 								<Button classes='py-3 px-10 text-sm'>
 									Sign In
 								</Button>
@@ -123,12 +120,12 @@ export default function Page({}) {
 						</form>
 
 						<div className="flex gap-1 justify-center">
-						<p className='text-gray-800'>
+						<p className='text-gray-800 text-sm text-nowrap'>
 							Not a partner?
 						</p>
 						<Link
 								href='/user/sign-up'
-								className='mb-2 inline-block text-base text-green-500 hover:text-primary hover:underline'>
+								className='mb-2 inline-block text-sm text-nowrap text-green-500 hover:text-primary hover:underline'>
 								Become a partner now
 							</Link>
 						</div>
