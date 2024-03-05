@@ -10,8 +10,8 @@ export default function SelectPhoneCode() {
         <div className="relative">
             <Listbox value={selected} onChange={setSelected}>
                 <div className="relative">
-                    <Listbox.Button className="relative w-full cursor-default py-3 md:py-4 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
-                        <span className="block truncate text-gray-500">{selected.code}</span>
+                    <Listbox.Button className="relative w-full cursor-default p-2 pr-10 md:pr-20 lg:py-3 md:py-4 md:px-4 md:text-base text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
+                        <span className="block truncate text-xs md:text-base text-gray-500">{selected.code}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -26,12 +26,12 @@ export default function SelectPhoneCode() {
                             {countries.map((country, countryIdx) => (
                                 <Listbox.Option
                                     key={countryIdx}
-                                    className={({ active }) => `relative cursor-default text-start select-none py-2 px-2 ${active ? 'bg-green-100 text-green-900' : 'text-gray-500'}`}
+                                    className={({ active }) => `relative text-xs md:text-base cursor-default text-start select-none py-2 px-2 ${active ? 'bg-green-100 text-green-900' : 'text-gray-500'}`}
                                     value={country}
                                 >
                                     {({ selected }) => (
                                         <>
-                                            <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                            <span className={`block truncate text-xs md:text-base ${selected ? 'font-medium' : 'font-normal'}`}>
                                                 {country.code}
                                             </span>
                                         </>

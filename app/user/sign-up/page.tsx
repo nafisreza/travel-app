@@ -19,50 +19,50 @@ export default function Page() {
         <main className="bg-signin min-h-screen">
             <div className="w-full flex flex-col p-6 md:p-10 space-y-8">
                 <div className="flex-grow">
-                    <div className="max-w-screen-lg mt-8 md:mt-10 lg:mt-20">
+                    <div className="max-w-screen-lg mt-4 md:mt-10 lg:mt-20">
                         <p>
-                            <Link href="/" className="mt-4 text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-white sm:text-4xl">GuideEasy</Link>
+                            <Link href="/" className="mt-4 text-3xl uppercase lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-white sm:text-4xl">Guideasy</Link>
                         </p>
-                        <p className="mt-4 text-lg leading-8 text-white font-normal">
+                        <p className=" my-4 text-sm lg:text-lg lg:leading-8 text-white font-normal">
                             Discover the vast world of Guideasy, your gateway to over 300,000 products worldwide. Join our global community and explore a universe of choices and proud to be our valuable partner.
                         </p>
                     </div>
                 </div>
                 <div className="lg:self-end md:max-w-4xl rounded-2xl md:rounded-3xl flex-shrink-0 w-full bg-black/20 grid place-items-center relative">
-                    <div className="w-full rounded-lg p-6 md:p-10 text-center">
+                    <div className="w-full rounded-lg p-3 md:p-10 text-center">
                         <form className="w-full space-y-6 lg:space-y-10" onSubmit={handleSubmit}>
-                            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white w-full">Become our valuable partner</h2>
+                            <h2 className="text-md md:text-3xl lg:text-4xl font-semibold text-white w-full">Become our valuable partner</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                                 <div className="">
                                     <SelectCountry />
                                 </div>
                                 <div className="relative">
-                                    <input type="text" placeholder="Business Name" name="businessName" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" />
+                                    <input type="text" placeholder="Business Name" name="businessName" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none" />
                                 </div>
                                 <div className="relative">
-                                    <input type="text" placeholder="First Name" name="firstName" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" required />
+                                    <input type="text" placeholder="First Name" name="firstName" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none"  required />
                                 </div>
                                 <div className="relative">
-                                    <input type="text" placeholder="Last Name" name="lastName" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" />
+                                    <input type="text" placeholder="Last Name" name="lastName" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none"  />
                                 </div>
                                 <div className="relative">
                                     <div className="w-full rounded-lg bg-white text-base text-body-color placeholder:text-gray-500 flex items-center gap-2">
                                         <SelectPhoneCode />
-                                        <input type="text" placeholder="Phone" name="phone" className="outline-none focus-visible:shadow-none" required />
+                                        <input type="text" placeholder="Phone" name="phone" className="text-xs md:text-base outline-none focus-visible:shadow-none placeholder:text-gray-500" required />
                                     </div>
                                 </div>
                                 <div className="relative">
-                                    <input type="email" placeholder="Email" name="email" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" required />
+                                    <input type="email" placeholder="Email" name="email" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none"  required />
                                 </div>
                                 <div className="relative">
-                                    <input type="password" placeholder="Password" name="password" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" required />
+                                    <input type="password" placeholder="Password" name="password" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none" required />
                                 </div>
                                 <div className="relative">
-                                    <input type="password" placeholder="Confirm Password" name="confirmPassword" className="w-full rounded-lg bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none" required />
+                                    <input type="password" placeholder="Confirm Password" name="confirmPassword" className="w-full rounded-lg bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base text-body-color placeholder:text-gray-500 text-xs outline-none focus:border-primary focus-visible:shadow-none"  required />
                                 </div>
                             </div>
                             <div className="flex justify-center">
-                            <Button classes="py-3 px-6 flex gap-3">Become Our Partner <div className="mt-1"><HiArrowRight /></div> </Button> 
+                            <Button classes="p-3 md:py-3 md:px-6 flex gap-3 bg-green-500 rounded-sm md:mt-4"> <div className="text-xs md:text-lg"> Become Our Partner</div> <HiArrowRight /></Button> 
                             </div>
                         </form>
                     </div>
