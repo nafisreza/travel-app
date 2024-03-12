@@ -67,7 +67,7 @@ export function Location() {
 					leave='transition ease-in duration-100'
 					leaveFrom='opacountry-100'
 					leaveTo='opacountry-0'>
-					<Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[20]'>
+					<Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
 						{dummyData.map((person: dummyDataType, personIdx) => (
 							<Listbox.Option
 								key={personIdx}
@@ -175,7 +175,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
 					/>
 					<label
 						className={`
-                  w-full h-full py-2 flex items-center absolute left-0 transition-all ease-out z-10 bg-white rounded-xl
+                  w-full h-full py-2 flex items-center absolute left-0 transition-all ease-out bg-white rounded-xl
                   ${focused ? 'bottom-full' : 'bottom-0'}
                 `}
 						onClick={() => setfocused(true)}>
@@ -202,7 +202,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
 					</label>
 				</div>
 				{focused && (
-					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[20]'>
+					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
 						<ul>
 							{optionsClone.map(
 								(location: dummyDataType, locationIdx) => (
