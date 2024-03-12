@@ -45,11 +45,8 @@ export default function VisaSearch() {
 
 	return (
 		<div className='max-w-screen-xl mx-auto+ space-y-2'>
-			<h1 className='text-xl font-semibold' id='multiplefeatures'>
-				Search Visa
-			</h1>
 			<form
-				className='bg-white p-2 md:p-4 rounded-xl border space-y-6'
+				className='bg-white p-2 md:p-4 rounded-xl space-y-6'
 				onSubmit={handleSubmit}>
 				<div className='z-[1]'>
 					<OneWay />

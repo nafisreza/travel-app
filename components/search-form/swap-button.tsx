@@ -25,13 +25,12 @@ export const SwapButton = () => {
     
         <button type="button" className={twMerge(
             "absolute z-[11]",
-            "right-4 md:-right-[22px]",
-            "-bottom-5 md:bottom-auto",
+            "-right-4 md:-right-[22px]",
         )}
         onClick={handleSwapCities}>
             <div className={twMerge("bg-white rounded-full h-8 w-8 grid place-items-center border relative") + ` ${Styles.swapBtn}`}>
                 <div className={twMerge("bg-gray-200 rounded-full p-1 hover:bg-gray-100")}>
-                    <ArrowSwapHorizontal size="16" color="currentColor" className={twMerge("rotate-90 md:rotate-0")} />
+                    <ArrowSwapHorizontal size="16" color="currentColor" />
                 </div>
             </div>
         </button>

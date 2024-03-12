@@ -64,6 +64,18 @@ export default function VisaCard() {
           }}
           modules={[Navigation]}   // Disable pagination bullet points
           className="mySwiper3"
+          breakpoints={{
+            400:{
+              slidesPerView:1,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865:{
+              slidesPerView:4
+            },
+          }}
+        
         >
           {cardItems.map((item, index) => (
             <SwiperSlide key={index}>

@@ -11,7 +11,12 @@ const Page: React.FC<Props> = () => {
     return (
         <App>
             <ContainerMain className="space-y-8">
+                <div className="flex flex-col justify-center items-center">
+                <h1 className='text-xl font-semibold justify-center' id='multiplefeatures'>
+				Search Visa
+			</h1>
                 <VisaSearch />
+                </div>
                 <VisaSlider/>
             </ContainerMain>
         </App>
