@@ -89,7 +89,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
 					/>
 					<label
 						className={`
-                            w-full h-full py-2 flex items-center absolute left-0 transition-all ease-out z-10 bg-white rounded-xl
+                            w-full h-full py-2 flex items-center absolute left-0 transition-all ease-out bg-white rounded-xl
                             ${focused ? 'bottom-full' : 'bottom-0'}
                         `}
 						onClick={() => setFocused(true)}>
@@ -107,7 +107,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
 					</label>
 				</div>
 				{focused && (
-					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[20]'>
+					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]'>
 						<ul>
 							{optionsClone.map((typeOfVisa: string, index) => (
 								<li

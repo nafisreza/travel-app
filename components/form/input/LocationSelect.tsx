@@ -67,7 +67,7 @@ export function Location() {
 					leave='transition ease-in duration-100'
 					leaveFrom='opacountry-100'
 					leaveTo='opacountry-0'>
-					<Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
+					<Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]'>
 						{dummyData.map((person: dummyDataType, personIdx) => (
 							<Listbox.Option
 								key={personIdx}
@@ -202,7 +202,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
 					</label>
 				</div>
 				{focused && (
-					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
+					<div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]'>
 						<ul>
 							{optionsClone.map(
 								(location: dummyDataType, locationIdx) => (
