@@ -45,7 +45,7 @@ const OTPField: FC<OTPFieldProps> = ({ onValidateOTP }): JSX.Element => {
 			<p className='text-md font-bold'>
 				Enter 6 digit code sent to your mail.
 			</p>
-			<div className='flex justify-center items-center space-x-2 px-6 py-10'>
+			<div className='flex justify-center items-center space-x-2 px-3 py-6'>
 				{otp.map((_, index) => (
 					<React.Fragment key={index}>
 						<input

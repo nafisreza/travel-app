@@ -55,7 +55,7 @@ const Sidebar: React.FC<{ open: boolean, className?: string }> = ({ open, classN
 
     return (
         // Flex item 1
-        <div className={["flex-shrink-0 w-14 sm:w-16 relative z-[1]", className || ''].join(" ")}>
+        <div className={["flex-shrink-0  w-14 sm:w-16 relative z-[1]", className || ''].join(" ")}>
             {/* Fixed inside flex item */}
             <div className="fixed left-0 top-0 w-14 sm:w-16 h-[100svh] bg-white text-gray-600 border-r">
                 <div className="h-full py-4 px-2 flex flex-col justify-between gap-5">

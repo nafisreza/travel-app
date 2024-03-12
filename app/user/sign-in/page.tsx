@@ -101,7 +101,7 @@ export default function Page({}) {
 												classes='col-span-3'
 											/>
 											<Button
-												classes='px-10 py-0 h-12 text-sm'
+												classes='px-10 py-0 h-12 text-sm justify-center'
 												onClick={() =>
 													setGetCodeRequested(true)
 												}>
