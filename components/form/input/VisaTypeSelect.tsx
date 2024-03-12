@@ -11,7 +11,7 @@ export type OptionProps = {
 export const Option: React.FC<OptionProps> = ({ typeOfVisa, active }) => {
 	return (
 		<div className='h-14 w-full py-2 divide-x flex items-center border-b'>
-			<div className='h-full min-w-[3.25rem] flex justify-center items-center font-semibold'>
+			<div className='h-full min-w-[3.25rem] flex justify-center items-center font-semibold text-sm'>
 				{typeOfVisa}
 			</div>
 		</div>
