@@ -5,7 +5,7 @@ import Transaction from "./transaction";
 export const RecentTransactions: React.FC = () => {
     return (
         <>
-        <div className="w-full h-full flex flex-col bg-green-500/10 rounded-lg space-y-4 py-6 px-1">
+        <div className="w-full h-full flex flex-col bg-green-500/10 rounded-lg space-y-4 2xl:p-8 py-6 px-1">
             <h1 className="text-green-500 font-semibold text-lg mx-4 mb-2">Recent Transactions</h1>
             <Transaction
               profilePicture='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'

@@ -6,7 +6,7 @@ const AccountCard = () => {
     const currency = 'USD'
     const expDate = '04 / 24'
     return (
-        <div className="w-full bg-green-500/10 rounded-lg px-2 py-6 flex flex-col lg:flex-row xl:flex-col gap-4">
+        <div className="w-full bg-green-500/10 rounded-lg px-2 2xl:p-10 py-6 flex flex-col lg:flex-row xl:flex-col gap-4">
             <div className="rounded-lg space-y-4 px-4">
                 <div className="flex justify-between">
                 <h3 className="text-green-500 font-semibold text-lg">Account Card</h3>
