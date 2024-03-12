@@ -50,8 +50,8 @@ export const CloseForm = ({ handleClick }: { handleClick: () => void }) => (
 	<button
 		type='button'
 		onClick={handleClick}
-		className='border h-14 w-14 aspect-square rounded-xl grid place-items-center hover:border-gray-400'>
-		<IoClose className='text-2xl' />
+		className='border h-10 w-10 sm:h-14 sm:w-14 aspect-square rounded-xl grid place-items-center hover:border-gray-400'>
+		<IoClose className='text-lg sm:text-2xl' />
 	</button>
 );
 
@@ -59,14 +59,14 @@ export const SearchButton = () => (
 	<div>
 		<button
 			type='submit'
-			className='border h-14 w-14 aspect-square rounded-xl grid place-items-center hover:border-gray-400'>
-			<IoSearch className='text-2xl' />
+			className='border h-10 w-10 sm:h-14 sm:w-14 aspect-square rounded-xl grid place-items-center hover:border-gray-400'>
+			<IoSearch className='text-lg sm:text-2xl' />
 		</button>
 	</div>
 );
 
 export const FormBox = ({ children }: { children: ReactNode }) => (
-	<div className='flex flex-wrap md:flex-nowrap w-full items-center gap-3'>
+	<div className='grid md:grid-cols-4 grid-cols-2 w-full items-center gap-3'>
 		{children}
 	</div>
 );
@@ -175,14 +175,14 @@ export default function FlightSearch() {
 	}
 
 	return (
-		<div className='max-w-screen-xl mx-auto+ space-y-2'>
+		<div className='flex justify-center flex-col space-y-2'>
 			<h1 className='text-xl font-semibold' id='multiplefeatures'>
 				Search Flight
 			</h1>
 			<form
 				className='bg-white p-2 md:p-4 rounded-xl border space-y-6'
 				onSubmit={handleSubmit}>
-				<div className='w-full flex flex-wrap lg:flex-nowrap+ justify-between gap-y-3 z-[2]'>
+				<div className='w-full flex flex-wrap lg:flex-nowrap+ justify-center lg:justify-between gap-y-3 z-[2]'>
 					<CheckButton handleWay={handleWay} />
 					<div className='flex gap-2 md:gap-3'>
 						<Travellers />

@@ -11,7 +11,9 @@ const Page: React.FC<Props> = () => {
     return (
         <App>
             <main className="px-4 sm:px-8 py-4 sm:py-8 space-y-8">
+                <div className="">
                 <FlightSearch />
+                </div>
                 <SearchResult />
                 <VisaSlider/>
             </main>
