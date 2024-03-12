@@ -15,7 +15,7 @@ const Page: React.FC<Props> = () => {
                 <h1 className='text-xl font-semibold justify-center' id='multiplefeatures'>
 				Search Visa
 			</h1>
-                <VisaSearch />
+                <div className="lg:ml-[180px]"><VisaSearch /></div>
                 </div>
                 <VisaSlider/>
             </ContainerMain>
