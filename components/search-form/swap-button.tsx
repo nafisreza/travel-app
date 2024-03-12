@@ -24,7 +24,7 @@ export const SwapButton = () => {
   return (
     
         <button type="button" className={twMerge(
-            "absolute",
+            "absolute z-[1]",
             "-right-4 md:-right-[22px]",
         )}
         onClick={handleSwapCities}>
