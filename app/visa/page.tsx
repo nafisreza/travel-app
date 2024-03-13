@@ -17,7 +17,9 @@ const Page: React.FC<Props> = () => {
 			</h1>
                 <div className="lg:ml-[180px]"><VisaSearch /></div>
                 </div>
+                <div className="mx-12">
                 <VisaSlider/>
+                </div>
             </ContainerMain>
         </App>
     )
