@@ -50,9 +50,7 @@ const cardItems = [
 export default function VisaCard() {
   return (
     <section className="space-y-2">
-      <h1 className="text-md font-semibold" id="multiplefeatures">
-        Visa Offer
-      </h1>
+
       <div className="grid grid-cols-1 gap-4">
         <Swiper
           direction="horizontal"
