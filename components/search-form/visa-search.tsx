@@ -14,11 +14,10 @@ export const OneWay = () => {
 	return (
 		<FormBox>
 			<div className='w-full relative flex items-center'>
-				<LocationSelect type='visa-country' />
+				<LocationSelect type='visa-country' activeLocation={{ countryCode: 'USA', country: 'United States', city: 'New York' }} />
 				<SwapButton />
 			</div>
-			<LocationSelect type='nationality' />
-			{/* <LocationSelect type="visa-category"/> */}
+			<LocationSelect type='nationality'  />
 			<VisaTypeSelect activeVisa={activeVisaType} />
 			<SearchButton />
 		</FormBox>
