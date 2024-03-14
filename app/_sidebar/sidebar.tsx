@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { IoHome } from "react-icons/io5";
 import { usePathname } from 'next/navigation';
 import { BsPassport } from 'react-icons/bs';
+import { FaUmbrellaBeach } from "react-icons/fa6";
 
 export type NavItemProps = {
     to: string;
@@ -28,7 +29,12 @@ export const SidebarNavList = [
     {
         name: "dashboard",
         path: "/dashboard",
-        icon: <Home2 size="28" color="currentColor" variant='Outline' />,
+        icon: <Home2 size="28" color="currentColor" />,
+    },
+    {
+        name: "flight",
+        path: "/flight",
+        icon: <Airplane size="28" color="currentColor" />,
     },
     {
         name: "visa",
@@ -36,10 +42,11 @@ export const SidebarNavList = [
         icon: <BsPassport size="28" color="currentColor" />,
     },
     {
-        name: "flight",
-        path: "/flight",
-        icon: <Airplane size="28" color="currentColor" variant='Outline' />,
+        name: "holiday",
+        path: "/holiday",
+        icon: <FaUmbrellaBeach size="28" color="currentColor"/>,
     },
+
     {
         name: "settings",
         path: "/settings",
