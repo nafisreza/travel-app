@@ -59,8 +59,8 @@ export const SearchButton = () => (
 	<div>
 		<button
 			type='submit'
-			className='border h-10 w-10 sm:h-14 sm:w-14 aspect-square rounded-xl grid place-items-center hover:border-gray-400'>
-			<IoSearch className='text-lg sm:text-2xl' />
+			className='border h-10 w-10 sm:h-14 sm:w-14 aspect-square rounded-xl grid place-items-center bg-green-500 hover:border-gray-400'>
+			<IoSearch className='text-lg sm:text-2xl' color='white'/>
 		</button>
 	</div>
 );
@@ -76,10 +76,10 @@ export const OneWay = () => {
 		// grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
 		<FormBox>
 			<div className='w-full relative flex items-center'>
-				<LocationSelect />
+				<LocationSelect type='from'/>
 				<SwapButton />
 			</div>
-			<LocationSelect />
+			<LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} />
 			<MUIDatePicker />
 			<SearchButton />
 		</FormBox>
@@ -90,10 +90,10 @@ export const RoundTrip = () => {
 	return (
 		<FormBox>
 			<div className='w-full relative flex items-center'>
-				<LocationSelect />
+				<LocationSelect type='from' />
 				<SwapButton />
 			</div>
-			<LocationSelect />
+			<LocationSelect type='to' />
 			<MUIDatePicker />
 			<MUIDatePicker />
 			<SearchButton />
@@ -128,10 +128,10 @@ export const MultiTrip = () => {
 					<li key={idx}>
 						<FormBox>
 							<div className='w-full relative flex items-center'>
-								<LocationSelect />
+								<LocationSelect type='from' />
 								<SwapButton />
 							</div>
-							<LocationSelect />
+							<LocationSelect type='to'/>
 							<MUIDatePicker />
 							<MUIDatePicker />
 							<CloseForm
