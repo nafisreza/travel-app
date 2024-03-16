@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from 'react';
 import { GiPalmTree } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';

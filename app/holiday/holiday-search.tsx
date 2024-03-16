@@ -2,16 +2,19 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import LocationSelect from '@/components/form/input/LocationSelect';
+import { useDispatch } from 'react-redux';
+import { setFrom, setTo } from '../store/locationActions';
+import HolidayCategorySelect from './HolidayCategory';
 import { FormBox, SearchButton } from '@/components/search-form/flight-search';
 import { SwapButton } from '@/components/search-form/swap-button';
-import HolidayCategorySelect from './HolidayCategory';
+import LocationSelect from '@/components/form/input/LocationSelect';
 
 export default function HolidaySearch() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const [fromLocation, setFromLocation] = useState<any>(null);
   const [toLocation, setToLocation] = useState<any>(null);
-  const router = useRouter();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,17 +23,15 @@ export default function HolidaySearch() {
 
   return (
     <div className='max-w-screen-xl mx-auto+ space-y-2'>
-      <form
-        className='bg-white p-2 md:p-4 rounded-xl space-y-6'
-        onSubmit={handleSubmit}>
+      <form className='bg-white p-2 md:p-4 rounded-xl space-y-6' onSubmit={handleSubmit}>
         <div className='z-[1]'>
           <FormBox>
             <div className='w-full relative flex items-center'>
-              <LocationSelect type='from' />
+              <LocationSelect type='from' onSelect={(location) => dispatch(setFrom(location))} />
               <SwapButton />
             </div>
-            <LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} />
-			<HolidayCategorySelect/>
+            <LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} onSelect={(location) => dispatch(setTo(location))} />
+            <HolidayCategorySelect />
             <SearchButton />
           </FormBox>
         </div>
