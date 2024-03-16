@@ -80,7 +80,7 @@ export const OneWay = () => {
 				<SwapButton />
 			</div>
 			<LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} />
-			<MUIDatePicker />
+			<MUIDatePicker bottomText='Journey Date'/>
 			<SearchButton />
 		</FormBox>
 	);
@@ -94,8 +94,8 @@ export const RoundTrip = () => {
 				<SwapButton />
 			</div>
 			<LocationSelect type='to' />
-			<MUIDatePicker />
-			<MUIDatePicker />
+			<MUIDatePicker bottomText='Journey Date'/>
+			<MUIDatePicker bottomText='Return Date'/>
 			<SearchButton />
 		</FormBox>
 	);
@@ -132,8 +132,8 @@ export const MultiTrip = () => {
 								<SwapButton />
 							</div>
 							<LocationSelect type='to'/>
-							<MUIDatePicker />
-							<MUIDatePicker />
+							<MUIDatePicker bottomText='Journey Date'/>
+							<MUIDatePicker bottomText='Return Date'/>
 							<CloseForm
 								handleClick={() => {
 									handleRemoveLocation(idx);
