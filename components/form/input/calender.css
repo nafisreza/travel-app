@@ -1,0 +1,20 @@
+.Mui-selected{
+    background-color: #1FCB4F !important;
+    border-radius: 10px !important;
+}
+
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root:hover{
+    background-color: #1fcb505b !important;    
+}
+
+.MuiPickersCalendarHeader-label{
+    font-family: 'Poppins';
+}
+
+.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+    font-family: 'Poppins' !important;
+}
+
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root {
+    font-family: 'Poppins' !important;
+}
