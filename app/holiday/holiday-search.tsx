@@ -27,10 +27,10 @@ export default function HolidaySearch() {
         <div className='z-[1]'>
           <FormBox>
             <div className='w-full relative flex items-center'>
-              <LocationSelect type='from' onSelect={(location) => dispatch(setFrom(location))} />
+              <LocationSelect type='from' onSelect={(location: any) => dispatch(setFrom(location))} />
               <SwapButton />
             </div>
-            <LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} onSelect={(location) => dispatch(setTo(location))} />
+            <LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} onSelect={(location: any) => dispatch(setTo(location))} />
             <HolidayCategorySelect />
             <SearchButton />
           </FormBox>
