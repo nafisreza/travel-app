@@ -17,6 +17,7 @@ export type HolidayProps = {
   agency: string;
   originalPrice: string;
   discountedPrice: string;
+  currency: string;
   numberOfPerson: number;
 };
 
@@ -29,6 +30,7 @@ export const HolidayCard: React.FC<HolidayProps> = ({
   agency,
   originalPrice,
   discountedPrice,
+  currency,
   numberOfPerson,
 }) => {
   return (
@@ -73,13 +75,13 @@ export const HolidayCard: React.FC<HolidayProps> = ({
         <div className="right flex flex-col items-end">
           {originalPrice !== discountedPrice && (
             <del className="text-red-500">
-              <span className="text-gray-500 font-light text-sm">{originalPrice} BDT</span>
+              <span className="text-gray-500 font-light text-sm">{originalPrice} {currency}</span>
             </del>
           )}
           <p className="font-semibold text-xl">
-            {discountedPrice} BDT
+            {discountedPrice} {currency}
           </p>
-          <p className="text-[10px]">Starts from per {numberOfPerson > 1 ? `${numberOfPerson} persons` : "person"}</p>
+          <p className="text-[10px]">Starts from (per {numberOfPerson > 1 ? `${numberOfPerson} persons` : "person"})</p>
         </div>
       </div>
     </Link>
@@ -96,6 +98,7 @@ const holidayData = [
     agency: "Virgin Holidays Limited",
     originalPrice: '60,000',
     discountedPrice: '25,000',
+    currency: 'BDT',
     numberOfPerson: 1,
   },
   {
@@ -106,6 +109,7 @@ const holidayData = [
     agency: "Virgin Holidays Limited",
     originalPrice: '120,000',
     discountedPrice: '75,000',
+    currency: 'BDT',
     numberOfPerson: 2,
   },
   {
@@ -116,6 +120,7 @@ const holidayData = [
     agency: "Virgin Holidays Limited",
     originalPrice: '350,000',
     discountedPrice: '220,000',
+    currency: 'BDT',
     numberOfPerson: 5,
   },
   {
@@ -126,6 +131,7 @@ const holidayData = [
     agency: "Virgin Holidays Limited",
     originalPrice: '60,000',
     discountedPrice: '15,000',
+    currency: 'BDT',
     numberOfPerson: 1,
   },
   
