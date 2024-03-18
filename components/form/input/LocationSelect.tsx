@@ -51,6 +51,7 @@ export const dummyData: dummyDataType[] = [
 interface LocationSelectProps {
   type?: "nationality" | "visa-country" | "visa-category" | "from" | "to";
   activeLocation?: dummyDataType;
+  onSelect?: Function;
 }
 
 const LocationSelect: React.FC<LocationSelectProps> = ({
