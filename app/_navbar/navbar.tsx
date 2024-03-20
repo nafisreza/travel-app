@@ -8,6 +8,7 @@ import { SidebarNavList } from '../_sidebar/sidebar'
 import { usePathname } from 'next/navigation';
 import Notifications from './notifications';
 import Button from '@/components/buttons/Button';
+import Link from 'next/link';
 
 type NavButtonProps = {
     children: React.ReactNode;
@@ -107,10 +108,12 @@ const Navbar: React.FC<{ open: boolean, handleSidebar: () => void }> = ({ open, 
                                 <p className='mt-2 flex items-center gap-2'><strong>BDT{BALANCE}</strong>
                                     <button type="button" className='text-green-500 hover:text-green-600'><ArrowRotateRight size="20" color="currentColor" variant="Outline" /></button>
                                 </p>
+                                <Link href='/add-credit'>
                                 <Button classes="text-sm px-4 py-2 mt-4">
                                     <MoneyTime size="24" color="currentColor" variant="Outline" />
                                     Add Credit
                                 </Button>
+                                </Link>
                             </div>
                         </div>
                     }
