@@ -34,7 +34,7 @@ export const HolidayCard: React.FC<HolidayProps> = ({
   numberOfPerson,
 }) => {
   return (
-    <Link href={video ? "details" : "#"} className="p-2 bg-white text-gray-800 rounded-lg shadow-lg">
+    <Link href={video ? 'video-link' : "package-details"} className="p-2 bg-white text-gray-800 rounded-lg shadow-lg">
       <div className="relative">
         {video && (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -108,45 +108,98 @@ const holidayData = [
     location: "Krabi, Thailand",
     agency: "Virgin Holidays Limited",
     originalPrice: '120,000',
-    discountedPrice: '75,000',
+    discountedPrice: '15,000',
+    currency: 'BDT',
+    numberOfPerson: 2,
+  },
+  ,
+  {
+    title: "Phi Phi Island Bachelor's Tour",
+    image: "https://www.laughtraveleat.com/wp-content/uploads/2020/04/loh-samah-bay-koh-phi-phi-thailand-laugh-travel-eat.jpg",
+    rating: 4.5,
+    location: "Krabi, Thailand",
+    agency: "Virgin Holidays Limited",
+    originalPrice: '120,000',
+    discountedPrice: '95,000',
     currency: 'BDT',
     numberOfPerson: 2,
   },
   {
     title: "Phi Phi Island Bachelor's Tour",
-    image: "https://mobilebanner.imgix.net/far-east/thailand/phi-phi-island/phi-phi-island-village-beach-resort.jpg?fm=jpg&auto=format",
+    image: "https://www.laughtraveleat.com/wp-content/uploads/2020/04/loh-samah-bay-koh-phi-phi-thailand-laugh-travel-eat.jpg",
     rating: 4.5,
     location: "Krabi, Thailand",
     agency: "Virgin Holidays Limited",
-    originalPrice: '350,000',
-    discountedPrice: '220,000',
+    originalPrice: '120,000',
+    discountedPrice: '175,000',
     currency: 'BDT',
-    numberOfPerson: 5,
+    numberOfPerson: 2,
   },
   {
     title: "Phi Phi Island Bachelor's Tour",
-    image: "https://lh3.googleusercontent.com/proxy/97nV6eAz1daUlGP-ZUdadO4Nd3ziyy57EAy8hDzZYaTFjvo5Bfim5GhOrvZi2JJFQ2jdYr0sWSbYTw6myKxpK8rEaLKnxnhgBfe37zxUJIywig8RywRICbcBv8Pbrifjh8Nbn4d6",
+    image: "https://www.laughtraveleat.com/wp-content/uploads/2020/04/loh-samah-bay-koh-phi-phi-thailand-laugh-travel-eat.jpg",
     rating: 4.5,
     location: "Krabi, Thailand",
     agency: "Virgin Holidays Limited",
-    originalPrice: '60,000',
-    discountedPrice: '15,000',
+    originalPrice: '120,000',
+    discountedPrice: '10,000',
     currency: 'BDT',
-    numberOfPerson: 1,
+    numberOfPerson: 2,
+  },
+  {
+    title: "Phi Phi Island Bachelor's Tour",
+    image: "https://www.laughtraveleat.com/wp-content/uploads/2020/04/loh-samah-bay-koh-phi-phi-thailand-laugh-travel-eat.jpg",
+    rating: 4.5,
+    location: "Krabi, Thailand",
+    agency: "Virgin Holidays Limited",
+    originalPrice: '120,000',
+    discountedPrice: '69,000',
+    currency: 'BDT',
+    numberOfPerson: 2,
   },
   
 ];
 
-export default function VisaSearchCard() {
+export default function HolidaySearchCard() {
+  const [filteredHolidays, setFilteredHolidays] = useState(holidayData);
+
+  const handleFilterSelect = (option: string) => {
+    let sortedHolidays = [...holidayData];
+    switch (option) {
+      case "Price (Low to High)":
+        sortedHolidays.sort((a, b) =>
+          parseInt(a.discountedPrice.replace(",", "")) - parseInt(b.discountedPrice.replace(",", ""))
+        );
+        break;
+      case "Price (High to Low)":
+        sortedHolidays.sort((a, b) =>
+          parseInt(b.discountedPrice.replace(",", "")) - parseInt(a.discountedPrice.replace(",", ""))
+        );
+        break;
+      default:
+        break;
+    }
+    setFilteredHolidays(sortedHolidays);
+  };
+
+  const handleRangeChange = (range: number[]) => {
+    const filtered = holidayData.filter(
+      (holiday) =>
+        parseInt(holiday.discountedPrice.replace(",", "")) >= range[0] &&
+        parseInt(holiday.discountedPrice.replace(",", "")) <= range[1]
+    );
+    setFilteredHolidays(filtered);
+  };
+
   return (
     <section className="space-y-2">
       <div className="flex justify-center flex-col xl:flex-row items-start gap-12">
         <form className="flex-shrink-0 w-72 bg-white rounded-xl shadow-lg border space-y-4">
           <h3 className="text-lg font-semibold p-4 border-b">Filter</h3>
           <div className="flex flex-col items-center gap-6 px-4 lg:px-6 py-8">
-            <RangeSlider />
+            <RangeSlider onChange={handleRangeChange} />
             <div className="w-full">
-              <FilterPrice />
+              <FilterPrice onSelect={handleFilterSelect} />
             </div>
             <button
               type="submit"
@@ -157,11 +210,11 @@ export default function VisaSearchCard() {
           </div>
         </form>
         <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
-          {holidayData.map((holiday, index) => (
+          {filteredHolidays.map((holiday, index) => (
             <HolidayCard key={index} {...holiday} />
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
