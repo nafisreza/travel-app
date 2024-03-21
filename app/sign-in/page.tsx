@@ -1,8 +1,8 @@
 'use client';
 import Button from '@/components/buttons/Button';
 import Input from '@/components/input/InputBox';
-import NewPasswordInput from '@/app/user/forgot/NewPasswordInput';
-import OTPField from '@/app/user/forgot/OTPfield';
+import NewPasswordInput from '@/app/forgot/NewPasswordInput';
+import OTPField from '@/app/forgot/OTPfield';
 import Modal from '@/components/modal/Modal';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -124,7 +124,7 @@ export default function Page({}) {
 							Not a partner?
 						</p>
 						<Link
-								href='/user/sign-up'
+								href='/sign-up'
 								className='mb-2 inline-block text-sm text-nowrap text-green-500 hover:text-primary hover:underline'>
 								Become a partner now
 							</Link>

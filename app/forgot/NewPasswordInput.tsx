@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import Input from "../../../components/input/InputBox";
-import Button from "../../../components/buttons/Button";
+import Input from "../../components/input/InputBox";
+import Button from "../../components/buttons/Button";
 
 interface NewPasswordInputProps {
   onSetNewPassword: (password: string) => void;

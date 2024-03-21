@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import Button from '../../../components/buttons/Button';
+import Button from '../../components/buttons/Button';
 
 interface OTPFieldProps {
 	onValidateOTP: () => void;

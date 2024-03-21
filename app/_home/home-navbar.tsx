@@ -74,10 +74,10 @@ const Navbar: React.FC = () => {
                     {
                         isOpen &&
                         <div className="absolute right-0 top-[calc(100%_+_4px)] w-full bg-white rounded-xl border shadow p-2 space-y-1">
-                            <Link href="/user/sign-in" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg sm:text-md text-sm px-4 py-2 text-center flex items-center gap-2">
+                            <Link href="/sign-in" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg sm:text-md text-sm px-4 py-2 text-center flex items-center gap-2">
                                 <Lock size="20" color="currentColor" variant="Outline" />Sign In
                             </Link>
-                            <Link href="/user/sign-up" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg sm:text-md text-sm px-3 py-2 text-center flex items-center gap-2">
+                            <Link href="/sign-up" className="w-full text-green-500 bg-white hover:bg-gray-100 font-medium rounded-lg sm:text-md text-sm px-3 py-2 text-center flex items-center gap-2">
                                 <User size="20" color="currentColor" variant="Outline" />Sign Up
                             </Link>
                         </div>
