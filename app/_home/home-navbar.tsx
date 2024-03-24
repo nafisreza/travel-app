@@ -5,6 +5,7 @@ import { MoneyTime, ArrowRotateRight, User, Lock } from 'iconsax-react';
 import { FaBarsStaggered } from "react-icons/fa6";
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { getSession } from "@/actions"
 
 type NavButtonProps = {
     children: React.ReactNode;
