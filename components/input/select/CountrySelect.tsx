@@ -3,14 +3,12 @@ import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedCountry } from '@/app/redux/slice/countrySlice'; 
+import { setSelectedCountry } from "@/app/redux/slice/countrySlice";
 
 export function SelectCountry() {
   const dispatch = useDispatch();
   const countries = useSelector((state: any) => state.api.data);
-  const selected = useSelector((state: any) => state.selectedCountry.data);
-  // const [selected, setSelected] = useState(null); 
-
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     dispatch(fetchApi());
@@ -18,15 +16,13 @@ export function SelectCountry() {
 
   useEffect(() => {
     if (countries && countries.length > 0) {
-      dispatch(setSelectedCountry(countries[0])); 
-      // setSelected(countries[0]); 
+      setSelected(countries[0]);
     }
   }, [countries]);
 
-  const handleCountryChange = (country: any) => {
-    // setSelected(country);
-    dispatch(setSelectedCountry(country)); 
-    console.log(selected)
+  const handleCountryChange = (country) => {
+    setSelected(country);
+    dispatch(setSelectedCountry(country));
   };
 
   return (
@@ -34,9 +30,14 @@ export function SelectCountry() {
       <Listbox value={selected} onChange={handleCountryChange}>
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-lg border bg-white p-2 lg:py-3 md:py-4 md:px-4 md:text-base pr-10 text-left shadow-md+ focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
-            <span className="block truncate text-xs md:text-base text-gray-500">{selected?.title}</span>
+            <span className="block truncate text-xs md:text-base text-gray-500">
+              {selected?.title}
+            </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <ChevronUpDownIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
             </span>
           </Listbox.Button>
           <Transition
@@ -51,12 +52,18 @@ export function SelectCountry() {
                   <Listbox.Option
                     key={country.id}
                     value={country}
-                    className={({ active }) => `relative text-xs md:text-base cursor-default text-start select-none py-2 px-2 ${active ? 'bg-green-100 text-green-900' : 'text-gray-500'}`}
+                    className={({ active }) =>
+                      `relative text-xs md:text-base cursor-default text-start select-none py-2 px-2 ${
+                        active ? "bg-green-100 text-green-900" : "text-gray-500"
+                      }`
+                    }
                   >
                     {({ selected }) => (
                       <>
                         <span
-                        className={`block truncate text-xs md:text-base ${selected ? 'font-medium' : 'font-normal'}`}
+                          className={`block truncate text-xs md:text-base ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
                         >
                           {country.title}
                         </span>

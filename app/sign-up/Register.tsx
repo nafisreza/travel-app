@@ -4,7 +4,6 @@ import SelectPhoneCode from "@/components/input/select/SelectPhoneCode";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";
 import { HiArrowRight } from "react-icons/hi";
-import InputMask from "react-input-mask";
 import axios from "axios";
 import setPhoneCodes from '@/components/input/select/SelectPhoneCode'
 import { fetchApi } from "../redux/slice/apiSlice";
@@ -80,15 +79,6 @@ function Register() {
             <div className="relative">
               <div className="w-full rounded-lg bg-white text-base text-body-color placeholder:text-gray-500 flex items-center gap-2">
                 <SelectPhoneCode />
-                <InputMask
-                  mask="(999) 999-9999"
-                  maskPlaceholder="_"
-                  type="tel"
-                  placeholder="Phone"
-                  name="phone"
-                  className="text-xs md:text-base outline-none focus-visible:shadow-none placeholder:text-gray-500"
-                  required
-                />
               </div>
             </div>
             <div className="relative">
