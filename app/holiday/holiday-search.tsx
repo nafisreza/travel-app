@@ -30,7 +30,7 @@ export default function HolidaySearch() {
               <LocationSelect type='from' onSelect={(location: any) => dispatch(setFrom(location))} />
               <SwapButton />
             </div>
-            <LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} onSelect={(location: any) => dispatch(setTo(location))} />
+            <LocationSelect type='to' onSelect={(location: any) => dispatch(setTo(location))} />
             <HolidayCategorySelect />
             <SearchButton />
           </FormBox>

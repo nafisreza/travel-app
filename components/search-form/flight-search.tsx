@@ -79,7 +79,7 @@ export const OneWay = () => {
 				<LocationSelect type='from'/>
 				<SwapButton />
 			</div>
-			<LocationSelect type='to' activeLocation={{ countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' }} />
+			<LocationSelect type='to'/>
 			<MUIDatePicker bottomText='Journey Date'/>
 			<SearchButton />
 		</FormBox>
