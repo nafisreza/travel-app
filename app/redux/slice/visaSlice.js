@@ -2,17 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchApi = createAsyncThunk("fetchApi", async () => {
-  try {
-    const response = await axios.get("https://partner.guideasy.com/api/v1/auth-management/registration");
-    return response.data.payload;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
-  }
+    const URL = "http://endorse.guideasy.com/api/v1/client-management/countries";
+
+    axios.get(URL, {
+        headers: {
+          Authorization: 'Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2',
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Accept-Language': 'en'
+        }
+      })
+      .then(response => {
+        return response.data.payload
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
 });
 
-const apiSlice = createSlice({
-  name: "api",
+
+
+const visaSlice = createSlice({
+  name: "visa",
   initialState: {
     isLoading: false,
     data: null,
@@ -36,4 +47,4 @@ const apiSlice = createSlice({
   },
 });
 
-export default apiSlice.reducer;
+export default visaSlice.reducer;
