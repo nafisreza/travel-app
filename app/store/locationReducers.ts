@@ -1,10 +1,8 @@
-// locationReducers.ts
-
 const initialState = {
-	visaCountry: { countryCode: 'USA', country: 'United States', city: 'New York' },
-	nationality: { countryCode: 'BD', country: 'Bangladesh', city: 'Dhaka' },
-	from: { countryCode: 'BD', country: 'Bangladesh', city: 'Dhaka' },
-	to: { countryCode: 'THAI', country: 'Thailand', city: 'Bangkok' },
+	visaCountry: null,
+	nationality: null,
+	from: null,
+	to: null,
   };
   
   const locationReducers = (state = initialState, action: any) => {

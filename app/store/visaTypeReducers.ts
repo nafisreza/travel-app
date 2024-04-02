@@ -1,14 +1,15 @@
 const initialState = {
-	visaType: 'Travel Visa',
-};
-
-const visaTypeReducers = (state = initialState, action: any) => {
+	visaTypes: [],
+  };
+  
+  const visaTypeReducers = (state = initialState, action: any) => {
 	switch (action.type) {
-		case 'SET_VISA_TYPE':
-			return { ...state, visaType: action.payload };
-		default:
-			return state;
+	  case 'SET_VISA_TYPES':
+		return { ...state, visaTypes: action.payload };
+	  default:
+		return state;
 	}
-};
-
-export default visaTypeReducers;
+  };
+  
+  export default visaTypeReducers;
+  

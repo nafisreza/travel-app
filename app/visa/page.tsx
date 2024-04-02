@@ -4,10 +4,14 @@ import App from "../app";
 import VisaSearch from "@/components/search-form/visa-search";
 import VisaSlider from "@/components/swiper/visa-slider/VisaSlider";
 import { LocationProvider } from "../contexts/LocationContext";
+import axios from "axios";
 
 type Props = {};
 
 const Page: React.FC<Props> = () => {
+
+
+
   return (
     <App>
       <ContainerMain className="space-y-8">

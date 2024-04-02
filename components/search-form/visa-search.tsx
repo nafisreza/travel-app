@@ -8,17 +8,19 @@ import VisaTypeSelect from '../form/input/VisaTypeSelect';
 import { wayArray } from './checkbutton';
 import { FormBox, SearchButton } from './flight-search';
 import { SwapButton } from './swap-button';
+import VisaCountrySelect from '@/app/visa/input/VisaCountrySelect';
+import NationalitySelect from '@/app/visa/input/NationalitySelect';
 
 export const OneWay = () => {
 	const activeVisaType = useSelector((state: any) => state.visaType.visaType);
 	return (
 		<FormBox>
 			<div className='w-full relative flex items-center'>
-				<LocationSelect type='visa-country' activeLocation={{ countryCode: 'USA', country: 'United States', city: 'New York' }} />
+				<VisaCountrySelect/>
 				<SwapButton />
 			</div>
-			<LocationSelect type='nationality'  />
-			<VisaTypeSelect activeVisa={activeVisaType} />
+			<NationalitySelect />
+			<VisaTypeSelect />
 			<SearchButton />
 		</FormBox>
 	);

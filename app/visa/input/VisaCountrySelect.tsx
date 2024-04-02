@@ -1,12 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsPassport } from "react-icons/bs";
-import { Listbox, Transition } from "@headlessui/react";
 import {
-  setNationality,
   setVisaCountry,
-  setFrom,
-  setTo,
 } from "@/app/store/locationActions";
 import axios from "axios";
 
@@ -21,7 +16,6 @@ export const Option: React.FC<OptionProps> = ({
   countryCode,
   country,
   city,
-  active,
 }) => {
   return (
     <div className="h-14 w-full py-4 divide-x flex items-center border-b">
@@ -40,15 +34,11 @@ export interface Country {
   country: string;
   city: string;
   id: string;
+  title: string;
+  iso2: string;
 }
 
-interface LocationSelectProps {
-  type?: "nationality" | "visa-country" | "visa-category" | "from" | "to";
-  activeLocation?: Country;
-  onSelect?: Function;
-}
-
-const LocationSelect: React.FC<LocationSelectProps> = ({
+const VisaCountrySelect: React.FC<any> = ({
   type,
   activeLocation,
 }) => {
@@ -89,22 +79,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
   const handleSelect = (location: Country) => {
     setSelected(location);
     setFocused(false);
-    switch (type) {
-      case "visa-country":
-        dispatch(setVisaCountry(location));
-        break;
-      case "nationality":
-        dispatch(setNationality(location));
-        break;
-      case "from":
-        dispatch(setFrom(location));
-        break;
-      case "to":
-        dispatch(setTo(location));
-        break;
-      default:
-        break;
-    }
+    dispatch(setVisaCountry(location)); 
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +111,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
   return (
     <div className="w-full">
       <div className="relative" ref={selectWrapper}>
-        <div className="block relative h-14 overflow-hidden rounded-xl border w-full hover:border-gray-400">
+        <div className="block relative h-16 overflow-hidden rounded-xl border w-full hover:border-gray-400">
           <input
             type="text"
             className="w-full h-full py-2 px-4 focus:border-none focus:outline-none rounded-xl"
@@ -149,21 +124,13 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
             `}
             onClick={() => setFocused(true)}
           >
-            <div className="h-full min-w-[3.75rem] flex justify-center items-center font-semibold">
-              {type === "visa-category" ? <BsPassport /> : selected?.iso2}
+            <div className="h-full min-w-[3rem] flex justify-center items-center font-semibold">
+              {selected?.iso2}
             </div>
             <div className="border-l pl-3 text-start">
-              <h5 className="text-sm font-medium">{selected?.title}</h5>
+              <h5 className="text-sm font-medium ">{selected?.title}</h5>
               <p className="text-xs text-gray-400 text-light">
-                {type === "nationality"
-                  ? "Nationality"
-                  : type === "visa-country"
-                  ? "Visa Country"
-                  : type === "from"
-                  ? "From"
-                  : type === "to"
-                  ? "To"
-                  : ""}
+                Visa Country
               </p>
             </div>
           </label>
@@ -195,4 +162,4 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
   );
 };
 
-export default LocationSelect;
+export default VisaCountrySelect;

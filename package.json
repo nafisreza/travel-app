@@ -16,7 +16,9 @@
     "@mui/material": "^5.15.2",
     "@mui/x-date-pickers": "^6.18.3",
     "@ramonak/react-progress-bar": "^5.2.0",
+    "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.2",
+    "@types/redux-logger": "^3.0.13",
     "@vercel/speed-insights": "^1.0.10",
     "apexcharts": "^3.44.0",
     "asset-resolver": "^3.0.5",
@@ -42,6 +44,8 @@
     "react-responsive-masonry": "^2.1.7",
     "react-router-dom": "^6.22.1",
     "redux": "^5.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^3.1.0",
     "styled-components": "^6.1.8",
     "swiper": "^11.0.6",
     "tailwind-merge": "^2.1.0"
