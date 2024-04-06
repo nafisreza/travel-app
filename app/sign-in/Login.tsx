@@ -3,6 +3,8 @@ import Input from '@/components/input/InputBox'
 import Link from 'next/link'
 import React from 'react'
 import Forgot from './Forgot'
+import SigninWithGithub from './SigninWithGithub'
+
 
 function Login() {
   return (
@@ -22,6 +24,9 @@ function Login() {
                 <Button classes='py-3 px-10 text-sm'>
                     Sign In
                 </Button>
+                <div>
+                <SigninWithGithub/>
+                </div>
             </div>
         </form>
 

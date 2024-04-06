@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Head from 'next/head'
+import { NextAuthProvider } from './Provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: OnlyChildrenProps) {
       <Head>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
       </Head>
+      <NextAuthProvider>
       <body className={[poppins.className].join(" ")}>
         {children}
       </body>
+      </NextAuthProvider>
     </html>
   )
 }
