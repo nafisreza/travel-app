@@ -55,10 +55,11 @@ export const CloseForm = ({ handleClick }: { handleClick: () => void }) => (
 	</button>
 );
 
-export const SearchButton = () => (
+export const SearchButton = ({ handleClick }: { handleClick?: () => void }) => (
 	<div>
 		<button
 			type='submit'
+			onClick={handleClick}
 			className='border h-10 w-10 sm:h-14 sm:w-14 aspect-square rounded-xl grid place-items-center bg-green-500 hover:border-gray-400'>
 			<IoSearch className='text-lg sm:text-2xl' color='white'/>
 		</button>

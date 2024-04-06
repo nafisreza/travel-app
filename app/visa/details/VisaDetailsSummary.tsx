@@ -71,7 +71,7 @@ interface VisaEntryTypeSelectProps {
 
 const VisaEntryTypeSelect: React.FC<VisaEntryTypeSelectProps> = ({
 	activeEntryType,
-	onEntryTypeSelect, // Add this prop
+	onEntryTypeSelect, 
 }) => {
 	const [optionsClone, setOptionsClone] = useState<entryType[]>(entryTypes);
 	const [selected, setSelected] = useState<entryType>(
@@ -259,7 +259,7 @@ const VisaDetailsSummary: React.FC<any> = () => {
 				</div>
 				<VisaEntryTypeSelect
 					activeEntryType={selectedEntryType?.name}
-					onEntryTypeSelect={handleEntryTypeSelect} // Pass the callback function
+					onEntryTypeSelect={handleEntryTypeSelect} 
 				/>
 				<Accordion
 					defaultOpen={true}

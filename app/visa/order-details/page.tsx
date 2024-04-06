@@ -1,7 +1,7 @@
 import { VisaDetails } from "@/components/flight/visa-details/visa-details"
 import App from "../../app"
 import ContainerMain from "@/components/container/main"
-import ResultOrSearch from "@/components/search-form/result-or-form"
+import ResultOrSearch from "@/components/search-form/VisaSearchSummary"
 import { CalendarSearch, Edit, Home2, Truck, User } from "iconsax-react"
 import Home from "@/app/page"
 

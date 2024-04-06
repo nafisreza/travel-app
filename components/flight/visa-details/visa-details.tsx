@@ -1,16 +1,16 @@
 'use client';
 
 import { setNationality, setVisaCountry } from '@/app/store/locationActions';
-import { setVisaType } from '@/app/store/visaTypeActions';
+import { setVisaTypes } from '@/app/store/visaTypeActions';
 import { ClockIcon } from '@heroicons/react/20/solid';
 import { FaArrowsAltH } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const VisaDetails: React.FC = () => {
-	const visaType = useSelector((state: any) => state.visaType.visaType);
-	const { visaCountry, nationality } = useSelector(
-		(state: any) => state.location,
-	);
+	const visaCountry = useSelector((state) => state.location.visaCountry);
+    const nationality = useSelector((state) => state.location.nationality);
+    const visaType = useSelector((state) => state.visaType.visaTypes);
+
 	const dispatch = useDispatch();
 
 	const handleVisaCountryChange = (location: any) => {
@@ -34,7 +34,7 @@ export const VisaDetails: React.FC = () => {
 				/>
 				<div className='space-y-1'>
 					<h5 className='text-base font-semibold'>Thynk Travels</h5>
-					<p className='text-sm'>{visaType}</p>
+					<p className='text-sm'>{visaType[0]?.title || 'N/A'}</p>
 				</div>
 			</figure>
 			<div className='flex gap-8'>
@@ -42,7 +42,7 @@ export const VisaDetails: React.FC = () => {
 					<div className='w-full space-y-1 text-start'>
 						<p className='text-xs text-gray-400'>Visa Country</p>
 						<h5 className='text-md font-semibold'>
-							{visaCountry.country}
+							{visaCountry?.title || 'N/A'}
 						</h5>
 						<p className='text-sm flex items-center gap-3 whitespace-nowrap'>
 							<ClockIcon className='w-5' />
@@ -55,9 +55,9 @@ export const VisaDetails: React.FC = () => {
 					<div className='w-full space-y-1 text-end'>
 						<p className='text-xs text-gray-400'>Nationality</p>
 						<h5 className='text-md font-semibold'>
-							{nationality.country}
+						{nationality?.title || 'N/A'}
 						</h5>
-						<p className=' text-sm'>AED</p>
+						<p className=' text-sm'>{nationality?.iso2 || 'N/A'}</p>
 					</div>
 				</div>
 			</div>

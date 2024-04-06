@@ -22,7 +22,7 @@ const Page: React.FC<Props> = () => {
                     <div className="lg:col-span-2 p-4 md:p-8 rounded-xl bg-white shadow">
                         <div className="w-full rounded-lg text-center">
                             <div className="w-full space-y-6 lg:space-y-10">
-                                <SelectCountry />
+                                {/* <SelectCountry /> */}
                                 <div className="w-full flex items-center max-w-md mx-auto">
                                     <div className="w-full h-[1px] bg-gray-300"></div>
                                     <div className="px-2 whitespace-nowrap text-gray-500">Or, Enter traveler details below</div>
@@ -34,7 +34,7 @@ const Page: React.FC<Props> = () => {
                                     </div>
                                     <div className="relative">
                                         <div className="w-full rounded-lg border bg-white text-base text-body-color placeholder:text-gray-500 flex items-center gap-2">
-                                            <SelectPhoneCode />
+                                            {/* <SelectPhoneCode /> */}
                                             <input type="text" placeholder="Phone" name="phone" className="h-full w-full py-3 lg:py-4 outline-none focus-visible:shadow-none" required />
                                         </div>
                                     </div>

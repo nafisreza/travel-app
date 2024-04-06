@@ -23,9 +23,14 @@ interface VisaSelectProps {
   activeVisa?: string;
 }
 
+interface VisaType {
+  id: string;
+  title: string;
+}
+
 const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
-  const [options, setOptions] = useState<string[]>([]);
-  const [selected, setSelected] = useState<string | null>(activeVisa || null);
+  const [options, setOptions] = useState<VisaType[]>([]);
+  const [selected, setSelected] = useState<VisaType | null>(null);
   const [focused, setFocused] = useState<boolean>(false);
   const searchInput = useRef<HTMLInputElement | null>(null);
   const selectWrapper = useRef<HTMLInputElement | null>(null);
@@ -33,9 +38,6 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   const dispatch = useDispatch();
   const visaCountry = useSelector((state: any) => state.location.visaCountry);
   const nationality = useSelector((state: any) => state.location.nationality);
-
-  console.log('Visa Country:', visaCountry);
-  console.log('Nationality:', nationality);
 
   useEffect(() => {
     const fetchVisaTypes = async () => {
@@ -52,8 +54,12 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
           }
         );
         if (response.data && response.data.payload && response.data.payload.length > 0) {
-          setOptions(response.data.payload.map((visaType: any) => visaType.title));
-          dispatch(setVisaTypes(response.data.payload));
+          setOptions(response.data.payload);
+          if (!activeVisa) {
+            setSelected(response.data.payload[0]);
+          }
+        } else {
+          console.error("Empty response data or data not in expected format");
         }
       } catch (error) {
         console.error('Error fetching visa types:', error);
@@ -63,10 +69,11 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
     fetchVisaTypes();
   }, [visaCountry, nationality, dispatch]);
 
-  const handleSelect = (visaType: string) => {
+  const handleSelect = (visaType: VisaType) => {
     setSelected(visaType);
+    dispatch(setVisaTypes([visaType])); // Dispatching selected visa type to Redux store
     setFocused(false);
-  };
+};
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     if (!event.target.value) {
@@ -75,7 +82,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
     }
     const searchValue = event.target.value.toLowerCase();
     setOptions(
-      options.filter((typeOfVisa: string) => typeOfVisa.toLowerCase().includes(searchValue))
+      options.filter((typeOfVisa: VisaType) => typeOfVisa.title.toLowerCase().includes(searchValue))
     );
   }
 
@@ -117,7 +124,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
             </div>
             <div className='border-l pl-3 text-start'>
               <h5 className='text-sm font-medium'>
-                {selected || 'Select Visa Type'}
+                {selected ? selected.title : 'Select Visa Type'}
               </h5>
               <p className='text-xs text-gray-400 text-light'>
                 Visa Type
@@ -128,7 +135,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
         {focused && (
           <div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]'>
             <ul>
-              {options.map((typeOfVisa: string, index) => (
+              {options.map((typeOfVisa: VisaType, index) => (
                 <li
                   key={index}
                   className={`
@@ -142,7 +149,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
                     <BsPassport />
                   </div>
                   <div className='border-l pl-3'>
-                    <Option typeOfVisa={typeOfVisa} />
+                    <Option typeOfVisa={typeOfVisa.title} />
                   </div>
                 </li>
               ))}

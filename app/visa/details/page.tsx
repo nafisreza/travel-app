@@ -4,7 +4,7 @@ import { VisaDetails } from "@/components/flight/visa-details/visa-details";
 import App from "../../app";
 import ContainerMain from "@/components/container/main";
 import Link from "next/link";
-import ResultOrSearch from "@/components/search-form/result-or-form";
+import ResultOrSearch from "@/components/search-form/VisaSearchSummary";
 import Accordion from "./Accordion";
 import { useState } from "react";
 import { LocationProvider } from "@/app/contexts/LocationContext";

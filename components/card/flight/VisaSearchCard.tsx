@@ -37,7 +37,7 @@ export default function VisaSearchCard() {
                     <h3 className='text-lg font-semibold p-4 border-b'>Filter</h3>
                     <div className="flex flex-col items-center gap-6 px-4 lg:px-6 py-8">
                         <RangeSlider />
-                        <div className="w-full"><SelectCountry /></div>
+                        {/* <div className="w-full"><SelectCountry /></div> */}
                         <button type="submit" className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center gap-2">Modify</button>
                     </div>
                 </form>
