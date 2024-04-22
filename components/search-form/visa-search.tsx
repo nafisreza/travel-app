@@ -10,6 +10,7 @@ import { FormBox, SearchButton } from './flight-search';
 import { SwapButton } from './swap-button';
 import VisaCountrySelect from '@/app/visa/input/VisaCountrySelect';
 import NationalitySelect from '@/app/visa/input/NationalitySelect';
+import { useSearchParams } from 'next/navigation'; 
 
 export const OneWay = () => {
 	const activeVisaType = useSelector((state: any) => state.visaType.visaType);
@@ -37,12 +38,27 @@ export default function VisaSearch() {
 		settravellers(way);
 	}
 
+	
 	const router = useRouter();
 
+    const visaCountry = useSelector((state: any) => state.location.visaCountry);
+    const nationality = useSelector((state: any) => state.location.nationality);
+    const visaType = useSelector((state: any) => state.visaType.visaTypes); 
+
+	const searchParams = useSearchParams()
+	 
+	const search = searchParams.get('search')
+
+	console.log(search)
+
+
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-		router.push('/visa/search-results');
-	}
+        e.preventDefault();
+
+        const queryString = `?country=${visaCountry?.title}&nationality=${nationality?.title}&category=${visaType[0].title}`;
+
+        router.push(`/visa/search-results${queryString}`);
+    }
 
 	return (
 		<div className='max-w-screen-xl mx-auto+ space-y-2'>
