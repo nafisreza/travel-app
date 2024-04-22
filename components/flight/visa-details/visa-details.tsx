@@ -5,36 +5,28 @@ import { setVisaTypes } from '@/app/store/visaTypeActions';
 import { ClockIcon } from '@heroicons/react/20/solid';
 import { FaArrowsAltH } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { HiMiniCurrencyDollar } from "react-icons/hi2";
 
-export const VisaDetails: React.FC = () => {
+interface VisaDetailsProps {
+	visaDetails: any;
+  }
+
+export const VisaDetails: React.FC<VisaDetailsProps> = ({ visaDetails }) => {
 	const visaCountry = useSelector((state) => state.location.visaCountry);
     const nationality = useSelector((state) => state.location.nationality);
     const visaType = useSelector((state) => state.visaType.visaTypes);
 
-	const dispatch = useDispatch();
-
-	const handleVisaCountryChange = (location: any) => {
-		dispatch(setVisaCountry(location));
-	};
-
-	const handleNationalityChange = (location: any) => {
-		dispatch(setNationality(location));
-	};
-
-	const handleVisaTypeChange = (visaType: any) => {
-		dispatch(setVisaType(visaType));
-	};
 	return (
 		<div className='flex flex-wrap justify-between items-center bg-white text-gray-800 rounded-xl'>
 			<figure className='flex gap-3 items-center'>
-				<img
-					src='/assets/images/flight.png'
+				{visaDetails && <img
+					src='https://www.telegraph.co.uk/content/dam/Travel/Destinations/Asia/Singapore/garden-in-the-city-singapore.jpg?imwidth=680'
 					alt='profile'
-					className='w-20 md:w-20 h-20 md:h-24 object-cover'
-				/>
+					className='w-14 h-14 object-cover'
+				/>}
 				<div className='space-y-1'>
-					<h5 className='text-base font-semibold'>Thynk Travels</h5>
-					<p className='text-sm'>{visaType[0]?.title || 'N/A'}</p>
+					<h5 className='text-base font-semibold'>{visaType[0]?.title || 'N/A'}</h5>
+					<p className='text-sm'>Single Entry</p>
 				</div>
 			</figure>
 			<div className='flex gap-8'>
@@ -46,7 +38,7 @@ export const VisaDetails: React.FC = () => {
 						</h5>
 						<p className='text-sm flex items-center gap-3 whitespace-nowrap'>
 							<ClockIcon className='w-5' />
-							GMT +8
+							{visaDetails.detail.timezone}
 						</p>
 					</div>
 					<div>
@@ -57,7 +49,10 @@ export const VisaDetails: React.FC = () => {
 						<h5 className='text-md font-semibold'>
 						{nationality?.title || 'N/A'}
 						</h5>
-						<p className=' text-sm'>{nationality?.iso2 || 'N/A'}</p>
+						<p className='text-sm flex items-center justify-end gap-2 whitespace-nowrap'>
+							<HiMiniCurrencyDollar  size='20'/>
+							{visaDetails.detail.currency}
+						</p>
 					</div>
 				</div>
 			</div>
