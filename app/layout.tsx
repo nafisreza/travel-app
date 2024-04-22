@@ -1,13 +1,21 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Poppins, Noto_Sans_Bengali } from 'next/font/google'
 import './globals.css'
 import Head from 'next/head'
 import { NextAuthProvider } from './Provider';
+
 
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poppins',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
+
+const NotoSansBengali = Noto_Sans_Bengali({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-notosansbengali',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
 
