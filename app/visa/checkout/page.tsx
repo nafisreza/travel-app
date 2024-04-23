@@ -6,19 +6,30 @@ import { SelectCountry } from "@/components/input/select/CountrySelect"
 import SelectPhoneCode from "@/components/input/select/SelectPhoneCode"
 import { IoWalletSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
 
 type Props = {}
 
 const Page: React.FC<Props> = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const count = searchParams.get('count') || '1';
+    const totalFee = searchParams.get('totalFee') || '0';
+
+    const vat = parseInt(totalFee) * 0.05
+    const deliveryFee = 150
+
+    const payableAmount = parseInt(totalFee) + vat + deliveryFee
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        router.replace('/visa/order-details');
+    };
 
     return (
         <App>
             <ContainerMain className="">
-                <form className="grid lg:grid-cols-3 gap-8 items-start" onSubmit={(e: any) => {
-                    e.preventDefault();
-                    router.replace('/visa/order-details');
-                }}>
+                <form className="grid lg:grid-cols-3 gap-8 items-start" onSubmit={handleSubmit}>
                     <div className="lg:col-span-2 p-4 md:p-8 rounded-xl bg-white shadow">
                         <div className="w-full rounded-lg text-center">
                             <div className="w-full space-y-6 lg:space-y-10">
@@ -67,20 +78,20 @@ const Page: React.FC<Props> = () => {
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-900 font-medium">
                                     <tbody>
                                         <tr className="">
-                                            <td className="py-2 whitespace-nowrap">1x Single Entry Visa</td>
-                                            <td className="py-2 text-end">BDT 4800</td>
+                                        <td className="py-2 whitespace-nowrap">{count}x Single Entry Visa</td>
+                                            <td className="py-2 text-end">BDT {totalFee}</td>
                                         </tr>
                                         <tr className="">
                                             <td className="py-2 whitespace-nowrap">Courier Charge</td>
-                                            <td className="py-2 text-end">BDT 150</td>
+                                            <td className="py-2 text-end">BDT {deliveryFee}</td>
                                         </tr>
                                         <tr className="">
                                             <td className="py-2 whitespace-nowrap">VAT 5%</td>
-                                            <td className="py-2 text-end">BDT 120</td>
+                                            <td className="py-2 text-end">BDT {vat}</td>
                                         </tr>
                                         <tr className="">
                                             <td className="py-2 font-bold whitespace-nowrap">Total</td>
-                                            <td className="py-2 font-bold text-end">BDT 5200</td>
+                                            <td className="py-2 font-bold text-end">BDT {payableAmount}</td>
                                         </tr>
                                     </tbody>
                                 </table>

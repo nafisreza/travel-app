@@ -312,6 +312,8 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Accordion from './Accordion';
+// import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const Counter = ({
 	onCountChange,
@@ -391,9 +393,13 @@ const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) 
     setCount(newCount);
   };
 
-  useEffect(() => {
-    console.log(visaDetails); // Check the visaDetails object in the console
-  }, [visaDetails, count]);
+  const totalFee = parseFloat(visaDetails.payable.amount.replace(/[^\d.]/g, "")) 
+  
+  const navigateToCheckout = () => {
+	const router = useRouter();
+	const url = `/visa/checkout?count=${count}&totalFee=${totalFee}`;
+	router.push(url,{ scroll: false });
+  };
 
   return (
     <div className="bg-white rounded-xl shadow max-w-md">
@@ -415,15 +421,27 @@ const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) 
                 </ul>
                 <div className="w-auto">
                   <h2 className="text-xl font-semibold text-gray-700 whitespace-nowrap">
-				  {parseFloat(visaDetails.payable.amount.replace(/[^\d.]/g, "")) * count}
+				
+				  BDT { totalFee * count}
                   </h2>
                   <p className="text-sm font-medium text-gray-400 whitespace-nowrap">
                     Embassy Fee
                   </p>
                 </div>
               </div>
+			  
               <Link
-                href="/visa/checkout"
+			  href={
+				{
+				pathname: '/visa/checkout',
+				query: {
+					count: count,
+					totalFee: totalFee * count
+				}
+
+				}
+			  }
+				// onClick={navigateToCheckout}
                 className="items-center px-8 py-3 bg-green-500 font-medium gap-2 hover:bg-green-600 inline-flex rounded-lg text-center text-white"
                 type="submit"
               >
