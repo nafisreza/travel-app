@@ -1,9 +1,11 @@
+// HolidayCategorySelect.js
+
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react';
 import { GiPalmTree } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setHolidayCategory } from '@/app/store/holidayCategoryActions';
+import { setCategory } from '../features/holiday/holidaySlice';
 
 export type OptionProps = {
   category: string;
@@ -20,14 +22,6 @@ export const Option: React.FC<OptionProps> = ({ category, active }) => {
   );
 };
 
-const holidayCategories: string[] = [
-  'Bachelor Trip',
-  'Adventure Tour',
-  'Beach Trip',
-  'Cultural Travel',
-  'Family Tour',
-];
-
 interface HolidayCategorySelectProps {
   activeCategory?: string;
 }
@@ -35,30 +29,60 @@ interface HolidayCategorySelectProps {
 const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
   activeCategory,
 }) => {
-  const [optionsClone, setOptionsClone] = useState<string[]>(holidayCategories);
+  const [options, setOptions] = useState<string[]>([]);
   const [focused, setFocused] = useState<boolean>(false);
   const searchInput = useRef<HTMLInputElement | null>(null);
   const selectWrapper = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useDispatch();
   const selectedHolidayCategory = useSelector(
-    (state: any) => state.holidayCategory.holidayCategory,
+    (state: any) => state.holiday.category,
   );
 
-  function handleSelect(category: string) {
-    dispatch(setHolidayCategory(category));
+  const departure = useSelector((state) => state.holiday.departure);
+  const destination = useSelector((state) => state.holiday.destination);
+
+  const URL = `https://holiday.guideasy.com/api/v1/client-management/trips?filter[departure]=${departure?.id}&filter[destination]=${destination?.id}`
+
+  async function fetchCategories() {
+    try {
+      const response = await fetch(URL, {
+        headers: {
+          Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Accept-Language": "en",
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        const categories = data.payload;
+        setOptions(categories);
+      } else {
+        // Handle error
+        console.error('Failed to fetch categories:', data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, [departure, destination]);
+
+  function handleSelect(category: any) {
+    dispatch(setCategory(category)); // Dispatch the entire category object
     setFocused(false);
   }
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!event.target.value) {
-      setOptionsClone(holidayCategories);
-      return;
-    }
     const searchValue = event.target.value.toLowerCase();
-    setOptionsClone(
-      holidayCategories.filter((category: string) =>
-        category.toLowerCase().includes(searchValue),
+    setOptions(
+      options.filter((category: any) =>
+        category.title.toLowerCase().includes(searchValue),
       ),
     );
   }
@@ -98,7 +122,7 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
               <GiPalmTree />
             </div>
             <div className="border-l pl-3 text-start">
-              <h5 className="text-sm font-medium">{selectedHolidayCategory}</h5>
+              <h5 className="text-sm font-medium">{selectedHolidayCategory ? selectedHolidayCategory.title : 'Select a category'}</h5>
               <p className="text-xs text-gray-400 text-light">
                 Category
               </p>
@@ -108,7 +132,7 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
         {focused && (
           <div className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]">
             <ul>
-              {optionsClone.map((category: string, index) => (
+              {options.map((category: any, index) => (
                 <li
                   key={index}
                   className={`
@@ -124,7 +148,7 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
                     <GiPalmTree />
                   </div>
                   <div className="border-l pl-3">
-                    <Option category={category} />
+                    <Option category={category.title} />
                   </div>
                 </li>
               ))}

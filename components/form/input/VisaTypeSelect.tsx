@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPassport } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setVisaTypes } from '@/app/store/visaTypeActions';
+import { setVisaTypes } from '@/app/features/visa/visaSlice';
 
 export type OptionProps = {
   typeOfVisa: string;
@@ -36,8 +36,8 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   const selectWrapper = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useDispatch();
-  const visaCountry = useSelector((state: any) => state.location.visaCountry);
-  const nationality = useSelector((state: any) => state.location.nationality);
+  const visaCountry = useSelector((state) => state.visa.visaCountry);
+  const nationality = useSelector((state) => state.visa.nationality);
 
   useEffect(() => {
     const fetchVisaTypes = async () => {

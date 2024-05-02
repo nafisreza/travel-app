@@ -6,6 +6,7 @@ import { OnlyChildrenProps } from './layout'
 import { useState } from 'react'
 import { LocationProvider } from './contexts/LocationContext'
 import { Provider } from 'react-redux';
+// import store from './store-old/store'
 import store from './store/store'
 
 export default function App({ children }: OnlyChildrenProps) {

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNationality } from "@/app/features/visa/visaSlice";
+import { setDeparture } from "../features/holiday/holidaySlice";
 import axios from "axios";
 
 export type OptionProps = {
@@ -36,16 +36,15 @@ export interface Country {
   iso2: string;
 }
 
-const NationalitySelect: React.FC<any> = ({
+const HolidayDepartureSelect: React.FC<any> = ({
   type,
   activeLocation,
 }) => {
-  const dispatch = useDispatch();
   const [options, setOptions] = useState<Country[]>([]);
   const [selected, setSelected] = useState<Country | null>(activeLocation || null);
   const [focused, setFocused] = useState<boolean>(false);
 
-  const URL = "http://endorse.guideasy.com/api/v1/client-management/nationalities";
+  const URL = "https://holiday.guideasy.com/api/v1/client-management/departures";
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -74,10 +73,12 @@ const NationalitySelect: React.FC<any> = ({
     fetchCountries();
   }, [activeLocation]);
 
+  const dispatch = useDispatch();
+
   const handleSelect = (location: Country) => {
     setSelected(location);
     setFocused(false);
-    dispatch(setNationality(location));
+    dispatch(setDeparture(location));
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +129,7 @@ const NationalitySelect: React.FC<any> = ({
             <div className="border-l pl-3 text-start">
               <h5 className="text-sm font-medium ">{selected?.title}</h5>
               <p className="text-xs text-gray-400 text-light">
-                Nationality
+                Departure
               </p>
             </div>
           </label>
@@ -160,4 +161,4 @@ const NationalitySelect: React.FC<any> = ({
   );
 };
 
-export default NationalitySelect;
+export default HolidayDepartureSelect;

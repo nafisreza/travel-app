@@ -1,9 +1,9 @@
 import { ClockIcon } from '@heroicons/react/20/solid';
 import { FaArrowsAltH } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFrom, setTo } from '@/app/store/locationActions'
-import { setHolidayCategory } from '@/app/store/holidayCategoryActions';
-import { RootState } from '@/app/store/store';
+import { setFrom, setTo } from '@/app/store-old/locationActions'
+import { setHolidayCategory } from '@/app/store-old/holidayCategoryActions';
+import { RootState } from '@/app/store-old/store';
 
 export const HolidayDetails: React.FC = () => {
     const { from, to } = useSelector((state: RootState) => state.location);

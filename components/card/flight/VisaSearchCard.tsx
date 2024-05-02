@@ -5,12 +5,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export type Props = { link?: string };
+export type Props = { link?: string, visa?: any };
 
 export const CardItem: React.FC<Props> = ({ link, visa }) => {
+  const packageId = visa.id;
+  const productId = visa.products[0].id; 
   return (
     <Link
-      href={link || "details"}
+    href={
+      {
+      pathname: '/visa/details',
+      query: {
+        packageId: packageId,
+        productId: productId
+      }
+      }
+      }
       className="flex flex-wrap justify-between items-center p-4 bg-white text-gray-800 rounded-xl space-y-3 md:space-y-6 shadow"
     >
       <div className="flex justify-center items-center gap-4">
@@ -47,15 +57,16 @@ export default function VisaSearchCard() {
   const [visas, setVisas] = useState([]);
 
   const dispatch = useDispatch();
-  const visaCountry = useSelector((state: any) => state.location.visaCountry);
-  const nationality = useSelector((state: any) => state.location.nationality);
-  const visaType = useSelector((state) => state.visaType.visaTypes); 
-  console.log(visaType[0]?.id)
+  const visaCountry = useSelector((state) => state.visa.visaCountry);
+  const nationality = useSelector((state) => state.visa.nationality);
+  const visaType = useSelector((state) => state.visa.visaTypes);
+
 
   useEffect(() => {
     const fetchVisas = async () => {
       try {
-        const response = await axios.get(`http://endorse.guideasy.com/api/v1/client-management/packages?[country]=${visaCountry?.id || ''}&filter[nationality]=${nationality?.id || ''}&filter[category]=${visaType[0]?.id || ''}&filter[entrance]=s`, {
+        if (!visaCountry || !visaType.length) return;
+        const response = await axios.get(`http://endorse.guideasy.com/api/v1/client-management/packages?filter[country]=${visaCountry?.id}&filter[nationality]=${nationality?.id}&filter[category]=${visaType[0]?.id}&filter[entrance]=s`, {
           headers: {
             Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
             Accept: "application/json",
@@ -67,13 +78,18 @@ export default function VisaSearchCard() {
           },
         });
         setVisas(response.data.payload ? [response.data.payload] : []);
+        // console.log('payload', response.data.payload)
+        // console.log('visaCountry ID:', visaCountry?.id);
+        // console.log('Nationality ID:', nationality?.title);
+        // console.log('Visa Type ID:', visaType[0]?.title);
       } catch (error) {
         console.error("Error fetching visas:", error);
       }
     };
-
+  
     fetchVisas();
-  }, []);
+  }, [visaCountry]);
+  
 
   return (
     <section className="space-y-2">

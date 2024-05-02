@@ -8,13 +8,13 @@ export const setVisaCountry = (location: any) => ({
 	payload: location,
   });
   
-  export const setFrom = (location: any) => ({
-	type: 'SET_FROM',
+  export const setDeparture = (location: any) => ({
+	type: 'SET_DEPARTURE',
 	payload: location,
   });
   
-  export const setTo = (location: any) => ({
-	type: 'SET_TO',
+  export const setDestination = (location: any) => ({
+	type: 'SET_DESTINATION',
 	payload: location,
   });
   

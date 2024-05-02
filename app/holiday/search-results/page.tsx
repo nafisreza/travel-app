@@ -13,7 +13,7 @@ type Props = {}
 const Page: React.FC<Props> = () => {
     return (
         <App>
-            <HolidaySearchBar/>
+            {/* <HolidaySearchBar/> */}
             <ContainerMain className="space-y-8">
                 <HolidaySearchResults />
             </ContainerMain>

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNationality } from "@/app/features/visa/visaSlice";
+import { setDestination } from "../features/holiday/holidaySlice";
 import axios from "axios";
 
 export type OptionProps = {
@@ -36,16 +36,18 @@ export interface Country {
   iso2: string;
 }
 
-const NationalitySelect: React.FC<any> = ({
+const HolidayDestinationSelect: React.FC<any> = ({
   type,
   activeLocation,
 }) => {
-  const dispatch = useDispatch();
   const [options, setOptions] = useState<Country[]>([]);
   const [selected, setSelected] = useState<Country | null>(activeLocation || null);
   const [focused, setFocused] = useState<boolean>(false);
 
-  const URL = "http://endorse.guideasy.com/api/v1/client-management/nationalities";
+  const departure = useSelector((state) => state.holiday.departure)
+  const dispatch = useDispatch();
+
+  const URL = `https://holiday.guideasy.com/api/v1/client-management/destinations?filter[departure]=${departure?.id}`;
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -72,12 +74,14 @@ const NationalitySelect: React.FC<any> = ({
     };
 
     fetchCountries();
-  }, [activeLocation]);
+  }, [departure, dispatch]);
+
+
 
   const handleSelect = (location: Country) => {
     setSelected(location);
     setFocused(false);
-    dispatch(setNationality(location));
+    dispatch(setDestination(location));
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +132,7 @@ const NationalitySelect: React.FC<any> = ({
             <div className="border-l pl-3 text-start">
               <h5 className="text-sm font-medium ">{selected?.title}</h5>
               <p className="text-xs text-gray-400 text-light">
-                Nationality
+                Destination
               </p>
             </div>
           </label>
@@ -160,4 +164,4 @@ const NationalitySelect: React.FC<any> = ({
   );
 };
 
-export default NationalitySelect;
+export default HolidayDestinationSelect;

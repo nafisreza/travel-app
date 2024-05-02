@@ -1,25 +1,37 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setFrom, setTo } from '../store/locationActions';
 import HolidayCategorySelect from './HolidayCategory';
 import { FormBox, SearchButton } from '@/components/search-form/flight-search';
 import { SwapButton } from '@/components/search-form/swap-button';
-import LocationSelect from '@/components/form/input/LocationSelect';
+import HolidayDepartureSelect from './HolidayDepartureSelect';
+import HolidayDestinationSelect from './HolidayDestinationSelect';
+import { useSelector } from 'react-redux';
 
 export default function HolidaySearch() {
+  const departure = useSelector((state) => state.holiday.departure)
+  const destination = useSelector((state) => state.holiday.destination)
+  const category = useSelector((state) => state.holiday.category)
+
+  const departureId = departure.id
+  const destinationId = destination.id
+  const categoryId = category.id
+
+  console.log(departureId)
+  console.log(destinationId)
+  console.log(categoryId)
+  
   const router = useRouter();
-  const dispatch = useDispatch();
-
-  const [fromLocation, setFromLocation] = useState<any>(null);
-  const [toLocation, setToLocation] = useState<any>(null);
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push('/holiday/search-results');
+    const queryParams = new URLSearchParams({
+      departureId: departureId,
+      destinationId: destinationId,
+      categoryId: categoryId
+    });
+    router.push(`/holiday/search-results/?${queryParams.toString()}`);
   }
+
 
   return (
     <div className='max-w-screen-xl mx-auto+ space-y-2'>
@@ -27,10 +39,10 @@ export default function HolidaySearch() {
         <div className='z-[1]'>
           <FormBox>
             <div className='w-full relative flex items-center'>
-              <LocationSelect type='from' onSelect={(location: any) => dispatch(setFrom(location))} />
+              <HolidayDepartureSelect/>
               <SwapButton />
             </div>
-            <LocationSelect type='to' onSelect={(location: any) => dispatch(setTo(location))} />
+              <HolidayDestinationSelect/>
             <HolidayCategorySelect />
             <SearchButton />
           </FormBox>

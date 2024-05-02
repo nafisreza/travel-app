@@ -7,7 +7,7 @@ import {
   setVisaCountry,
   setFrom,
   setTo,
-} from "@/app/store/locationActions";
+} from "@/app/store-old/locationActions";
 import axios from "axios";
 
 export type OptionProps = {

@@ -5,8 +5,8 @@ import LocationSelect from '../form/input/LocationSelect';
 import MUIDatePicker from '../form/input/mui-date-picker';
 import { SwapButton } from '../search-form/swap-button';
 
-import { setNationality, setVisaCountry } from '@/app/store/locationActions';
-import { setVisaTypes } from '@/app/store/visaTypeActions';
+import { setNationality, setVisaCountry } from '@/app/store-old/locationActions';
+import { setVisaTypes } from '@/app/store-old/visaTypeActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const travellers = [
@@ -97,9 +97,9 @@ export const MultiTrip = () => {
 };
 
 export default function VisaResultForm({ openModifyForm }) {
-    const visaCountry = useSelector((state) => state.location.visaCountry);
-    const nationality = useSelector((state) => state.location.nationality);
-    const visaType = useSelector((state) => state.visaType.visaTypes);
+  const visaCountry = useSelector((state) => state.visa.visaCountry);
+  const nationality = useSelector((state) => state.visa.nationality);
+  const visaType = useSelector((state) => state.visa.visaTypes);
     const dispatch = useDispatch();
   
     const handleSearch = () => {

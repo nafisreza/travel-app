@@ -7,6 +7,9 @@ import SelectPhoneCode from "@/components/input/select/SelectPhoneCode"
 import { IoWalletSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PaymentGateway from './PaymentGateway'
 
 type Props = {}
 
@@ -15,6 +18,9 @@ const Page: React.FC<Props> = () => {
     const searchParams = useSearchParams();
     const count = searchParams.get('count') || '1';
     const totalFee = searchParams.get('totalFee') || '0';
+
+    const packageId = searchParams.get("packageId");
+    const productId = searchParams.get("productId"); 
 
     const vat = parseInt(totalFee) * 0.05
     const deliveryFee = 150
@@ -26,6 +32,38 @@ const Page: React.FC<Props> = () => {
         router.replace('/visa/order-details');
     };
 
+    const [bookingData, setBookingData] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchVisaBookingDetails = async () => {
+          try {
+            const response = await axios.get(
+              `http://endorse.guideasy.com/api/v1/client-management/packages/${packageId}/products/${productId}/bookings`,
+              {
+                headers: {
+                  Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  "Accept-Language": "en",
+                  'X-App-Latitude': 23.6101974,
+                  'X-App-Longitude': 90.4597919,
+                  'X-App-Currency': 'BDT'
+                },
+              }
+            );
+            setBookingData(response.data.payload);
+          } catch (error) {
+            console.error("Error fetching visas:", error);
+          }
+        };
+        fetchVisaBookingDetails();
+    }, []);
+
+
+    const travelers = bookingData?.travelers || [];
+
+    const priceId = bookingData?.prices.id;
+
     return (
         <App>
             <ContainerMain className="">
@@ -33,7 +71,17 @@ const Page: React.FC<Props> = () => {
                     <div className="lg:col-span-2 p-4 md:p-8 rounded-xl bg-white shadow">
                         <div className="w-full rounded-lg text-center">
                             <div className="w-full space-y-6 lg:space-y-10">
-                                {/* <SelectCountry /> */}
+                                
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                                    <div className="md:col-span-2 relative">
+                                        <select className="w-full rounded-lg border bg-white py-3 md:py-4 px-4 text-base text-body-color placeholder:text-gray-500 outline-none focus:border-primary focus-visible:shadow-none">
+                                            {travelers.map((traveler: any) => (
+                                                <option key={traveler.id} value={traveler.id}>{traveler.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div className="w-full flex items-center max-w-md mx-auto">
                                     <div className="w-full h-[1px] bg-gray-300"></div>
                                     <div className="px-2 whitespace-nowrap text-gray-500">Or, Enter traveler details below</div>
@@ -106,11 +154,8 @@ const Page: React.FC<Props> = () => {
                                 <div className="px-2 whitespace-nowrap text-gray-500">with 2% extra gateway charge</div>
                                 <div className="w-full h-[1px] bg-gray-300"></div>
                             </div>
-                            <div className="w-full flex items-center">
-                                <img className="w-16 h-12 rounded-md max-w-xs mx-auto object-contain border p-2" src="/assets/images/payment-gateways/bkash.png" alt="payment" />
-                                <img className="w-16 h-12 rounded-md max-w-xs mx-auto object-contain border p-2" src="/assets/images/payment-gateways/nagad.png" alt="payment" />
-                                <img className="w-16 h-12 rounded-md max-w-xs mx-auto object-contain border p-2" src="/assets/images/payment-gateways/citybank.png" alt="payment" />
-                                <img className="w-16 h-12 rounded-md max-w-xs mx-auto object-contain border p-2" src="/assets/images/payment-gateways/dbbl.png" alt="payment" />
+                            <div className="w-full flex flex-col justify-center items-center">
+                                <PaymentGateway priceId={priceId}/>
                             </div>
                         </div>
                     </div>
@@ -121,3 +166,4 @@ const Page: React.FC<Props> = () => {
 }
 
 export default Page
+

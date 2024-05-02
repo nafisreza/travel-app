@@ -1,8 +1,8 @@
 const initialState = {
 	visaCountry: null,
 	nationality: null,
-	from: null,
-	to: null,
+	departure: null,
+	destination: null,
   };
   
   const locationReducers = (state = initialState, action: any) => {
@@ -11,9 +11,9 @@ const initialState = {
 		return { ...state, visaCountry: action.payload };
 	  case 'SET_NATIONALITY':
 		return { ...state, nationality: action.payload };
-	  case 'SET_FROM':
+	  case 'SET_DEPARTURE':
 		return { ...state, from: action.payload };
-	  case 'SET_TO':
+	  case 'SET_DESTINATION':
 		return { ...state, to: action.payload };
 	  default:
 		return state;

@@ -384,9 +384,11 @@ export const Counter = ({
 
 interface VisaDetailsSummaryProps {
   visaDetails: any;
+  packageId: any;
+  productId: any;
 }
 
-const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) => {
+const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails, packageId, productId }) => {
   const [count, setCount] = useState<number>(1);
 
   const handleCountChange = (newCount: number) => {
@@ -395,11 +397,6 @@ const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) 
 
   const totalFee = parseFloat(visaDetails.payable.amount.replace(/[^\d.]/g, "")) 
   
-  const navigateToCheckout = () => {
-	const router = useRouter();
-	const url = `/visa/checkout?count=${count}&totalFee=${totalFee}`;
-	router.push(url,{ scroll: false });
-  };
 
   return (
     <div className="bg-white rounded-xl shadow max-w-md">
@@ -435,8 +432,11 @@ const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) 
 				{
 				pathname: '/visa/checkout',
 				query: {
+					packageId: packageId,
+					productId: productId,
 					count: count,
 					totalFee: totalFee * count
+
 				}
 
 				}

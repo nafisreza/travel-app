@@ -1,7 +1,7 @@
 'use client';
 
-import { setNationality, setVisaCountry } from '@/app/store/locationActions';
-import { setVisaTypes } from '@/app/store/visaTypeActions';
+import { setNationality, setVisaCountry } from '@/app/store-old/locationActions';
+import { setVisaTypes } from '@/app/store-old/visaTypeActions';
 import { ClockIcon } from '@heroicons/react/20/solid';
 import { FaArrowsAltH } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,9 +12,9 @@ interface VisaDetailsProps {
   }
 
 export const VisaDetails: React.FC<VisaDetailsProps> = ({ visaDetails }) => {
-	const visaCountry = useSelector((state) => state.location.visaCountry);
-    const nationality = useSelector((state) => state.location.nationality);
-    const visaType = useSelector((state) => state.visaType.visaTypes);
+	const visaCountry = useSelector((state) => state.visa.visaCountry);
+	const nationality = useSelector((state) => state.visa.nationality);
+	const visaType = useSelector((state) => state.visa.visaTypes);
 
 	return (
 		<div className='flex flex-wrap justify-between items-center bg-white text-gray-800 rounded-xl'>

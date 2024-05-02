@@ -7,13 +7,12 @@ import { SwapButton } from '../search-form/swap-button';
 import { useDispatch, useSelector } from 'react-redux';
 import VisaSearch from './visa-search';
 
-import { setNationality, setVisaCountry } from '@/app/store/locationActions';
-import { setVisaTypes } from '@/app/store/visaTypeActions';
+import { setNationality, setVisaCountry, setVisaTypes } from '@/app/features/visa/visaSlice';
 
 export default function VisaSearchSummary() {
-  const visaCountry = useSelector((state) => state.location.visaCountry);
-  const nationality = useSelector((state) => state.location.nationality);
-  const visaType = useSelector((state) => state.visaType.visaTypes); // Access selected visa type
+  const visaCountry = useSelector((state) => state.visa.visaCountry);
+  const nationality = useSelector((state) => state.visa.nationality);
+  const visaType = useSelector((state) => state.visa.visaTypes);
   const dispatch = useDispatch();
 
   const handleSearch = () => {

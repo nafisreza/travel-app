@@ -2,7 +2,7 @@ import React from "react";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import LocationSelect from "../form/input/LocationSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { setFrom, setTo } from "@/app/store/locationActions";
+import { setFrom, setTo } from "@/app/store-old/locationActions";
 import { IoSearch } from "react-icons/io5";
 
 export const SearchButton = () => (

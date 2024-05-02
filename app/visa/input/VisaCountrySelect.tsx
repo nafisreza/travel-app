@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setVisaCountry,
-} from "@/app/store/locationActions";
+import { setVisaCountry } from "@/app/features/visa/visaSlice";
 import axios from "axios";
 
 export type OptionProps = {

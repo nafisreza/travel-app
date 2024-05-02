@@ -8,6 +8,7 @@ import VisaDetailsMap from "./VisaDetailsMap";
 import VisaDetailsSummary from "./VisaDetailsSummary";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
 
 export type PageProps = {};
@@ -15,11 +16,17 @@ export type PageProps = {};
 const Page: React.FC<PageProps> = () => {
   const [visaDetails, setVisaDetails] = useState<any>(null);
 
+  const searchParams = useSearchParams();
+  const packageId = searchParams.get("packageId");
+  const productId = searchParams.get("productId"); 
+
+  console.log(packageId, productId)
+
   useEffect(() => {
     const fetchVisaDetails = async () => {
       try {
         const response = await axios.get(
-          `http://endorse.guideasy.com/api/v1/client-management/packages/9aedbe05-ffe8-42f9-a1df-d0982b605845/products/9aedb861-2ca1-47db-b02d-a630351bcb36`,
+          `http://endorse.guideasy.com/api/v1/client-management/packages/${packageId}/products/${productId}`,
           {
             headers: {
               Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
@@ -40,6 +47,22 @@ const Page: React.FC<PageProps> = () => {
 
     fetchVisaDetails();
   }, []);
+
+  console.log("Roni bhai")
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position)=> {
+        console.log(position)
+        console.log(position.coords.latitude)
+        console.log(position.coords.longitude)
+      });
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  getLocation()
 
   return (
     <App>
@@ -65,7 +88,7 @@ _{
     </div>
     <VisaDetailsMap visaDetails={visaDetails} />
   </div>
-  <VisaDetailsSummary visaDetails={visaDetails}/>
+  <VisaDetailsSummary visaDetails={visaDetails} packageId={packageId} productId={productId}/>
 </ContainerMain>
 }
     </App>

@@ -13,7 +13,6 @@ import NationalitySelect from '@/app/visa/input/NationalitySelect';
 import { useSearchParams } from 'next/navigation'; 
 
 export const OneWay = () => {
-	const activeVisaType = useSelector((state: any) => state.visaType.visaType);
 	return (
 		<FormBox>
 			<div className='w-full relative flex items-center'>
@@ -41,9 +40,9 @@ export default function VisaSearch() {
 	
 	const router = useRouter();
 
-    const visaCountry = useSelector((state: any) => state.location.visaCountry);
-    const nationality = useSelector((state: any) => state.location.nationality);
-    const visaType = useSelector((state: any) => state.visaType.visaTypes); 
+	const visaCountry = useSelector((state) => state.visa.visaCountry);
+	const nationality = useSelector((state) => state.visa.nationality);
+	const visaType = useSelector((state) => state.visa.visaTypes);
 
 	const searchParams = useSearchParams()
 	 
