@@ -1,8 +1,6 @@
 import React from "react";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import LocationSelect from "../form/input/LocationSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { setFrom, setTo } from "@/app/store-old/locationActions";
 import { IoSearch } from "react-icons/io5";
 
 export const SearchButton = () => (
@@ -16,31 +14,19 @@ export const SearchButton = () => (
   </div>
 );
 
-export const OneWay = () => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-3">
-      <LocationSelect type="from" />
-      <LocationSelect type="to" />
-      <MUIDatePicker />
-      <SearchButton />
-    </div>
-  );
-};
-
 export default function HolidayResultForm({ openSearchForm }) {
-  const { from, to } = useSelector((state) => state.location);
-  const holidayCategory = useSelector(
-    (state) => state.holidayCategory.holidayCategory
-  ); // Add this line to get holiday category
-  const dispatch = useDispatch();
+    const departure = useSelector((state) => state.holiday.departure);
+    const destination = useSelector((state) => state.holiday.destination);
+    const category = useSelector((state) => state.holiday.category); 
+    const dispatch = useDispatch();
 
-  const handleFromChange = (location) => {
-    dispatch(setFrom(location));
-  };
+  // const handleFromChange = (location) => {
+  //   dispatch(setFrom(location));
+  // };
 
-  const handleToChange = (location) => {
-    dispatch(setTo(location));
-  };
+  // const handleToChange = (location) => {
+  //   dispatch(setTo(location));
+  // };
 
   return (
     <div className="space-y-2 bg-slate-100">
@@ -48,20 +34,20 @@ export default function HolidayResultForm({ openSearchForm }) {
       <div className='px-2 lg:px-4 py-3 flex gap-4 lg:gap-12'>
 					<div className='w-full p-2 text-start'>
 						<h5 className='font-medium whitespace-nowrap'>
-							{from.country}
+							{departure.title}
 						</h5>
 						<p className='text-xs text-gray-400'>From</p>
 					</div>
 					<FaArrowRightArrowLeft size='64' />
 					<div className='w-full p-2 text-start'>
 						<h5 className='font-medium whitespace-nowrap'>
-							{to.country}
+							{destination.title}
 						</h5>
 						<p className='text-xs text-gray-400'>To</p>
 					</div>
 					<div className='w-full p-2 text-start'>
 						<h5 className='font-medium whitespace-nowrap'>
-							{holidayCategory}
+							{category.title}
 						</h5>
 						<p className='text-xs text-gray-400'>Category</p>
 					</div>

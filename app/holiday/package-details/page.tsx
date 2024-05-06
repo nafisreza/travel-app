@@ -18,7 +18,6 @@ const Page: React.FC<PageProps> = () => {
       <ContainerMain className="grid lg:grid-cols-3 gap-8 items-start">
         <div className="lg:col-span-2 p-4 md:p-8 rounded-xl bg-white shadow-md space-y-6">
           <HolidayDetails/>
-          <HolidayTripPlan/>
         </div>
         <PackageDetailsSummary/>
       </ContainerMain>
