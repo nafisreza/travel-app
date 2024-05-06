@@ -16,18 +16,14 @@ export default function HolidaySearch() {
   const departureId = departure.id
   const destinationId = destination.id
   const categoryId = category.id
-
-  console.log(departureId)
-  console.log(destinationId)
-  console.log(categoryId)
   
   const router = useRouter();
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const queryParams = new URLSearchParams({
-      departureId: departureId,
-      destinationId: destinationId,
-      categoryId: categoryId
+      departure: departureId,
+      destination: destinationId,
+      category: categoryId
     });
     router.push(`/holiday/search-results/?${queryParams.toString()}`);
   }
