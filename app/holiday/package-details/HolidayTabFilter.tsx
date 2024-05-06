@@ -1,131 +1,68 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 
-const TripData = [
-  {
-    id: 1,
-    catalogue: "Private Transfer",
-    started: "10:00 PM",
-    title: "Airport to Hotel",
-    city: "Bangkok",
-    plan: "Stay in Hotel Radisson",
-    current: "BDT 3000",
-    selected: false,
-    category: "Transfers",
-    status: "R",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg/1200px-2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg",
-  },
-  {
-    id: 2,
-    catalogue: "Climbing",
-    started: "03:05 am",
-    title: "Day one starter",
-    city: "Cox's Bazar",
-    plan: "Himchari Fountain and Hill",
-    current: "BDT 2,475",
-    selected: false,
-    category: "Activities",
-    status: "R",
-    img: "https://cdn.bangladeshscenictours.com/wp-content/uploads/2019/11/Exploring-Coxs-Bazar.jpg",
-  },
-  {
-    id: 3,
-    catalogue: "Lunch Break",
-    started: "03:05 am",
-    title: "Day one starter",
-    city: "Cox's Bazar",
-    plan: "Himchari Fountain and Hill",
-    current: "BDT 2,475",
-    selected: false,
-    category: "Foods",
-    status: "R",
-    img: "https://www.forbes.com/health/wp-content/uploads/2022/08/workday_lunch_ideas.jpeg.jpg",
-  },
-  {
-    id: 4,
-    catalogue: "Bus Tour",
-    started: "03:05 am",
-    title: "Day one starter",
-    city: "Cox's Bazar",
-    plan: "Himchari Fountain and Hill",
-    current: "BDT 2,475",
-    selected: false,
-    category: "Transfer",
-    status: "R",
-    img: "https://cityredbus.com/wordpress/wp-content/uploads/CITY-TOUR-+-FICO-OPEN-BUS-2018.jpg",
-  },
-  {
-    id: 5,
-    catalogue: "Swimming",
-    started: "03:05 am",
-    title: "Day one starter",
-    city: "Cox's Bazar",
-    plan: "Himchari Fountain and Hill",
-    current: "BDT 2,475",
-    selected: false,
-    category: "Activities",
-    status: "R",
-    img: "https://cdn.britannica.com/66/162466-131-47ADB66F/Man-butterfly-stroke-pool.jpg"
-  },
-  {
-    id: 6,
-    catalogue: "Hotel Stay",
-    started: "03:05 am",
-    title: "Day one starter",
-    city: "Cox's Bazar",
-    plan: "Himchari Fountain and Hill",
-    current: "BDT 2,475",
-    selected: false,
-    category: "Accomodation",
-    status: "R",
-    img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/ed/95/07/limak-eurasia-luxury.jpg?w=700&h=-1&s=1",
-  },
-];
+const Buttons = ({ setItem, menuItems, selectedCategory, products, handleCategoryChange }) => {
+  const handleClick = (category) => {
+    handleCategoryChange(category);
+    setItem(category === "Day Plan" ? products : products.filter(product => {
+      const option = product.options.find(option => {
+        switch (category) {
+          case "Transfers":
+            return option.intended === "T";
+          case "Accommodation":
+            return option.intended === "R";
+          case "Activities":
+            return option.intended === "A";
+          case "Foods":
+            return option.intended === "F";
+          default:
+            return false;
+        }
+      });
+      return !!option;
+    }));
+  };
 
-const Buttons = ({ filterItem, setItem, menuItems, selectedCategory }) => {
   return (
-    <>
-      <div className="flex justify-center">
-        {menuItems.map((category, id) => {
-          return (
-            <button
-              className={`px-5 py-2 rounded-lg shadow border mr-5 ${
-                category === selectedCategory ? "bg-green-500 text-white" : "bg-white text-black"
-              }`}
-              onClick={() => filterItem(category)}
-              key={id}
-            >
-              {category}
-            </button>
-          );
-        })}
-      </div>
-    </>
+    <div className="flex justify-center">
+      {menuItems.map((category, id) => (
+        <button
+          className={`px-5 py-2 rounded-lg shadow border mr-5 ${
+            category === selectedCategory ? "bg-green-500 text-white" : "bg-white text-black"
+          }`}
+          key={id}
+          onClick={() => handleClick(category)}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
   );
 };
 
-const Card = ({ trip }) => {
+const Card = ({ product }) => {
   return (
     <div className="flex justify-between items-center mt-5 shadow p-4 rounded-lg">
       <div className="left">
         <div className="flex gap-1 items-center">
-          <p className="font-semibold">{trip.catalogue}</p>
+          <p className="font-semibold">{product.title}</p>
           <GoDotFill color="#00BE16" />
-          <p className="text-gray-500">{trip.started}</p>
+          <p className="text-gray-500">{product.timestamp.started}</p>
         </div>
+        <p className="text-gray-500 text-sm capitalize">{product.options[0].catalogue}</p>
         <p className="text-gray-500 text-sm">
-          {trip.title}, {trip.city}
+          {product.city}, {product.country}
         </p>
-        <p className="text-gray-500 text-sm">{trip.plan}</p>
         <img
-          src={trip.img}
+          src={product.options[0].image}
           alt="Transport"
           className="w-24 h-16 mt-2 rounded-lg"
         />
       </div>
       <div className="flex flex-col gap-16">
         <div className="flex flex-col items-end">
-          <p className="font-semibold text-lg">{trip.current}</p>
+          <p className="font-semibold text-lg">{product.options[0].prices[0].payable.current}</p>
           <p className="text-green-500 text-xs font-semibold uppercase">
             Details
           </p>
@@ -144,38 +81,65 @@ const Card = ({ trip }) => {
   );
 };
 
-const HolidayTabFilter: React.FC = () => {
-  const [item, setItem] = useState(TripData);
+const HolidayTabFilter: React.FC = ({ packageId }) => {
+  const [products, setProducts] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [item, setItem] = useState([]);
   const [menuItems, setMenuItems] = useState([
-    "Day Plan", "Accomodation", "Transfers", "Activities", "Foods"
+    "Day Plan", "Accommodation", "Transfers", "Activities", "Foods"
   ]);
   const [selectedCategory, setSelectedCategory] = useState("Day Plan");
 
-  const filterItem = (curcat: string) => {
-    let newItem;
-    if (curcat === "Day Plan") {
-      newItem = TripData;
-    } else {
-      newItem = TripData.filter((newVal) => newVal.category === curcat);
-    }
-    setItem(newItem);
-    setSelectedCategory(curcat); // Update the selected category
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`, {
+          headers: {
+            Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Accept-Language": "en",
+          }
+        });
+        if (response.data) {
+          setProducts(response.data.payload.products);
+          setFiltered(response.data.payload.filtered);
+          if (selectedCategory === "Day Plan") {
+            setItem(response.data.payload.products);
+          } else {
+            setItem(response.data.payload.products.filter(product => product.options.some(option => option.feature === selectedCategory)));
+          }
+        } else {
+          console.error("Failed to fetch package data");
+        }
+      } catch (error) {
+        console.error("Error fetching package data:", error);
+      }
+    };
+    fetchProducts();
+  }, [packageId, selectedCategory]);
+
+  console.log(selectedCategory)
+
   return (
-        <div className="mt-5">
-          <Buttons
-            filterItem={filterItem}
-            setItem={setItem}
-            menuItems={menuItems}
-            selectedCategory={selectedCategory} // Pass selectedCategory to Buttons
-          />
-          <div>
-            {item.map((trip) => (
-              <Card key={trip.id} trip={trip} />
-            ))}
-          </div>
-        </div>
+    <div className="mt-5">
+      <Buttons
+        setItem={setItem}
+        menuItems={menuItems}
+        selectedCategory={selectedCategory}
+        products={products}
+        handleCategoryChange={handleCategoryChange}
+      />
+      <div>
+        {item.map((product, index) => (
+          <Card key={index} product={product} />
+        ))}
+      </div>
+    </div>
   );
 };
 
