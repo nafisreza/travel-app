@@ -1,27 +1,16 @@
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 
-const Buttons = ({ setItem, menuItems, selectedCategory, products, handleCategoryChange }) => {
+const Buttons = ({
+  setItem,
+  menuItems,
+  selectedCategory,
+  handleCategoryChange,
+}) => {
   const handleClick = (category) => {
     handleCategoryChange(category);
-    setItem(category === "Day Plan" ? products : products.filter(product => {
-      const option = product.options.find(option => {
-        switch (category) {
-          case "Transfers":
-            return option.intended === "T";
-          case "Accommodation":
-            return option.intended === "R";
-          case "Activities":
-            return option.intended === "A";
-          case "Foods":
-            return option.intended === "F";
-          default:
-            return false;
-        }
-      });
-      return !!option;
-    }));
   };
 
   return (
@@ -29,7 +18,9 @@ const Buttons = ({ setItem, menuItems, selectedCategory, products, handleCategor
       {menuItems.map((category, id) => (
         <button
           className={`px-5 py-2 rounded-lg shadow border mr-5 ${
-            category === selectedCategory ? "bg-green-500 text-white" : "bg-white text-black"
+            category === selectedCategory
+              ? "bg-green-500 text-white"
+              : "bg-white text-black"
           }`}
           key={id}
           onClick={() => handleClick(category)}
@@ -50,7 +41,9 @@ const Card = ({ product }) => {
           <GoDotFill color="#00BE16" />
           <p className="text-gray-500">{product.timestamp.started}</p>
         </div>
-        <p className="text-gray-500 text-sm capitalize">{product.options[0].catalogue}</p>
+        <p className="text-gray-500 text-sm capitalize">
+          {product.options[0].catalogue}
+        </p>
         <p className="text-gray-500 text-sm">
           {product.city}, {product.country}
         </p>
@@ -62,7 +55,9 @@ const Card = ({ product }) => {
       </div>
       <div className="flex flex-col gap-16">
         <div className="flex flex-col items-end">
-          <p className="font-semibold text-lg">{product.options[0].prices[0].payable.current}</p>
+          <p className="font-semibold text-lg">
+            {product.options[0].prices[0].payable.current}
+          </p>
           <p className="text-green-500 text-xs font-semibold uppercase">
             Details
           </p>
@@ -81,38 +76,60 @@ const Card = ({ product }) => {
   );
 };
 
-const HolidayTabFilter: React.FC = ({ packageId }) => {
+const HolidayTabFilter = ({ packageId, planner }) => {
   const [products, setProducts] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [item, setItem] = useState([]);
-  const [menuItems, setMenuItems] = useState([
-    "Day Plan", "Accommodation", "Transfers", "Activities", "Foods"
-  ]);
+  const [filteredTabs, setFilteredTabs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Day Plan");
-
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-  };
+  const [activeDate, setActiveDate] = useState("1");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`, {
-          headers: {
-            Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Accept-Language": "en",
-          }
-        });
+        let response;
+        if (selectedCategory === "Day Plan") {
+          response = await axios.get(
+            `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`,
+            {
+              params: {
+                filter: {
+                  position: activeDate,
+                },
+              },
+              headers: {
+                Authorization:
+                  "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Accept-Language": "en",
+              },
+            }
+          );
+        } else {
+          response = await axios.get(
+            `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`,
+            {
+              params: {
+                filter: {
+                  property: selectedCategory.toLowerCase(),
+                  position: activeDate,
+                },
+              },
+              headers: {
+                Authorization:
+                  "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Accept-Language": "en",
+              },
+            }
+          );
+        }
+
         if (response.data) {
           setProducts(response.data.payload.products);
-          setFiltered(response.data.payload.filtered);
-          if (selectedCategory === "Day Plan") {
-            setItem(response.data.payload.products);
-          } else {
-            setItem(response.data.payload.products.filter(product => product.options.some(option => option.feature === selectedCategory)));
-          }
+          setFilteredTabs(response.data.payload.filtered);
+          setItem(response.data.payload.products);
         } else {
           console.error("Failed to fetch package data");
         }
@@ -121,25 +138,46 @@ const HolidayTabFilter: React.FC = ({ packageId }) => {
       }
     };
     fetchProducts();
-  }, [packageId, selectedCategory]);
+  }, [packageId, selectedCategory, activeDate]);
 
-  console.log(selectedCategory)
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
   return (
-    <div className="mt-5">
-      <Buttons
-        setItem={setItem}
-        menuItems={menuItems}
-        selectedCategory={selectedCategory}
-        products={products}
-        handleCategoryChange={handleCategoryChange}
-      />
-      <div>
-        {item.map((product, index) => (
-          <Card key={index} product={product} />
-        ))}
+    <>
+      <div className="flex space-x-4">
+        {planner &&
+          planner.map((item) => (
+            <Link
+              key={item.link}
+              href="#"
+              className={`w-20 flex shadow-lg border flex-col justify-center items-center p-3 rounded-lg ${
+                activeDate === item.link
+                  ? "bg-green-500 text-white"
+                  : "bg-white"
+              }`}
+              onClick={() => setActiveDate(item.link)}
+            >
+              <p className="font-semibold text-xl">{item.plan.slice(-1)}</p>
+              <p>Day</p>
+            </Link>
+          ))}
       </div>
-    </div>
+      <div className="mt-5">
+        <Buttons
+          setItem={setItem}
+          menuItems={filteredTabs.map((tab) => tab.name)}
+          selectedCategory={selectedCategory}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <div>
+          {item.map((product, index) => (
+            <Card key={index} product={product} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 
