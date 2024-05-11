@@ -8,6 +8,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import HolidayTripPlan from "./HolidayTripPlan";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import HolidayPriceSummary from './HolidayPriceSummary';
 
 export const HolidayDetails: React.FC = () => {
     // const departure = useSelector((state: RootState) => state.holiday.departure);
@@ -56,8 +57,10 @@ export const HolidayDetails: React.FC = () => {
 
 
     return (
-        <div className='flex flex-wrap justify-between items-center bg-white text-gray-800 rounded-xl'>
-            <figure className='w-2/3 flex gap-8 items-center'>
+      <div className='flex w-full justify-between gap-8 p-8'>
+        <div className='w-2/3 p-8 rounded-xl bg-white shadow-md space-y-6'>
+        <div className='flex justify-between'>
+        <figure className='w-2/3 flex gap-8 items-center'>
                 <img
                     src={packages.image}
                     alt='package image'
@@ -97,9 +100,14 @@ export const HolidayDetails: React.FC = () => {
                     </div>
                 </div>
             </div>
+        </div>
             <div className='w-full mt-10'>
             <HolidayTripPlan planner={planner} packageId={packageId}/>
             </div>
+        </div >
+        <div className='w-1/3'>
+        <HolidayPriceSummary planner={planner} packageId={packageId}/>
+        </div>
         </div>
     );
 };

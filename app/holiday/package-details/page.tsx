@@ -2,9 +2,8 @@
 
 import App from "../../app";
 import ContainerMain from "@/components/container/main";
-import PackageDetailsSummary from "./PackageDetailsSummary"
-import HolidayTripPlan from "./HolidayTripPlan";
 import { HolidayDetails } from "./HolidayDetails";
+import HolidayPriceSummary from "./HolidayPriceSummary";
 
 
 export type PageProps = {};
@@ -15,12 +14,12 @@ const Page: React.FC<PageProps> = () => {
       <div>
         <p className="px-5 mt-5 text-lg font-semibold ml-5">Package Details</p>
       </div>
-      <ContainerMain className="grid lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 p-4 md:p-8 rounded-xl bg-white shadow-md space-y-6">
+      {/* <ContainerMain className=""> */}
+        <div>
           <HolidayDetails/>
         </div>
-        <PackageDetailsSummary/>
-      </ContainerMain>
+        {/* <HolidayPriceSummary/> */}
+      {/* </ContainerMain> */}
     </App>
   );
 };
