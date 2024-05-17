@@ -106,7 +106,7 @@ export const HolidayDetails: React.FC = () => {
             </div>
         </div >
         <div className='w-1/3'>
-        <HolidayPriceSummary planner={planner} packageId={packageId}/>
+        <HolidayPriceSummary/>
         </div>
         </div>
     );

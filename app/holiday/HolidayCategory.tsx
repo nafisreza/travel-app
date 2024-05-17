@@ -61,7 +61,6 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
         const categories = data.payload;
         setOptions(categories);
       } else {
-        // Handle error
         console.error('Failed to fetch categories:', data.message);
       }
     } catch (error) {
@@ -71,7 +70,7 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
 
   useEffect(() => {
     fetchCategories();
-  }, [departure, destination]);
+  }, [departure, destination, dispatch]);
 
   function handleSelect(category: any) {
     dispatch(setCategory(category)); // Dispatch the entire category object

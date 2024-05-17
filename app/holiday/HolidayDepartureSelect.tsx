@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDeparture } from "../features/holiday/holidaySlice";
 import axios from "axios";
+import { FaLocationArrow } from "react-icons/fa6";
 
 export type OptionProps = {
   countryCode: string;
@@ -41,7 +42,7 @@ const HolidayDepartureSelect: React.FC<any> = ({
   activeLocation,
 }) => {
   const [options, setOptions] = useState<Country[]>([]);
-  const [selected, setSelected] = useState<Country | null>(activeLocation || null);
+  const [selected, setSelected] = useState<Country | null>(null); // Change here
   const [focused, setFocused] = useState<boolean>(false);
 
   const URL = "https://holiday.guideasy.com/api/v1/client-management/departures";
@@ -59,8 +60,8 @@ const HolidayDepartureSelect: React.FC<any> = ({
         });
         if (response.data && response.data.payload && response.data.payload.length > 0) {
           setOptions(response.data.payload);
-          if (!activeLocation) {
-            setSelected(response.data.payload[0]);
+          if (!activeLocation && !selected) { // Check if neither activeLocation nor selected is set
+            setSelected(null); // Change here
           }
         } else {
           console.error("Empty response data or data not in expected format");
@@ -71,12 +72,12 @@ const HolidayDepartureSelect: React.FC<any> = ({
     };
 
     fetchCountries();
-  }, [activeLocation]);
+  }, [activeLocation, selected]); // Add selected to dependencies
 
   const dispatch = useDispatch();
 
   const handleSelect = (location: Country) => {
-    setSelected(location);
+    setSelected(location ? location : null); // Change here
     setFocused(false);
     dispatch(setDeparture(location));
   };
@@ -124,10 +125,10 @@ const HolidayDepartureSelect: React.FC<any> = ({
             onClick={() => setFocused(true)}
           >
             <div className="h-full min-w-[3rem] flex justify-center items-center font-semibold">
-              {selected?.iso2}
+              {selected ? selected.iso2 : <FaLocationArrow/> } {/* Change here */}
             </div>
             <div className="border-l pl-3 text-start">
-              <h5 className="text-sm font-medium ">{selected?.title}</h5>
+              <h5 className="text-sm font-medium ">{selected ? selected.title : "Your Location"}</h5> {/* Change here */}
               <p className="text-xs text-gray-400 text-light">
                 Departure
               </p>
@@ -142,7 +143,7 @@ const HolidayDepartureSelect: React.FC<any> = ({
                   key={location.id}
                   className={`
                     w-full cursor-pointer hover:bg-green-100/50 hover:text-green-900
-                    ${location.id === selected?.id ? "bg-green-100 text-green-900" : ""}
+                    ${location.id === (selected ? selected.id : "") ? "bg-green-100 text-green-900" : ""}
                   `}
                   onClick={() => handleSelect(location)}
                 >

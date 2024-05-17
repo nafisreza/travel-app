@@ -1,6 +1,7 @@
+"use client";
 import axios from "axios";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 import { IoLocationSharp } from "react-icons/io5";
 import {
@@ -15,64 +16,31 @@ import { useSearchParams } from "next/navigation";
 import Carousel from "react-material-ui-carousel";
 import { Paper, Button } from "@mui/material";
 import Image from "next/image";
+import HolidayPriceSummary from "./HolidayPriceSummary";
+import { useDispatch } from "react-redux";
+import { setPackagePrice } from "@/app/features/holiday/holidaySlice";
 
-const Buttons = ({
-  setItem,
-  menuItems,
-  selectedCategory,
-  handleCategoryChange,
-}) => {
-  const handleClick = (category) => {
-    handleCategoryChange(category);
-  };
-
-  return (
-    <div className="flex justify-center">
-      {menuItems.map((category, id) => (
-        <button
-          className={`px-5 py-2 rounded-lg shadow border mr-5 ${
-            category === selectedCategory
-              ? "bg-green-500 text-white"
-              : "bg-white text-black"
-          }`}
-          key={id}
-          onClick={() => handleClick(category)}
-        >
-          {category}
-        </button>
-      ))}
-    </div>
-  );
-};
-
-const Card = ({ product }) => {
+const Card = ({ product, onOptionAndPriceChange, onRemove, onPriceUpdate }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedPrice, setSelectedPrice] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(product.options[0]);
+  const [selectedPrice, setSelectedPrice] = useState(selectedOption.prices.find(price => price.selected === true));
 
-  const [showPricesDrawer, setShowPricesDrawer] = useState(false); // State to control the visibility of price drawer
+  const [showPricesDrawer, setShowPricesDrawer] = useState(false);
 
   const handleToggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
-    setSelectedOption(null); // Reset selected option when closing the drawer
-    setShowPricesDrawer(false); // Reset showPricesDrawer state when closing the drawer
+    setShowPricesDrawer(false);
   };
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
-    setShowPricesDrawer(true); // Show prices drawer after selecting an option
-    setDrawerOpen(true); // Open the prices drawer when an option is selected
-  };
-
-  const handlePriceSelect = (price) => {
-    setDrawerOpen(!drawerOpen);
-    setShowPricesDrawer(!showPricesDrawer);
-    setSelectedPrice(price);
+    setSelectedPrice(option.prices.find(price => price.selected === true));
+    setShowPricesDrawer(true);
+    setDrawerOpen(true);
   };
 
   const [itinerary, setItenerary] = useState([]);
@@ -80,7 +48,7 @@ const Card = ({ product }) => {
 
   const packageId = searchParams.get("packageId");
   const productId = product.id;
-  const iteneraryId = product.options[0].id;
+  const iteneraryId = selectedOption.id;
 
   useEffect(() => {
     const fetchItenerary = async () => {
@@ -108,6 +76,39 @@ const Card = ({ product }) => {
 
   const galleries = itinerary?.galleries;
   const amenities = itinerary?.amenities;
+
+  const handlePriceSelect = (price) => {
+    setDrawerOpen(!drawerOpen);
+    setShowPricesDrawer(!showPricesDrawer);
+    setSelectedPrice(price);
+  
+    const updatedOption = {
+      ...selectedOption,
+      prices: selectedOption.prices.map((p) => ({
+        ...p,
+        selected: p.id === price.id,
+      })),
+    };
+  
+    if (onOptionAndPriceChange) {
+      onOptionAndPriceChange({
+        ...product,
+        options: product.options.map((option) =>
+          option.id === updatedOption.id ? updatedOption : option
+        ),
+      });
+      
+      if (onPriceUpdate) {
+        onPriceUpdate();
+      }
+    }
+  };
+
+  const handleRemove = () => {
+    if (product.status !== "D") {
+      onRemove();
+    }
+  };
 
   return (
     <>
@@ -156,13 +157,13 @@ const Card = ({ product }) => {
             <p className="text-gray-500">{product.timestamp.started}</p>
           </div>
           <p className="text-gray-500 text-sm capitalize">
-            {product.options[0].category} - {product.options[0].catalogue}
+            {selectedOption.category} - {selectedOption.catalogue}
           </p>
           <p className="text-gray-500 text-sm">
             {product.city}, {product.country}
           </p>
           <img
-            src={product.options[0].image}
+            src={selectedOption.image}
             alt="Transport"
             className="w-24 h-16 mt-2 rounded-lg"
           />
@@ -170,7 +171,7 @@ const Card = ({ product }) => {
         <div className="flex flex-col gap-16">
           <div className="flex flex-col items-end">
             <p className="font-semibold text-lg">
-              {product.options[0].prices[0].payable.current}
+              {selectedPrice.payable.current}
             </p>
             <p
               className="text-green-500 text-xs font-semibold uppercase cursor-pointer"
@@ -180,9 +181,15 @@ const Card = ({ product }) => {
             </p>
           </div>
           <div className="flex gap-1">
-            <p className="text-green-500 text-xs font-semibold uppercase cursor-pointer">
-              Remove
-            </p>
+          {product.status === "D" ? ( // Conditionally render remove button based on status
+        <button className="text-gray-500/70 text-xs font-semibold uppercase" disabled>
+          Remove
+        </button>
+      ) : (
+        <button className="text-green-500 text-xs font-semibold uppercase cursor-pointer" onClick={handleRemove}>
+          Remove
+        </button>
+      )}
             <GoDotFill />
             <p
               className="text-green-500 text-xs font-semibold uppercase cursor-pointer"
@@ -256,21 +263,54 @@ const Card = ({ product }) => {
 const HolidayTabFilter = ({ packageId, planner }) => {
   const [products, setProducts] = useState([]);
   const [item, setItem] = useState([]);
-  const [filteredTabs, setFilteredTabs] = useState([]);
+  const categories = ['Day Plan', 'Residence', 'Transportation', 'Activities', 'Foods']
   const [selectedCategory, setSelectedCategory] = useState("Day Plan");
   const [activeDate, setActiveDate] = useState("1");
+  const [productsByDate, setProductsByDate] = useState({});
+  const [totalPrice, setTotalPrice] = useState('');
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    calculateTotalPrice();
+  }, [productsByDate]);
+
+  
+  useEffect(() => {
+    dispatch(setPackagePrice(totalPrice));
+  }, [totalPrice, dispatch]);
+
+
+  const filterProductsByCategory = (products, category) => {
+    if (category === 'Day Plan') {
+      return products;
+    } else {
+      const intendedMapping = {
+        'Residence': 'R',
+        'Transportation': 'T',
+        'Foods': 'F',
+        'Activities': 'A',
+      };
+
+      const intended = intendedMapping[category];
+
+      return products.flatMap(product =>
+        product.options.filter(option => option.intended === intended)
+          .map(option => ({ ...product, options: [option] }))
+      );
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        let response;
-        if (selectedCategory === "Day Plan") {
-          response = await axios.get(
+        const responseData = {};
+        for (let i = 0; i < planner.length; i++) {
+          const response = await axios.get(
             `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`,
             {
               params: {
                 filter: {
-                  position: activeDate,
+                  position: i + 1,
                 },
               },
               headers: {
@@ -282,57 +322,143 @@ const HolidayTabFilter = ({ packageId, planner }) => {
               },
             }
           );
-        } else {
-          response = await axios.get(
-            `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`,
-            {
-              params: {
-                filter: {
-                  property: selectedCategory.toLowerCase(),
-                  position: activeDate,
-                },
-              },
-              headers: {
-                Authorization:
-                  "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "Accept-Language": "en",
-              },
-            }
-          );
+          const date = planner[i].date;
+          responseData[date] = filterProductsByCategory(response.data.payload.products, selectedCategory);
+
         }
 
-        if (response.data) {
-          setProducts(response.data.payload.products);
-          setFilteredTabs(response.data.payload.filtered);
-          setItem(response.data.payload.products);
-        } else {
-          console.error("Failed to fetch package data");
-        }
+        setProductsByDate(responseData);
       } catch (error) {
         console.error("Error fetching package data:", error);
       }
     };
-    fetchProducts();
-  }, [packageId, selectedCategory, activeDate]);
+
+    if (planner && planner.length > 0) {
+      fetchData();
+    }
+  }, [packageId, planner, selectedCategory]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
 
+  const getDayNumber = (date) => {
+    const today = new Date();
+    const targetDate = new Date(date);
+    const oneDay = 24 * 60 * 60 * 1000;
+    const diffDays = Math.round(Math.abs((targetDate - today) / oneDay));
+    return diffDays+1;
+  };
+
+  const dayRefs = useRef([]);
+
+  useEffect(() => {
+    // Clear the existing refs
+    dayRefs.current = [];
+  }, []);
+
+  const addToDayRefs = useCallback((element) => {
+    if (element) {
+      dayRefs.current = [...dayRefs.current, element];
+    }
+  }, []);
+
+  const scrollToDay = (dayIndex) => {
+    if (dayIndex >= 0 && dayIndex < dayRefs.current.length) {
+      dayRefs.current[dayIndex].scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const calculateTotalPrice = () => {
+    let tp = 0;
+    let currencySymbol = '';
+  
+    const allProducts = Object.values(productsByDate).flat();
+  
+    if (allProducts && allProducts.length > 0) {
+      const firstProduct = allProducts[0];
+      if (firstProduct.options && firstProduct.options.length > 0) {
+        const firstOption = firstProduct.options[0];
+        if (firstOption.prices && firstOption.prices.length > 0) {
+          const firstPrice = firstOption.prices.find(price => price.selected === true);
+          if (firstPrice) {
+            currencySymbol = extractSymbol(firstPrice.payable.current);
+          }
+        }
+      }
+    }
+  
+    allProducts.forEach((product) => {
+      if (product.options && product.options.length > 0) {
+        const selectedOption = product.options[0]; // Assuming the first option is the default
+        const selectedPrice = selectedOption.prices.find(price => price.selected === true);
+        if (selectedPrice) {
+          const numericValue = extractNumericValue(selectedPrice.payable.current);
+          tp += numericValue;
+        }
+      }
+    });
+  
+    setTotalPrice(`${currencySymbol} ${tp.toFixed(2)}`);
+  };
+  const handleOptionAndPriceChange = (updatedProduct) => {
+    setProductsByDate((prevProductsByDate) => {
+      const updatedProductsByDate = Object.fromEntries(
+        Object.entries(prevProductsByDate).map(([date, products]) => [
+          date,
+          products.map((product) =>
+            product.id === updatedProduct.id ? updatedProduct : product
+          ),
+        ])
+      );
+  
+      calculateTotalPrice(); // calc the price after updating productsByDate
+      return updatedProductsByDate;
+    });
+  };
+  const extractSymbol = (value) => {
+    const match = value.match(/[^0-9.-]+/);
+    return match ? match[0] : '';
+  };
+
+  const extractNumericValue = (value) => {
+    return parseFloat(value.replace(/[^0-9.-]+/g, ''));
+  };
+
+  const handleRemoveProduct = (date, productId) => {
+    setProductsByDate((prevProductsByDate) => {
+      const updatedProductsByDate = { ...prevProductsByDate };
+      updatedProductsByDate[date] = updatedProductsByDate[date].filter(
+        (product) => product.id !== productId
+      );
+  
+      calculateTotalPrice(); // Recalculate total price after removing a product
+      dispatch(setPackagePrice(totalPrice));
+      return updatedProductsByDate;
+    });
+  };
+
+  const handlePriceUpdate = () => {
+    calculateTotalPrice();
+  };
+
+
   return (
     <>
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 sticky top-16 bg-white/30 backdrop-blur-sm">
         {planner &&
-          planner.map((item) => (
+          planner.map((item, index) => (
             <button
+              key={index}
               className={`w-20 flex shadow-lg border flex-col justify-center items-center p-3 rounded-lg ${
                 activeDate === item.link
                   ? "bg-green-500 text-white"
                   : "bg-white"
               }`}
-              onClick={() => setActiveDate(item.link)}
+              onClick={() => {
+                setActiveDate(item.link);
+                scrollToDay(index);
+              }}
             >
               <p className="font-semibold text-xl">{item.plan.slice(-1)}</p>
               <p>Day</p>
@@ -340,16 +466,43 @@ const HolidayTabFilter = ({ packageId, planner }) => {
           ))}
       </div>
       <div className="mt-5">
-        <Buttons
-          setItem={setItem}
-          menuItems={filteredTabs.map((tab) => tab.name)}
-          selectedCategory={selectedCategory}
-          handleCategoryChange={handleCategoryChange}
-        />
-        <div>
-          {item.map((product, index) => (
-            <Card key={index} product={product} />
+      <div className="flex justify-center mb-4">
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              className={`px-5 py-2 rounded-lg shadow border mr-5 ${
+                category === selectedCategory
+                  ? "bg-green-500 text-white"
+                  : "bg-white text-black"
+              }`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category}
+            </button>
           ))}
+        </div>
+
+        <div>
+          <div>
+            <div>
+              {Object.entries(productsByDate).map(([date, products], index) => (
+                <div key={index} ref={addToDayRefs}>
+<div className="flex items-center mt-5">
+<span className="text-green-500 font-semibold bg-green-100 rounded-r-xl whitespace-nowrap px-6 py-2">Day {getDayNumber(date)}</span>
+<hr className="w-full h-1 bg-gray-200 border-0 rounded "/>
+</div>
+                  {products.map((product, idx) => (
+                    <div key={`${index}-${idx}`}>
+                      <Card key={`${index}-${idx}`} product={product} onOptionAndPriceChange={handleOptionAndPriceChange}
+                      onRemove={() => handleRemoveProduct(date, product.id)}
+                      onPriceUpdate={handlePriceUpdate}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

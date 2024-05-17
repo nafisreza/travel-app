@@ -6,6 +6,7 @@ const initialState = {
     destination: [],
     destinationId: [],
     category: [],
+    packagePrice: null,
 }
 
 const holidaySlice = createSlice({
@@ -27,9 +28,12 @@ const holidaySlice = createSlice({
           setCategory(state, action) {
             state.category = action.payload;
           },
+          setPackagePrice(state, action) {
+            state.packagePrice = action.payload;
+          },
     }
 })
 
-export const { setDeparture, setDestination, setCategory, setDepartureId, setDestinationId } = holidaySlice.actions;
+export const { setDeparture, setDestination, setCategory, setDepartureId, setDestinationId, setPackagePrice } = holidaySlice.actions;
 
 export default holidaySlice.reducer;
