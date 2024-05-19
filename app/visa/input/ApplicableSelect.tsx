@@ -1,19 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { BsPassport } from 'react-icons/bs';
+import { MdOutlineVerified } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { setVisaTypes } from '@/app/features/visa/visaSlice';
+import { setApplicable } from '@/app/features/visa/visaSlice';
 
 export type OptionProps = {
-  typeOfVisa: string;
+  applicable: string;
   active?: boolean;
 };
 
-export const Option: React.FC<OptionProps> = ({ typeOfVisa, active }) => {
+export const Option: React.FC<OptionProps> = ({ applicable, active }) => {
   return (
     <div className='h-14 w-full py-2 divide-x flex items-center border-b'>
       <div className='h-full min-w-[3.25rem] flex justify-center items-center font-semibold text-sm'>
-        {typeOfVisa}
+        {applicable}
       </div>
     </div>
   );
@@ -28,7 +28,7 @@ interface VisaType {
   title: string;
 }
 
-const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
+const ApplicableSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   const [options, setOptions] = useState<VisaType[]>([]);
   const [selected, setSelected] = useState<VisaType | null>(null);
   const [focused, setFocused] = useState<boolean>(false);
@@ -38,12 +38,13 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   const dispatch = useDispatch();
   const visaCountry = useSelector((state) => state.visa.visaCountry);
   const nationality = useSelector((state) => state.visa.nationality);
+  const PARTNER_API = process.env.NEXT_PUBLIC_PARTNER_API
 
   useEffect(() => {
     const fetchVisaTypes = async () => {
       try {
         const response = await axios.get(
-          `http://endorse.guideasy.com/api/v1/client-management/categories?filter[country]=${visaCountry?.id || ''}&filter[nationality]=${nationality?.id || ''}`,
+          `${PARTNER_API}/applicables?filter[country]=${visaCountry?.id || ''}&filter[nationality]=${nationality?.id || ''}`,
           {
             headers: {
               Authorization: 'Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2',
@@ -69,9 +70,9 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
     fetchVisaTypes();
   }, [visaCountry, nationality, dispatch]);
 
-  const handleSelect = (visaType: VisaType) => {
-    setSelected(visaType);
-    dispatch(setVisaTypes([visaType])); // Dispatching selected visa type to Redux store
+  const handleSelect = (applicable: any) => {
+    setSelected(applicable);
+    dispatch(setApplicable([applicable])); // Dispatching selected visa type to Redux store
     setFocused(false);
 };
 
@@ -82,7 +83,7 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
     }
     const searchValue = event.target.value.toLowerCase();
     setOptions(
-      options.filter((typeOfVisa: VisaType) => typeOfVisa.title.toLowerCase().includes(searchValue))
+      options.filter((applicable: any) => applicable.title.toLowerCase().includes(searchValue))
     );
   }
 
@@ -120,14 +121,14 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
                         `}
             onClick={() => setFocused(true)}>
             <div className='h-full min-w-[3.75rem] flex justify-center items-center font-semibold'>
-              <BsPassport />
+              <MdOutlineVerified />
             </div>
             <div className='border-l pl-3 text-start'>
               <h5 className='text-sm font-medium'>
-                {selected ? selected.title : 'Select Visa Type'}
+                {selected ? selected.title : ''}
               </h5>
               <p className='text-xs text-gray-400 text-light'>
-                Visa Type
+                Applicable
               </p>
             </div>
           </label>
@@ -135,21 +136,21 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
         {focused && (
           <div className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-[2]'>
             <ul>
-              {options.map((typeOfVisa: VisaType, index) => (
+              {options.map((applicable: any, index) => (
                 <li
                   key={index}
                   className={`
                                         w-full cursor-pointer flex hover:bg-green-100/50 hover:text-green-900
                                         ${
-                  typeOfVisa === selected && 'bg-green-100 text-green-900'
+                  applicable === selected && 'bg-green-100 text-green-900'
                   }
                                     `}
-                  onClick={() => handleSelect(typeOfVisa)}>
+                  onClick={() => handleSelect(applicable)}>
                   <div className='p-3 flex justify-center items-center font-semibold'>
-                    <BsPassport />
+                  <MdOutlineVerified />
                   </div>
                   <div className='border-l pl-3'>
-                    <Option typeOfVisa={typeOfVisa.title} />
+                    <Option applicable={applicable.title} />
                   </div>
                 </li>
               ))}
@@ -161,4 +162,4 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   );
 };
 
-export default VisaSelect;
+export default ApplicableSelect;

@@ -9,18 +9,16 @@ export type Props = { link?: string, visa?: any };
 
 export const CardItem: React.FC<Props> = ({ link, visa }) => {
   const packageId = visa.id;
-  const productId = visa.products[0].id; 
+  const productId = visa.product.id; 
   return (
     <Link
-    href={
-      {
-      pathname: '/visa/details',
-      query: {
-        packageId: packageId,
-        productId: productId
-      }
-      }
-      }
+      href={{
+        pathname: '/visa/details',
+        query: {
+          packageId: packageId,
+          productId: productId
+        }
+      }}
       className="flex flex-wrap justify-between items-center p-4 bg-white text-gray-800 rounded-xl space-y-3 md:space-y-6 shadow"
     >
       <div className="flex justify-center items-center gap-4">
@@ -30,24 +28,22 @@ export const CardItem: React.FC<Props> = ({ link, visa }) => {
           className="w-32 object-cover"
         />
         <div>
-          <h5 className="text-lg font-medium">{visa.title}</h5>
-          <p className="text-md">{visa.products[0].category}</p>
-          <p className="text-xs">{visa.products[0].company}</p>
+          <h5 className="text-lg font-medium">{visa.product.category}</h5>
+          <p className="text-sm">{visa.product.company.title}</p>
         </div>
       </div>
 
       <div className="right flex flex-col items-end">
         <div className="flex">
           <FaStar color="#FFD700" />
-          <p className="text-gray-700 font-xs mt-[-2px]">{visa.products[0].rating}</p>
+          <p className="text-gray-700 font-xs mt-[-2px]">{visa.product.rating}</p>
         </div>
-        <h5 className="text-base">{visa.products[0].entrance} Entry</h5>
         <del className="text-red-500">
           <span className="text-gray-500 font-light text-sm">
-            {visa.pricing.maximum.str}
+            {visa.product.payable.regular}
           </span>
         </del>
-        <p className="font-semibold text-md">{visa.pricing.minimum.str}</p>
+        <p className="font-semibold text-md">{visa.product.payable.offered}</p>
       </div>
     </Link>
   );
@@ -60,13 +56,13 @@ export default function VisaSearchCard() {
   const visaCountry = useSelector((state) => state.visa.visaCountry);
   const nationality = useSelector((state) => state.visa.nationality);
   const visaType = useSelector((state) => state.visa.visaTypes);
-
+  const applicable = useSelector((state) => state.visa.applicable);
 
   useEffect(() => {
     const fetchVisas = async () => {
       try {
         if (!visaCountry || !visaType.length) return;
-        const response = await axios.get(`http://endorse.guideasy.com/api/v1/client-management/packages?filter[country]=${visaCountry?.id}&filter[nationality]=${nationality?.id}&filter[category]=${visaType[0]?.id}&filter[entrance]=s`, {
+        const response = await axios.get(`http://endorse.guideasy.com/api/v1/partner-management/packages?filter[country]=${visaCountry?.id}&filter[nationality]=${nationality?.id}&filter[applicable]=${applicable[0]?.id}&filter[category]=${visaType[0]?.id}`, {
           headers: {
             Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
             Accept: "application/json",
@@ -77,11 +73,7 @@ export default function VisaSearchCard() {
             'X-App-Currency': 'BDT'
           },
         });
-        setVisas(response.data.payload ? [response.data.payload] : []);
-        // console.log('payload', response.data.payload)
-        // console.log('visaCountry ID:', visaCountry?.id);
-        // console.log('Nationality ID:', nationality?.title);
-        // console.log('Visa Type ID:', visaType[0]?.title);
+        setVisas(response.data.payload ? response.data.payload : []);
       } catch (error) {
         console.error("Error fetching visas:", error);
       }
@@ -90,7 +82,6 @@ export default function VisaSearchCard() {
     fetchVisas();
   }, [visaCountry]);
   
-
   return (
     <section className="space-y-2">
       <div className="flex flex-col xl:flex-row items-start gap-6">
@@ -107,7 +98,7 @@ export default function VisaSearchCard() {
           </div>
         </form>
         <div className="w-full flex-grow grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {visas.map((visa, index) => (
+          { visas && visas.map((visa, index) => (
             <CardItem key={index} visa={visa} />
           ))}
         </div>

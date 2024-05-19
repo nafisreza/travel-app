@@ -26,7 +26,7 @@ const Page: React.FC<PageProps> = () => {
     const fetchVisaDetails = async () => {
       try {
         const response = await axios.get(
-          `http://endorse.guideasy.com/api/v1/client-management/packages/${packageId}/products/${productId}`,
+          `http://endorse.guideasy.com/api/v1/partner-management/packages/${packageId}/products/${productId}`,
           {
             headers: {
               Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",
@@ -48,14 +48,12 @@ const Page: React.FC<PageProps> = () => {
     fetchVisaDetails();
   }, []);
 
-  console.log("Roni bhai")
+  console.log(visaDetails)
 
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position)=> {
         console.log(position)
-        console.log(position.coords.latitude)
-        console.log(position.coords.longitude)
       });
     } else {
       console.log("Geolocation is not supported by this browser.");
@@ -83,7 +81,7 @@ _{
         ))}
       </div>
         {visaDetails.documents.map((document: any) => (
-          <Accordion key={document.title} title={document.title} body={document.paper.map((item: string, index: number) => <li key={index}>{item}</li>)} />
+          <Accordion key={document.intend} title={document.intend} body={document.papers.map((item: string, index: number) => <li key={index}>{item}</li>)} />
         ))}
     </div>
     <VisaDetailsMap visaDetails={visaDetails} />

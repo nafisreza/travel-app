@@ -22,7 +22,7 @@ const Page: React.FC<Props> = () => {
           >
             Search Visa
           </h1>
-          <div className="lg:ml-[180px]">
+          <div className="">
             <VisaSearch />
           </div>
         </div>

@@ -45,7 +45,7 @@ const VisaCountrySelect: React.FC<any> = ({
   const [selected, setSelected] = useState<Country | null>(activeLocation || null);
   const [focused, setFocused] = useState<boolean>(false);
 
-  const URL = "http://endorse.guideasy.com/api/v1/client-management/countries";
+  const URL = "http://endorse.guideasy.com/api/v1/partner-management/countries";
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -109,7 +109,7 @@ const VisaCountrySelect: React.FC<any> = ({
   return (
     <div className="w-full">
       <div className="relative" ref={selectWrapper}>
-        <div className="block relative h-16 overflow-hidden rounded-xl border w-full hover:border-gray-400">
+        <div className="block relative h-14 overflow-hidden rounded-xl border w-full hover:border-gray-400">
           <input
             type="text"
             className="w-full h-full py-2 px-4 focus:border-none focus:outline-none rounded-xl"

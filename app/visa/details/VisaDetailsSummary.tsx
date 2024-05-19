@@ -71,7 +71,7 @@
 
 // const VisaEntryTypeSelect: React.FC<VisaEntryTypeSelectProps> = ({
 // 	activeEntryType,
-// 	onEntryTypeSelect, 
+// 	onEntryTypeSelect,
 // }) => {
 // 	const [optionsClone, setOptionsClone] = useState<entryType[]>(entryTypes);
 // 	const [selected, setSelected] = useState<entryType>(
@@ -236,7 +236,7 @@
 // interface VisaDetailsSummaryProps {
 // 	visaDetails: any;
 //   }
-  
+
 // const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails }) => {
 // 	const [selectedEntryType, setSelectedEntryType] =
 // 		useState<entryType | null>(entryTypes[0]);
@@ -263,7 +263,7 @@
 // 				</div>
 // 				<VisaEntryTypeSelect
 // 					activeEntryType={selectedEntryType?.name}
-// 					onEntryTypeSelect={handleEntryTypeSelect} 
+// 					onEntryTypeSelect={handleEntryTypeSelect}
 // 				/>
 // 				<Accordion
 // 					defaultOpen={true}
@@ -308,78 +308,81 @@
 
 // export default VisaDetailsSummary;
 
-
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import Accordion from './Accordion';
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import Accordion from "./Accordion";
 // import { useRouter, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export const Counter = ({
-	onCountChange,
+  onCountChange,
 }: {
-	onCountChange: (newCount: number) => void;
+  onCountChange: (newCount: number) => void;
 }) => {
-	const [count, setCount] = useState<number>(1);
+  const [count, setCount] = useState<number>(1);
 
-	const handleCountChange = (newCount: number) => {
-		setCount(newCount);
-		onCountChange(newCount); // Notify the parent component about the count change
-	};
+  const handleCountChange = (newCount: number) => {
+    setCount(newCount);
+    onCountChange(newCount); // Notify the parent component about the count change
+  };
 
-	return (
-		<div className='md:p-2 inline-block bg-white md:border border-gray-200 md:rounded-lg'>
-			<div className='flex items-center gap-x-1.5'>
-				<button
-					type='button'
-					onClick={() => {
-						handleCountChange(Math.max(count - 1, 1));
-					}}
-					className='w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none'>
-					<svg
-						className='flex-shrink-0 w-4 h-4'
-						xmlns='http://www.w3.org/2000/svg'
-						viewBox='0 0 24 24'
-						fill='none'
-						stroke='currentColor'
-						strokeWidth={2}
-						strokeLinecap='round'
-						strokeLinejoin='round'>
-						<path d='M5 12h14' />
-					</svg>
-				</button>
+  return (
+    <div className="md:p-2 inline-block bg-white md:border border-gray-200 md:rounded-lg">
+      <div className="flex items-center gap-x-1.5">
+        <button
+          type="button"
+          onClick={() => {
+            handleCountChange(Math.max(count - 1, 1));
+          }}
+          className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <svg
+            className="flex-shrink-0 w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </button>
 
-				<input
-					className='p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0'
-					type='text'
-					value={count}
-					onChange={(e) => {
-						const newCount = parseInt(e.target.value);
-						handleCountChange(isNaN(newCount) ? 1 : newCount);
-					}}
-				/>
-				<button
-					type='button'
-					onClick={() => {
-						handleCountChange(count + 1);
-					}}
-					className='w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none'>
-					<svg
-						className='flex-shrink-0 w-4 h-4'
-						xmlns='http://www.w3.org/2000/svg'
-						viewBox='0 0 24 24'
-						fill='none'
-						stroke='currentColor'
-						strokeWidth={2}
-						strokeLinecap='round'
-						strokeLinejoin='round'>
-						<path d='M5 12h14' />
-						<path d='M12 5v14' />
-					</svg>
-				</button>
-			</div>
-		</div>
-	);
+        <input
+          className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0"
+          type="text"
+          value={count}
+          onChange={(e) => {
+            const newCount = parseInt(e.target.value);
+            handleCountChange(isNaN(newCount) ? 1 : newCount);
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            handleCountChange(count + 1);
+          }}
+          className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <svg
+            className="flex-shrink-0 w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
 };
 
 interface VisaDetailsSummaryProps {
@@ -388,72 +391,96 @@ interface VisaDetailsSummaryProps {
   productId: any;
 }
 
-const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({ visaDetails, packageId, productId }) => {
+const VisaDetailsSummary: React.FC<VisaDetailsSummaryProps> = ({
+  visaDetails,
+  packageId,
+  productId,
+}) => {
   const [count, setCount] = useState<number>(1);
+  const [selectedPriceIndex, setSelectedPriceIndex] = useState<number>(0);
 
   const handleCountChange = (newCount: number) => {
     setCount(newCount);
   };
 
-  const totalFee = parseFloat(visaDetails.payable.amount.replace(/[^\d.]/g, "")) 
-  
+  const handlePriceSelect = (index: number) => {
+    setSelectedPriceIndex(index);
+  };
+
+  const totalFee = parseFloat(
+    visaDetails.pricing[selectedPriceIndex].payable.offered.replace(
+      /[^\d.]/g,
+      ""
+    )
+  );
 
   return (
-    <div className="bg-white rounded-xl shadow max-w-md">
-      <form className="">
+    <>
+      <div className="bg-white rounded-xl shadow">
         <div className="flex justify-between items-center px-4 py-3">
           <p className="font-semibold">Quantity</p>
           <Counter onCountChange={handleCountChange} />
         </div>
-        <Accordion
-          defaultOpen={true}
-          title={`${visaDetails.entrance} Entry`}
-          body={
-            <div className="items-center flex flex-col gap-6 px-4 lg:px-6 py-4">
-              <div className="w-full flex justify-between items-center">
-                <ul className="w-full space-y-1 text-gray-700 list-disc">
-                  <li>Entry: {visaDetails.entrance}</li>
-                  <li>Max Stay: {visaDetails.entities.vacation.value}</li>
-                  <li>Validity: {visaDetails.entities.duration.value}</li>
-                </ul>
-                <div className="w-auto">
-                  <h2 className="text-xl font-semibold text-gray-700 whitespace-nowrap">
-				
-				  BDT { totalFee * count}
-                  </h2>
-                  <p className="text-sm font-medium text-gray-400 whitespace-nowrap">
-                    Embassy Fee
-                  </p>
+		<div className="px-4">
+		{visaDetails.pricing.map((priceOption: any, index: number) => {
+          return (
+            <div key={index} onClick={() => handlePriceSelect(index)} className={`mb-5 border rounded-lg cursor-pointer ${
+				selectedPriceIndex === index
+				  ? "border-green-500"
+				  :'border-gray-200'
+			  }`}>
+              <div
+                className={`flex justify-between px-4 py-2 ${
+                  selectedPriceIndex === index
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                <h1 className="font-semibold">{priceOption.entrance}</h1>
+				<h1>Sticker Visa</h1>
+              </div>
+
+              <div className="items-center flex flex-col gap-6 px-8 py-4">
+                <div className="w-full flex justify-between items-center">
+                  <ul className="w-full space-y-1 text-gray-700 list-disc">
+                    <li>Entry: {priceOption.entrance}</li>
+                    <li>Max Stay: {priceOption.maxStay}</li>
+                    <li>Validity: {priceOption.validity}</li>
+                  </ul>
+                  <div className="flex flex-col items-end">
+                    <h2 className="text-xl font-semibold text-gray-700 whitespace-nowrap">
+                      {priceOption.payable.offered}
+                    </h2>
+                    <p className="text-sm font-medium text-gray-400 whitespace-nowrap">
+                      Embassy Fee
+                    </p>
+                  </div>
                 </div>
               </div>
-			  
-              <Link
-			  href={
-				{
-				pathname: '/visa/checkout',
-				query: {
-					packageId: packageId,
-					productId: productId,
-					count: count,
-					totalFee: totalFee * count
-
-				}
-
-				}
-			  }
-				// onClick={navigateToCheckout}
-                className="items-center px-8 py-3 bg-green-500 font-medium gap-2 hover:bg-green-600 inline-flex rounded-lg text-center text-white"
-                type="submit"
-              >
-                Book now
-              </Link>
             </div>
-          }
-        />
-      </form>
-    </div>
+          );
+        })}
+		</div>
+        <div className="flex justify-center items-center mb-4">
+          <Link
+            href={{
+              pathname: "/visa/checkout",
+              query: {
+                packageId: packageId,
+                productId: productId,
+                count: count,
+                totalFee: totalFee * count,
+                priceId: visaDetails.pricing[selectedPriceIndex].id,
+              },
+            }}
+            className="px-8 py-3 bg-green-500 font-medium gap-2 hover:bg-green-600 rounded-lg text-center text-white"
+          >
+            Book now
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 
 export default VisaDetailsSummary;
-

@@ -4,25 +4,27 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import LocationSelect from '../form/input/LocationSelect';
-import VisaTypeSelect from '../form/input/VisaTypeSelect';
+import VisaTypeSelect from '../../app/visa/input/VisaTypeSelect';
 import { wayArray } from './checkbutton';
 import { FormBox, SearchButton } from './flight-search';
 import { SwapButton } from './swap-button';
-import VisaCountrySelect from '@/app/visa/input/VisaCountrySelect';
+import VisaCountrySelect from '@/app/visa/input/CountrySelect';
 import NationalitySelect from '@/app/visa/input/NationalitySelect';
 import { useSearchParams } from 'next/navigation'; 
+import ApplicableSelect from '@/app/visa/input/ApplicableSelect';
 
 export const OneWay = () => {
 	return (
-		<FormBox>
-			<div className='w-full relative flex items-center'>
+<div className='flex w-full justify-center items-center gap-2'>
+				<div className='w-full relative flex items-center mr-2'>
 				<VisaCountrySelect/>
 				<SwapButton />
 			</div>
 			<NationalitySelect />
+			<ApplicableSelect/>
 			<VisaTypeSelect />
 			<SearchButton />
-		</FormBox>
+</div>
 	);
 };
 
