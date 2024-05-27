@@ -40,11 +40,13 @@ const VisaSelect: React.FC<VisaSelectProps> = ({ activeVisa }) => {
   const nationality = useSelector((state) => state.visa.nationality);
   const applicable = useSelector((state) => state.visa.applicable);
 
+  const PARTNER_API = process.env.NEXT_PUBLIC_PARTNER_API
+
   useEffect(() => {
     const fetchVisaTypes = async () => {
       try {
         const response = await axios.get(
-          `http://endorse.guideasy.com/api/v1/partner-management/categories?filter[country]=${visaCountry?.id || ''}&filter[nationality]=${nationality?.id || ''}&filter[applicable]=${applicable?.id || ''}`,
+          `${PARTNER_API}/categories?filter[country]=${visaCountry?.id || ''}&filter[nationality]=${nationality?.id || ''}&filter[applicable]=${applicable?.id || ''}`,
           {
             headers: {
               Authorization: 'Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2',

@@ -47,11 +47,13 @@ const Card = ({ product, onOptionAndPriceChange, onRemove, onPriceUpdate }) => {
   const productId = product.id;
   const iteneraryId = selectedOption.id;
 
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
+
   useEffect(() => {
     const fetchItenerary = async () => {
       try {
         const response = await axios.get(
-          `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products/${productId}/itineraries/${iteneraryId}`,
+          `${HOLIDAY_API}/packages/${packageId}/products/${productId}/itineraries/${iteneraryId}`,
           {
             headers: {
               Authorization:

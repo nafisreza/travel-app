@@ -20,13 +20,13 @@ const Page: React.FC<PageProps> = () => {
   const packageId = searchParams.get("packageId");
   const productId = searchParams.get("productId"); 
 
-  console.log(packageId, productId)
+  const PARTNER_API = process.env.NEXT_PUBLIC_PARTNER_API
 
   useEffect(() => {
     const fetchVisaDetails = async () => {
       try {
         const response = await axios.get(
-          `http://endorse.guideasy.com/api/v1/partner-management/packages/${packageId}/products/${productId}`,
+          `${PARTNER_API}/packages/${packageId}/products/${productId}`,
           {
             headers: {
               Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",

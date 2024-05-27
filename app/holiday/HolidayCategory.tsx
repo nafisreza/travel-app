@@ -42,7 +42,9 @@ const HolidayCategorySelect: React.FC<HolidayCategorySelectProps> = ({
   const departure = useSelector((state) => state.holiday.departure);
   const destination = useSelector((state) => state.holiday.destination);
 
-  const URL = `https://holiday.guideasy.com/api/v1/client-management/trips?filter[departure]=${departure?.id}&filter[destination]=${destination?.id}`
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
+
+  const URL = `${HOLIDAY_API}/trips?filter[departure]=${departure?.id}&filter[destination]=${destination?.id}`
 
   async function fetchCategories() {
     try {

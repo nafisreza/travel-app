@@ -45,7 +45,9 @@ const HolidayDepartureSelect: React.FC<any> = ({
   const [selected, setSelected] = useState<Country | null>(null); // Change here
   const [focused, setFocused] = useState<boolean>(false);
 
-  const URL = "https://holiday.guideasy.com/api/v1/client-management/departures";
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
+
+  const URL = `${HOLIDAY_API}/departures`;
 
   useEffect(() => {
     const fetchCountries = async () => {

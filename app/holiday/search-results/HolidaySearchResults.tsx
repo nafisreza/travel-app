@@ -125,11 +125,13 @@ export default function HolidaySearchCard() {
   const destination = searchParams.get("destination");
   const category = searchParams.get("category");
 
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
+
   useEffect(() => {
     const fetchHolidayData = async () => {
       try {
         const response = await axios.get(
-          `https://holiday.guideasy.com/api/v1/client-management/packages?filter[departure]=${departure}&filter[destination]=${destination}&filter[trip]=${category}&filter[genre]=price&filter[sorting]=asc`,
+          `${HOLIDAY_API}/packages?filter[departure]=${departure}&filter[destination]=${destination}&filter[trip]=${category}&filter[genre]=price&filter[sorting]=asc`,
           {
             headers: {
               Authorization:

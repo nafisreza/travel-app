@@ -47,7 +47,9 @@ const HolidayDestinationSelect: React.FC<any> = ({
   const departure = useSelector((state) => state.holiday.departure)
   const dispatch = useDispatch();
 
-  const URL = `https://holiday.guideasy.com/api/v1/client-management/destinations?filter[departure]=${departure?.id}`;
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
+
+  const URL = `${HOLIDAY_API}/destinations?filter[departure]=${departure?.id}`;
 
   useEffect(() => {
     const fetchCountries = async () => {

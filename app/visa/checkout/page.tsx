@@ -34,11 +34,13 @@ const Page: React.FC<Props> = () => {
 
     const [bookingData, setBookingData] = useState<any>(null);
 
+    const PARTNER_API = process.env.NEXT_PUBLIC_PARTNER_API
+
     useEffect(() => {
         const fetchVisaBookingDetails = async () => {
           try {
             const response = await axios.get(
-              `http://endorse.guideasy.com/api/v1/client-management/packages/${packageId}/products/${productId}/bookings`,
+              `${PARTNER_API}/packages/${packageId}/products/${productId}/bookings`,
               {
                 headers: {
                   Authorization: "Bearer 354|SRmsDVJRGG7gE6nPDNptMUgAFvnXxtRWMP1J9V9aeac014f2",

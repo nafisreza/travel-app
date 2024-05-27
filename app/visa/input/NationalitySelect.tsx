@@ -45,7 +45,9 @@ const NationalitySelect: React.FC<any> = ({
   const [selected, setSelected] = useState<Country | null>(activeLocation || null);
   const [focused, setFocused] = useState<boolean>(false);
 
-  const URL = "http://endorse.guideasy.com/api/v1/partner-management/nationalities";
+  const PARTNER_API = process.env.NEXT_PUBLIC_PARTNER_API
+
+  const URL = `${PARTNER_API}/nationalities`;
 
   useEffect(() => {
     const fetchCountries = async () => {
