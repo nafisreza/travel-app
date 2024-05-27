@@ -268,6 +268,7 @@ const HolidayTabFilter = ({ packageId, planner }) => {
   const [productsByDate, setProductsByDate] = useState({});
   const [totalPrice, setTotalPrice] = useState('');
   const dispatch = useDispatch()
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
 
   useEffect(() => {
     calculateTotalPrice();
@@ -305,7 +306,7 @@ const HolidayTabFilter = ({ packageId, planner }) => {
         const responseData = {};
         for (let i = 0; i < planner.length; i++) {
           const response = await axios.get(
-            `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}/products`,
+            `${HOLIDAY_API}/packages/${packageId}/products`,
             {
               params: {
                 filter: {
@@ -601,13 +602,14 @@ export const HolidayDetails: React.FC = () => {
   const destination = searchParams.get("destination");
   const destinationIso = searchParams.get("desIso");
   const category = searchParams.get("category");
+  const HOLIDAY_API = process.env.NEXT_PUBLIC_HOLIDAY_API;
 
   const [packages, setPackages] = useState([]);
   useEffect(() => {
     const fetchPackage = async () => {
       try {
         const response = await axios.get(
-          `https://holiday.guideasy.com/api/v1/client-management/packages/${packageId}`,
+          `${HOLIDAY_API}/packages/${packageId}`,
           {
             headers: {
               Authorization:
